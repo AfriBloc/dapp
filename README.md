@@ -1,4 +1,18 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AfriBloc DApp
+
+AfriBloc is a decentralized application (DApp) built to empower African communities by facilitating transparent and efficient resource management, trade, and financial services. This platform aims to leverage blockchain technology to create a secure and equitable ecosystem for economic growth and community development across Africa.
+
+## Technologies Used
+
+This project is built using the following key technologies:
+
+- **Next.js**: A React framework for building server-side rendered and static web applications.
+- **React**: A JavaScript library for building user interfaces.
+- **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript.
+- **Tailwind CSS**: A utility-first CSS framework for rapidly building custom designs.
+- **Ethers.js**: A complete and compact library for interacting with the Ethereum Blockchain and its ecosystem.
+- **Hardhat**: An Ethereum development environment for professionals.
+- **Solidity**: An object-oriented, high-level language for implementing smart contracts.
 
 ## Getting Started
 
