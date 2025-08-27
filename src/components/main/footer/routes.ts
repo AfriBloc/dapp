@@ -4,27 +4,27 @@ export const footerLinks = [
     links: [
       {
         text: "Terms & Conditions",
-        href: "/",
+        href: "/terms",
       },
       {
         text: "Disclosures & Risks",
-        href: "/",
+        href: "/disclosures",
       },
       {
         text: "Disclaimer",
-        href: "/",
+        href: "/disclaimer",
       },
       {
         text: "Privacy Notice",
-        href: "/",
+        href: "/privacy-notice",
       },
       {
         text: "Cookies Policy",
-        href: "/",
+        href: "/cookies-policy",
       },
       {
         text: "Compliance",
-        href: "/",
+        href: "/compliance",
       },
     ],
   },

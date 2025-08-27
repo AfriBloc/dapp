@@ -34,7 +34,9 @@ export default function Header({ where = "home" }: HeaderProps) {
     <header
       className={cn(
         "w-full overflow-hidden px-4",
-        where === "home" ? "home-header" : "",
+        where === "home"
+          ? "home-header"
+          : "border-Gray-25 sticky top-0 z-50 border-b py-4 lg:py-0",
         isScrolled ? "bg-white !pb-2" : "",
       )}
     >
@@ -42,7 +44,7 @@ export default function Header({ where = "home" }: HeaderProps) {
         <div
           className={cn(
             "flex-start gap-16",
-            !isScrolled ? "lg:my-8" : "lg:my-4",
+            !isScrolled && where === "home" ? "lg:my-8" : "lg:my-4",
           )}
         >
           <AppLogo />
