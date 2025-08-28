@@ -97,6 +97,9 @@
   --color-Green-600: #418c64;
   --color-Green-700: #31694b;
   --color-Green-800: #26523a;
+
+  --color-SurfaceStroke: #EAEAEA;
+  --color-Heading: #2D2D2D;
 }
 
 @theme inline {
@@ -247,6 +250,9 @@
   }
   .col-start {
     @apply flex flex-col justify-start items-start;
+  }
+  .col-end {
+    @apply flex flex-col justify-end items-end;
   }
   .abs-center {
     @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
