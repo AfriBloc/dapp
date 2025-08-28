@@ -10,43 +10,40 @@ const faqQuestions = [
     id: 1,
     title: "What do I own?",
     content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam fuga excepturi ea molestiae quidem quas ullam.",
+      "Digital shares representing an economic interest in the property SPV, recorded on-chain.",
   },
   {
     id: 2,
     title: "How do I get paid?",
     content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam fuga excepturi ea molestiae quidem quas ullam.",
+      "Net rental income is calculated monthly and paid as monthly dividends.",
   },
   {
     id: 3,
     title: "What’s the holding period?",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam fuga excepturi ea molestiae quidem quas ullam.",
+    content: "Typically 3–5 years. Capital appreciation is distributed at exit",
   },
   {
     id: 4,
     title: "Can I use fiat?",
     content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam fuga excepturi ea molestiae quidem quas ullam.",
+      "Yes. Invest via Stripe (cards/bank), fiat bank transfer, mobile money (in supported African countries), or USDC on Hedera.",
   },
   {
     id: 5,
     title: "Minimum investment?",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam fuga excepturi ea molestiae quidem quas ullam.",
+    content: "From $25 per bloc.",
   },
   {
     id: 6,
     title: "Can I sell before exit?",
     content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam fuga excepturi ea molestiae quidem quas ullam.",
+      "A secondary marketplace is planned; until then, liquidity is limited.",
   },
   {
     id: 7,
     title: "Are returns guaranteed?",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam fuga excepturi ea molestiae quidem quas ullam.",
+    content: "No. Targets are not promises; capital is at risk.",
   },
 ];
 
@@ -101,7 +98,10 @@ export default function Faq() {
           <h2 className="max-w-[562px] text-center text-3xl font-bold lg:text-start lg:text-[40px] lg:leading-[100%]">
             Start building your African real-estate portfolio today.
           </h2>
-          <BaseButton href="#" className="w-full px-8 !text-base lg:w-fit">
+          <BaseButton
+            href="/create-an-account"
+            className="w-full px-8 !text-base lg:w-fit"
+          >
             Get Started
           </BaseButton>
         </div>

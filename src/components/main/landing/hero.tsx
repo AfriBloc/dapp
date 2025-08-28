@@ -19,7 +19,10 @@ export default function Hero() {
               dividends from rental income, and share in capital appreciation at
               exit.
             </p>
-            <BaseButton href="#" className="w-full px-8 !text-base lg:w-fit">
+            <BaseButton
+              href="/create-an-account"
+              className="w-full px-8 !text-base lg:w-fit"
+            >
               Own a Bloc
             </BaseButton>
             <div className="flex items-center justify-start lg:gap-2">
