@@ -64,12 +64,12 @@ export default function Header({ where = "home" }: HeaderProps) {
         </div>
         <div className="relative hidden h-20 w-[35%] items-center justify-end space-x-4 rounded-bl-2xl bg-white pr-12 lg:flex">
           <BaseButton
-            href="#"
+            href="/create-an-account"
             className="!text-Gray-900 border-Gray-50 border !bg-white px-8 !text-base"
           >
             Log In
           </BaseButton>
-          <BaseButton href="#" className="px-8 !text-base">
+          <BaseButton href="/create-an-account" className="px-8 !text-base">
             Own a Bloc
           </BaseButton>
         </div>

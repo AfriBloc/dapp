@@ -47,7 +47,7 @@ export default function HowItWorks() {
       <div className="container">
         <div className="grid lg:grid-cols-[403px_1fr]">
           <div className="col-start gap-1">
-            <h2 className="lg:text-start text-center text-3xl font-bold lg:text-[40px] lg:leading-[100%]">
+            <h2 className="text-center text-3xl font-bold lg:text-start lg:text-[40px] lg:leading-[100%]">
               How it works
             </h2>
             <p className="max-w-[268px] text-center text-base font-normal lg:text-start">
@@ -56,7 +56,10 @@ export default function HowItWorks() {
           </div>
           <div className="no-scrollbar relative w-full overflow-x-scroll scroll-smooth whitespace-nowrap">
             {howData.map((data, idx) => (
-              <div key={idx} className="relative first:ml-0 md:first:ml-6 mx-6 inline-block w-[393px] align-top pb-8">
+              <div
+                key={idx}
+                className="relative mx-6 inline-block w-[393px] pb-8 align-top first:ml-0 md:first:ml-6"
+              >
                 <div
                   className={cn(
                     "flex items-start justify-start overflow-hidden rounded-2xl shadow-[0px_4px_20px_0px_#0000000D]",
@@ -85,7 +88,10 @@ export default function HowItWorks() {
           </div>
         </div>
         <div className="flex-center my-6 w-full">
-          <BaseButton href="#" className="w-full px-8 !text-base lg:w-fit">
+          <BaseButton
+            href="/create-an-account"
+            className="w-full px-8 !text-base lg:w-fit"
+          >
             Get Started
           </BaseButton>
         </div>

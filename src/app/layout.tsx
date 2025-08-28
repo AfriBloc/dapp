@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { schibstedGrotesk } from "../../public/fonts";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: {
@@ -22,6 +23,7 @@ export default function RootLayout({
         className={`${schibstedGrotesk.variable} font-schibstedGrotesk antialiased`}
       >
         {children}
+        <Toaster position="top-right" className="!font-schibstedGrotesk" />
       </body>
     </html>
   );

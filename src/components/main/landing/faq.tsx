@@ -98,7 +98,10 @@ export default function Faq() {
           <h2 className="max-w-[562px] text-center text-3xl font-bold lg:text-start lg:text-[40px] lg:leading-[100%]">
             Start building your African real-estate portfolio today.
           </h2>
-          <BaseButton href="#" className="w-full px-8 !text-base lg:w-fit">
+          <BaseButton
+            href="/create-an-account"
+            className="w-full px-8 !text-base lg:w-fit"
+          >
             Get Started
           </BaseButton>
         </div>

@@ -1,8 +1,12 @@
 import Link from "next/link";
 
-export default function AppLogo() {
+type AppLogoProps = {
+  href?: string;
+};
+
+export default function AppLogo({ href = "/" }: AppLogoProps) {
   return (
-    <Link href="/">
+    <Link href={href}>
       <svg
         viewBox="0 0 145 46"
         fill="none"
