@@ -18,11 +18,12 @@ export default function useWithdraw() {
     setValue,
     trigger,
     reset,
+    control,
   } = useForm<WithdrawSchemaType>({
     resolver: zodResolver(WithdrawSchema),
     defaultValues: {
-      amount: 0,
-      destination: "crypto",
+      amount: undefined,
+      destination: "",
       network: "all",
       walletAddress: "",
     },
@@ -49,5 +50,6 @@ export default function useWithdraw() {
     watch,
     setValue,
     trigger,
+    control,
   };
 }

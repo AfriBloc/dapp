@@ -16,6 +16,7 @@ import SubmitButton from "@/components/ui/buttons/submit-button";
 import SelectField from "@/components/ui/form/select-field";
 import InputField from "@/components/ui/form/input-field";
 import useWithdraw from "../hooks/use-withdraw";
+import { Controller } from "react-hook-form";
 
 export default function WithdrawModal() {
   const {
@@ -27,6 +28,7 @@ export default function WithdrawModal() {
     watch,
     setValue,
     trigger,
+    control
   } = useWithdraw();
 
   const destination = watch("destination");
@@ -88,7 +90,6 @@ export default function WithdrawModal() {
               Select withdrawal destination
             </label>
             <RadioGroup
-              defaultValue="crypto"
               className="!w-full"
               value={destination}
               onValueChange={(value) => {
@@ -120,14 +121,21 @@ export default function WithdrawModal() {
                       <label htmlFor="network" className="font-medium">
                         Choose Network
                       </label>
-                      <SelectField
-                        className="!text-Gray-900 mt-2 !h-10 w-full rounded-lg px-4"
-                        placeholder="Choose Network"
-                        options={[
-                          { value: "all", name: "Select Network" },
-                          { value: "bnb", name: "BNB Smart Chain (BEP20)" },
-                        ]}
-                        {...register("network")}
+                      <Controller
+                        name="network"
+                        control={control}
+                        render={({ field }) => (
+                          <SelectField
+                            className="!text-Gray-900 mt-2 !h-10 w-full rounded-lg px-4"
+                            placeholder="Choose Network"
+                            options={[
+                              { value: "all", name: "Select Network" },
+                              { value: "bnb", name: "BNB Smart Chain (BEP20)" },
+                            ]}
+                            {...field}
+                            handleValue={field.onChange}
+                          />
+                        )}
                       />
                       {formState.errors.network && (
                         <p className="text-xs text-red-500">
@@ -162,12 +170,11 @@ export default function WithdrawModal() {
                       className="text-Gray-800 col-start text-sm font-normal"
                     >
                       <span>Bank Transfer</span>
-                      <span className="text-Gray-500 text-[10px] font-normal">
-                        0% Transaction fees
-                      </span>
                     </label>
                   </div>
-                  <RadioGroupItem value="bank" id="bank" className="" />
+                  <span className="bg-Blue-25 text-Blue-600 rounded-full px-2 py-1 text-xs font-normal">
+                    Coming soon
+                  </span>
                 </div>
               </div>
             </RadioGroup>

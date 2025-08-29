@@ -14,8 +14,8 @@ export default function useFundWallet() {
     useForm<FundWalletSchemaType>({
       resolver: zodResolver(FundWalletSchema),
       defaultValues: {
-        amount: 0,
-        paymentMethod: "bank",
+        amount: undefined,
+        paymentMethod: "",
       },
     });
 

@@ -94,7 +94,6 @@ export default function FundWalletModal() {
               Select payment method
             </label>
             <RadioGroup
-              defaultValue="bank"
               className="!w-full"
               value={paymentMethod}
               onValueChange={(value) => setValue("paymentMethod", value)}

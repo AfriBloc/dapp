@@ -1,0 +1,47 @@
+## Pull Request: done working on afribloc project
+
+This pull request includes the latest work on the afribloc project, focusing on user profile and wallet functionalities, along with several UI components and utility hooks.
+
+**Summary of Changes:**
+
+*   **User Profile Enhancements:**
+    *   Added functionality for changing user passwords.
+    *   Introduced a personal information display box.
+*   **User Wallet Management:**
+    *   Implemented features for funding user wallets.
+    *   Added functionality for withdrawing funds.
+    *   Included a transaction history view.
+    *   Developed a wallet balance display card.
+*   **New UI Components:**
+    *   Updated `dialog.tsx`, `radio-group.tsx`, and `select.tsx` components.
+    *   Created a new `select-field.tsx` for forms.
+*   **New Utility Hooks:**
+    *   Added `use-change-password.ts` for password management.
+    *   Added `use-fund-wallet.ts` and `use-withdraw.ts` for wallet operations.
+    *   Introduced `use-clipboard.ts` for clipboard interactions.
+*   **New SVG Assets:**
+    *   Added `bank.svg`, `card.svg`, `check.svg`, `hashpack.svg`, `stripe.svg`.
+
+**Files Created:**
+
+*   `public/svgs/bank.svg`
+*   `public/svgs/card.svg`
+*   `public/svgs/check.svg`
+*   `public/svgs/hashpack.svg`
+*   `public/svgs/stripe.svg`
+*   `src/components/main/user/profile/hooks/use-change-password.ts`
+*   `src/components/main/user/profile/modals/change-password-modal.tsx`
+*   `src/components/main/user/profile/personal-info-box.tsx`
+*   `src/components/main/user/profile/schemas.ts`
+*   `src/components/main/user/wallet/hooks/use-fund-wallet.ts`
+*   `src/components/main/user/wallet/hooks/use-withdraw.ts`
+*   `src/components/main/user/wallet/modals/fund-wallet-modal.tsx`
+*   `src/components/main/user/wallet/modals/withdraw-modal.tsx`
+*   `src/components/main/user/wallet/schemas.ts`
+*   `src/components/main/user/wallet/transaction-history.tsx`
+*   `src/components/main/user/wallet/wallet-balance-card.tsx`
+*   `src/components/ui/form/select-field.tsx`
+*   `src/components/ui/select.tsx`
+*   `src/hooks/use-clipboard.ts`
+
+This commit addresses various aspects of the afribloc project, enhancing user experience and expanding core functionalities.
