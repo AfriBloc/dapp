@@ -1,0 +1,81 @@
+import { Info } from "lucide-react";
+import ChangePasswordModal from "./modals/change-password-modal";
+import CheckIcon from "/public/svgs/check.svg";
+import Image from "next/image";
+
+export default function PersonalInfoBox() {
+  return (
+    <div className="col-start w-full justify-center gap-3 rounded-xl bg-white px-4 py-5 shadow-[0px_4px_20px_0px_#0000000D] md:p-5">
+      <h3 className="text-Gray-900 text-base font-bold md:text-lg">
+        Personal details
+      </h3>
+      <ul className="col-start bg-BlueGray-25 w-full gap-4 rounded-lg p-3">
+        <li className="flex-between w-full">
+          <span className="text-Gray-500 text-xs font-normal md:text-sm">
+            First name
+          </span>
+          <span className="text-Gray-900 text-sm font-medium md:text-base">
+            Abosede
+          </span>
+        </li>
+        <li className="flex-between w-full">
+          <span className="text-Gray-500 text-xs font-normal md:text-sm">
+            Last name
+          </span>
+          <span className="text-Gray-900 text-sm font-medium md:text-base">
+            {" "}
+            Mayungbe
+          </span>
+        </li>
+        <li className="flex-between w-full">
+          <span className="text-Gray-500 text-xs font-normal md:text-sm">
+            Email address
+          </span>
+          <span className="text-Gray-900 text-sm font-medium md:text-base">
+            bosemay04@gmail.com
+          </span>
+        </li>
+        <li className="flex-between w-full">
+          <span className="text-Gray-500 text-xs font-normal md:text-sm">
+            Phone number
+          </span>
+          <span className="text-Gray-900 text-sm font-medium md:text-base">
+            +2347064711723
+          </span>
+        </li>
+        <li className="flex-between w-full">
+          <span className="text-Gray-500 text-xs font-normal md:text-sm">
+            Country
+          </span>
+          <span className="text-Gray-900 text-sm font-medium md:text-base">
+            Nigeria
+          </span>
+        </li>
+        <li className="flex-between w-full">
+          <span className="text-Gray-500 text-xs font-normal md:text-sm">
+            KYC Status
+          </span>
+          <span className="text-Gray-900 bg-Green-25 flex items-center gap-1 rounded-2xl px-2 py-1 text-sm font-medium md:text-base">
+            Verified <Image src={CheckIcon} alt="check icon" className="size-5" />
+          </span>
+        </li>
+      </ul>
+      <div className="bg-Yellow-25 text-Yellow-600 flex-start h-12 w-full gap-2 rounded-lg px-4">
+        <Info className="size-4" />
+        <span className="text-Gray-900 text-xs font-normal">
+          Contact{" "}
+          <a href="mailto:legal@afribloc.co" className="underline">
+            legal@afribloc.co
+          </a>{" "}
+          to update KYC details
+        </span>
+      </div>
+      <div className="flex-between mt-5 w-full gap-3">
+        <h3 className="text-Gray-900 text-base font-semibold md:text-lg">
+          Password
+        </h3>
+        <ChangePasswordModal />
+      </div>
+    </div>
+  );
+}

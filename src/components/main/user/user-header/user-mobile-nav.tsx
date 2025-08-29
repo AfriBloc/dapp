@@ -6,6 +6,7 @@ import { navigations } from "./route";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import ProfileBox from "./profile-box";
 
 export default function UserMobileNav() {
   const pathname = usePathname();
@@ -94,6 +95,12 @@ export default function UserMobileNav() {
                   {link.text}
                 </Link>
               ))}
+              <ProfileBox
+                imageUrl={""}
+                fullName="John doe"
+                email="johndoe@gmail.com"
+                className="mt-5 mx-2"
+              />
             </nav>
           </nav>
         </div>

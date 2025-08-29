@@ -18,12 +18,14 @@ type ProfileBoxProps = {
   imageUrl: string | null;
   fullName: string;
   email: string;
+  className?: string;
 };
 
 export default function ProfileBox({
   imageUrl,
   fullName,
   email,
+  className,
 }: ProfileBoxProps) {
   const { push } = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -39,7 +41,12 @@ export default function ProfileBox({
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <button className="border-BlueGray-200 flex h-[50px] max-w-[240px] items-center gap-3 rounded-full border bg-white pr-4">
+        <button
+          className={cn(
+            "border-BlueGray-200 flex h-[50px] max-w-[240px] items-center gap-3 rounded-full border bg-white pr-4",
+            className,
+          )}
+        >
           <div className="flex flex-1 items-center gap-3">
             {imageUrl ? (
               <div className="relative size-[38px] shrink-0 overflow-hidden rounded-full">
@@ -51,7 +58,7 @@ export default function ProfileBox({
                 />
               </div>
             ) : (
-              <div className="bg-Orange-500 flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full text-base font-medium text-white">
+              <div className="bg-Orange-500 flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full text-base font-medium text-white uppercase">
                 {getNameInitials(fullName)}
               </div>
             )}
@@ -82,7 +89,7 @@ export default function ProfileBox({
                 />
               </div>
             ) : (
-              <div className="bg-Gray-200 text-Gray-800 flex size-[38px] shrink-0 items-center justify-center overflow-hidden rounded-full text-base font-medium">
+              <div className="bg-Orange-500 flex size-[38px] shrink-0 items-center justify-center overflow-hidden rounded-full text-base font-medium text-white uppercase">
                 {getNameInitials(fullName)}
               </div>
             )}

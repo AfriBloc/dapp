@@ -48,7 +48,7 @@ export default function InvestAction() {
                 </div>
                 <label
                   htmlFor="wallet"
-                  className="text-Gray-bold text-sm font-normal"
+                  className="text-Gray-900 text-sm font-normal"
                 >
                   Wallet
                 </label>

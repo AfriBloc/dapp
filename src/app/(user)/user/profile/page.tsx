@@ -1,3 +1,6 @@
+import PersonalInfoBox from "@/components/main/user/profile/personal-info-box";
+import BaseButton from "@/components/ui/buttons/base-button";
+import { getNameInitials } from "@/helpers/string";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,6 +14,31 @@ export default function page() {
         <h1 className="text-2xl font-bold lg:text-[40px] lg:leading-[100%]">
           Profile
         </h1>
+        <div className="grid w-full max-w-[857px] gap-5 lg:grid-cols-[334px_1fr]">
+          <div className="flex w-full flex-col items-center justify-start gap-3 rounded-xl bg-white p-5 shadow-[0px_4px_20px_0px_#0000000D]">
+            <div className="col-center">
+              <div className="bg-Orange-25 text-Orange-500 flex size-28 items-center justify-center overflow-hidden rounded-full text-3xl font-medium uppercase md:text-[40px]">
+                {getNameInitials("Abosede Joseph")}
+              </div>
+              <h3 className="text-Gray-900 text-center text-base font-bold md:text-lg">
+                Abosede Joseph
+              </h3>
+              <p className="text-Gray-700 text-center text-sm font-normal">
+                bosemay04@gmail.com
+              </p>
+              <p className="text-Gray-500 text-center text-xs font-normal">
+                Joined: August 12, 2025
+              </p>
+            </div>
+            <BaseButton
+              disabled
+              className="!text-Purple-500 border-Gray-50 w-full border !bg-white px-6 !text-base lg:w-fit lg:px-10"
+            >
+              Edit image
+            </BaseButton>
+          </div>
+          <PersonalInfoBox />
+        </div>
       </section>
     </main>
   );

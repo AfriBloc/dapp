@@ -1,3 +1,5 @@
+import TransactionHistory from "@/components/main/user/wallet/transaction-history";
+import WalletBalanceCard from "@/components/main/user/wallet/wallet-balance-card";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,6 +13,8 @@ export default function page() {
         <h1 className="text-2xl font-bold lg:text-[40px] lg:leading-[100%]">
           Wallet
         </h1>
+        <WalletBalanceCard />
+        <TransactionHistory />
       </section>
     </main>
   );
