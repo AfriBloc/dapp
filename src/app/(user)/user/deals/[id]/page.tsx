@@ -21,7 +21,9 @@ export default function page() {
         <BedroomSlider />
         <div className="grid w-full gap-6 lg:grid-cols-2">
           <DealDetail />
-          <InvestAction />
+          <div className="sticky top-24 self-start z-50">
+            <InvestAction />
+          </div>
         </div>
       </section>
     </main>
