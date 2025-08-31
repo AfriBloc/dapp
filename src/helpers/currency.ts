@@ -17,3 +17,37 @@ export const formatCurrency = (value: number, currencyCode: string = "USD") => {
     maximumFractionDigits: 2,
   }).format(value);
 };
+
+// Placeholder for real-time exchange rates. In a real application, this would
+// fetch data from a currency exchange API (e.g., ExchangeRate-API, Open Exchange Rates).
+// For now, we'll use a static rate.
+const EXCHANGE_RATES: { [key: string]: { [key: string]: number } } = {
+  NGN: {
+    USD: 0.00067, // Example rate: 1 NGN = 0.00067 USD
+  },
+  USD: {
+    NGN: 1490, // Example rate: 1 USD = 1490 NGN
+  },
+};
+
+export const convertCurrency = (
+  amount: number,
+  fromCurrency: string,
+  toCurrency: string
+): number => {
+  if (fromCurrency === toCurrency) {
+    return amount;
+  }
+
+  const rate = EXCHANGE_RATES[fromCurrency]?.[toCurrency];
+
+  if (rate === undefined) {
+    // Fallback or error handling if rate is not found
+    console.warn(
+      `Exchange rate not found for ${fromCurrency} to ${toCurrency}. Returning original amount.`
+    );
+    return amount;
+  }
+
+  return amount * rate;
+};

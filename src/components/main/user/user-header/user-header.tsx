@@ -14,7 +14,7 @@ export default function UserHeader() {
             <HeaderLinks />
             <ProfileBox
               imageUrl={""}
-              fullName="John doe"
+              firstName="John"
               email="johndoe@gmail.com"
             />
           </div>

@@ -97,9 +97,9 @@ export default function UserMobileNav() {
               ))}
               <ProfileBox
                 imageUrl={""}
-                fullName="John doe"
+                firstName="John"
                 email="johndoe@gmail.com"
-                className="mt-5 mx-2"
+                className="mx-2 mt-5"
               />
             </nav>
           </nav>
