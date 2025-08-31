@@ -59,7 +59,7 @@ export default function BedroomSlider() {
               width={320}
               height={400}
               alt={deal.title}
-              className="!h-[90%] w-full rounded-lg"
+              className="!h-[90%] w-full rounded-lg object-cover"
             />
           );
         }}

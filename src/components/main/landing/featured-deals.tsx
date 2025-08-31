@@ -65,7 +65,7 @@ export default function FeaturedDeals() {
                     {data.percentage}%
                   </span>
                 </div>
-                <div className="border-Blue-100 flex w-full flex-wrap items-start justify-start gap-6 rounded-xl border px-4 py-2 my-3">
+                <div className="border-Blue-100 my-3 flex w-full flex-wrap items-start justify-start gap-6 rounded-xl border px-4 py-2">
                   <div className="col-start gap-1.5">
                     <span className="text-Gray-700 text-xs font-normal">
                       Projected ROI
@@ -83,7 +83,10 @@ export default function FeaturedDeals() {
                     </span>
                   </div>
                 </div>
-                <BaseButton href="#" className="w-full px-8 !text-base">
+                <BaseButton
+                  href="/create-an-account"
+                  className="w-full px-8 !text-base"
+                >
                   Own this bloc
                 </BaseButton>
               </div>

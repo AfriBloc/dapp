@@ -64,7 +64,7 @@ export default function ProfileBox({
             )}
 
             <p className="text-Gray-800 text-base font-medium">
-              {fullName.length > 30 ? fullName.slice(0, 30) + "..." : fullName}
+              {fullName.length > 10 ? fullName.slice(0, 10) + "..." : fullName}
             </p>
           </div>
           <ChevronDown
