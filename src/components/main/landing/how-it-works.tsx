@@ -46,7 +46,7 @@ export default function HowItWorks() {
     <section id="how-it-works" className="text-Gray-900 bg-white py-16">
       <div className="container">
         <div className="grid lg:grid-cols-[403px_1fr]">
-          <div className="col-start gap-1">
+          <div className="flex flex-col items-center md:items-start md:justify-start justify-center gap-1 w-full">
             <h2 className="text-center text-3xl font-bold lg:text-start lg:text-[40px] lg:leading-[100%]">
               How it works
             </h2>
