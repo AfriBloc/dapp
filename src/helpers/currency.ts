@@ -23,10 +23,10 @@ export const formatCurrency = (value: number, currencyCode: string = "USD") => {
 // For now, we'll use a static rate.
 const EXCHANGE_RATES: { [key: string]: { [key: string]: number } } = {
   NGN: {
-    USD: 0.00067, // Example rate: 1 NGN = 0.00067 USD
+    USD: 0.00065, // Example rate: 1 NGN = 0.00065 USD
   },
   USD: {
-    NGN: 1490, // Example rate: 1 USD = 1490 NGN
+    NGN: 1570, // Example rate: 1 USD = 1570 NGN
   },
 };
 
