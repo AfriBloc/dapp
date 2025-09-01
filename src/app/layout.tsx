@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { schibstedGrotesk } from "../../public/fonts";
 import { Toaster } from "sonner";
+import "@/lib/gsap";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.afribloc.co/"),

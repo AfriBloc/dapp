@@ -9,7 +9,9 @@ export default function page() {
   return (
     <main>
       <Hero />
-      <HowItWorks />
+      <section id="how-it-works">
+        <HowItWorks />
+      </section>
       <Why />
       <FeaturedDeals />
       <EarnSimplified />

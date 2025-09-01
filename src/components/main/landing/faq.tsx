@@ -4,6 +4,8 @@ import BaseButton from "@/components/ui/buttons/base-button";
 import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
+import { useLayoutEffect, useRef } from "react";
+import { gsap } from "@/lib/gsap";
 
 const faqQuestions = [
   {
@@ -49,6 +51,32 @@ const faqQuestions = [
 
 export default function Faq() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const sectionRef = useRef(null);
+  const titleConRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      // H2 animation
+      gsap.fromTo(
+        titleConRef.current,
+        { y: -150, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power1.inOut",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 90%",
+            end: "top 50%",
+            scrub: 1,
+          },
+        },
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const toggleFaq = (id: number) => {
     if (id === openFaq) {
@@ -94,8 +122,14 @@ export default function Faq() {
             ))}
           </div>
         </div>
-        <div className="hidden flex-col items-center justify-center gap-4 pt-18 lg:flex">
-          <h2 className="max-w-[562px] text-center text-3xl font-bold lg:text-start lg:text-[40px] lg:leading-[100%]">
+        <div
+          ref={sectionRef}
+          className="hidden flex-col items-center justify-center gap-4 pt-24 pb-10 lg:flex"
+        >
+          <h2
+            ref={titleConRef}
+            className="max-w-[562px] text-center text-3xl font-bold lg:text-start lg:text-[40px] lg:leading-[100%]"
+          >
             Start building your African real-estate portfolio today.
           </h2>
           <BaseButton

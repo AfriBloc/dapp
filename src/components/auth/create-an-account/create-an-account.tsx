@@ -42,28 +42,28 @@ export default function CreateAnAccount() {
         <div className="text-Gray-600 text-xs">
           <p>
             By registering, you accept our{" "}
-            <Link href="/terms" className="text-Gray-700 underline font-medium">
+            <Link href="/terms" className="text-Gray-700 font-medium underline">
               Terms of Use
             </Link>{" "}
             and{" "}
-            <Link href="/privacy-notice" className="text-Gray-700 underline font-medium">
+            <Link
+              href="/privacy-notice"
+              className="text-Gray-700 font-medium underline"
+            >
               Privacy Policy
             </Link>
           </p>
         </div>
 
         {/* Submit Button */}
-        <SubmitButton isSubmitting={isSubmitting} className="w-full mt-7">
+        <SubmitButton isSubmitting={isSubmitting} className="mt-7 w-full">
           Create account
         </SubmitButton>
 
         {/* Login Link */}
         <div className="text-center text-sm">
           <span className="text-Gray-500">Already have an account? </span>
-          <Link
-            href="/create-an-account"
-            className="text-Orange-500 font-semibold"
-          >
+          <Link href="/login" className="text-Orange-500 font-semibold">
             Login
           </Link>
         </div>

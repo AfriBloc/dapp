@@ -13,6 +13,7 @@ interface HeaderProps {
 
 export default function Header({ where = "home" }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +22,22 @@ export default function Header({ where = "home" }: HeaderProps) {
       } else {
         setIsScrolled(false);
       }
+      const sections = navRoutes.map((route) =>
+        document.getElementById(route.path.substring(1)),
+      );
+
+      let currentSection = "";
+      sections.forEach((section) => {
+        if (section) {
+          const top = section.offsetTop - 100;
+          const bottom = top + section.offsetHeight;
+
+          if (window.scrollY >= top && window.scrollY < bottom) {
+            currentSection = section.id;
+          }
+        }
+      });
+      setActiveSection(currentSection);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -38,6 +55,9 @@ export default function Header({ where = "home" }: HeaderProps) {
           ? "home-header"
           : "border-Gray-25 sticky top-0 z-50 border-b py-4 lg:py-0",
         isScrolled ? "bg-white !pb-2" : "",
+        where === "home" && activeSection === "how-it-works"
+          ? "relative"
+          : "fixed",
       )}
     >
       <div className="flex-between lg:pl-14">
@@ -54,7 +74,10 @@ export default function Header({ where = "home" }: HeaderProps) {
                 key={idx}
                 href={link.path}
                 className={cn(
-                  "hover:text-Purple-500 text-Gray-900 text-base font-medium transition-colors duration-300",
+                  "hover:text-Purple-500 text-base font-medium transition-colors duration-300",
+                  activeSection === link.path.substring(1)
+                    ? "text-Purple-500"
+                    : "text-Gray-900",
                 )}
               >
                 {link.text}
@@ -62,9 +85,14 @@ export default function Header({ where = "home" }: HeaderProps) {
             ))}
           </nav>
         </div>
-        <div className="relative hidden h-20 w-[35%] items-center justify-end space-x-4 rounded-bl-2xl bg-white pr-12 lg:flex">
+        <div
+          className={cn(
+            "relative hidden h-20 items-center justify-end space-x-4 rounded-bl-2xl pr-12 lg:flex",
+            isScrolled ? "" : "pb-4",
+          )}
+        >
           <BaseButton
-            href="/create-an-account"
+            href="/login"
             className="!text-Gray-900 border-Gray-50 border !bg-white px-8 !text-base"
           >
             Log In
