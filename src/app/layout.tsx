@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     siteName: "Afribloc",
     images: [
       {
-        url: "/images/logo.jpg",
-        width: 800,
-        height: 600,
+        url: "https://www.afribloc.co/images/meta-image.jpg",
+        width: 1200,
+        height: 630,
         alt: "Afribloc Logo",
       },
     ],
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: "Afribloc - Global Access to Africa’s Prime Real Estate",
     description:
       "Invest in high-growth cities across Africa, earn monthly dividends from rental income, and share in capital appreciation.",
-    images: ["/images/logo.jpg"],
+    images: ["https://www.afribloc.co/images/meta-image.jpg"],
   },
 };
 
