@@ -90,12 +90,15 @@ export default function MobileNavMenu() {
             </nav>
             <div className="col-start w-full gap-5 px-4">
               <BaseButton
-                href="#"
+                href="/login"
                 className="!text-Gray-900 border-Gray-50 w-full border !bg-white px-8 !text-base"
               >
                 Log In
               </BaseButton>
-              <BaseButton href="#" className="w-full px-8 !text-base">
+              <BaseButton
+                href="/create-an-account"
+                className="w-full px-8 !text-base"
+              >
                 Own a Bloc
               </BaseButton>
             </div>

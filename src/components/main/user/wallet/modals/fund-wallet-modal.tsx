@@ -16,6 +16,7 @@ import BankIcon from "/public/svgs/bank.svg";
 import CoinIcon from "/public/svgs/coin.svg";
 import StripeIcon from "/public/svgs/stripe.svg";
 import HashPackIcon from "/public/svgs/hashpack.svg";
+import MetamaskIcon from "/public/svgs/metamask.svg";
 import useClipboard from "@/hooks/use-clipboard";
 import useFundWallet from "../hooks/use-fund-wallet";
 
@@ -203,8 +204,8 @@ export default function FundWalletModal() {
                     <span className="text-Gray-500 flex items-center justify-start gap-1 text-[10px] font-normal">
                       <span className="flex-start gap-1">
                         <Image
-                          src={StripeIcon}
-                          alt="stripe icon"
+                          src={MetamaskIcon}
+                          alt="metamask icon"
                           className="rounded-full"
                         />
                         <span>Metamask</span>

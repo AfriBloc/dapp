@@ -100,6 +100,7 @@
 
   --color-SurfaceStroke: #EAEAEA;
   --color-Heading: #2D2D2D;
+  --color-DarkGray: #565656;
 }
 
 @theme inline {
@@ -267,7 +268,7 @@
 
 @layer components {
   .home-header {
-    @apply fixed top-0 right-0 left-0 z-50 py-6 transition-all duration-300 px-5 lg:px-0 lg:pt-0;
+    @apply top-0 right-0 left-0 z-50 py-6 transition-all duration-300 px-5 lg:px-0 lg:pt-0;
   }
 }
 

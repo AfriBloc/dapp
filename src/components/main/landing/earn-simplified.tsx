@@ -1,12 +1,45 @@
+"use client";
 import Image from "next/image";
 import EarnImage from "/public/images/earn-image.jpg";
 import Shield from "/public/svgs/shield.svg";
+import { useLayoutEffect, useRef } from "react";
+import { gsap } from "@/lib/gsap";
 
 export default function EarnSimplified() {
+  const sectionRef = useRef(null);
+  const titleConRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      // H2 animation
+      gsap.fromTo(
+        titleConRef.current,
+        { y: -150, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power1.inOut",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 90%",
+            end: "top 50%",
+            scrub: 1,
+          },
+        },
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="earn" className="text-Gray-900 py-16">
+    <section id="earn" ref={sectionRef} className="text-Gray-900 py-16">
       <div className="col-center container gap-8 lg:gap-18">
-        <h2 className="lg:tex-start text-center text-3xl font-bold lg:text-[40px] lg:leading-[100%]">
+        <h2
+          ref={titleConRef}
+          className="lg:tex-start text-center text-3xl font-bold lg:text-[40px] lg:leading-[100%]"
+        >
           Your Earnings, Simplified
         </h2>
         <div className="bg-Orange-500 relative h-[557px] w-full overflow-hidden rounded-2xl">

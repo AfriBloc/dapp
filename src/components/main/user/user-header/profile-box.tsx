@@ -16,14 +16,14 @@ import { ChevronDown } from "lucide-react";
 
 type ProfileBoxProps = {
   imageUrl: string | null;
-  fullName: string;
+  firstName: string;
   email: string;
   className?: string;
 };
 
 export default function ProfileBox({
   imageUrl,
-  fullName,
+  firstName,
   email,
   className,
 }: ProfileBoxProps) {
@@ -59,12 +59,12 @@ export default function ProfileBox({
               </div>
             ) : (
               <div className="bg-Orange-500 flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full text-base font-medium text-white uppercase">
-                {getNameInitials(fullName)}
+                {getNameInitials(firstName)}
               </div>
             )}
 
             <p className="text-Gray-800 text-base font-medium">
-              {fullName.length > 10 ? fullName.slice(0, 10) + "..." : fullName}
+              {firstName.length > 10 ? firstName.slice(0, 10) + "..." : firstName}
             </p>
           </div>
           <ChevronDown
@@ -90,15 +90,15 @@ export default function ProfileBox({
               </div>
             ) : (
               <div className="bg-Orange-500 flex size-[38px] shrink-0 items-center justify-center overflow-hidden rounded-full text-base font-medium text-white uppercase">
-                {getNameInitials(fullName)}
+                {getNameInitials(firstName)}
               </div>
             )}
 
             <div>
               <p className="text-Gray-800 text-base font-medium">
-                {fullName.length > 20
-                  ? fullName.slice(0, 20) + "..."
-                  : fullName}
+                {firstName.length > 20
+                  ? firstName.slice(0, 20) + "..."
+                  : firstName}
               </p>
               <p className="text-Gray-500 text-sm">
                 {email.length > 22 ? email.slice(0, 22) + "..." : email}
