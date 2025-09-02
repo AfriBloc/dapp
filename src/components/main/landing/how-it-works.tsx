@@ -71,7 +71,7 @@ export default function HowItWorks() {
         ease: "power1.inOut",
         scrollTrigger: {
           trigger: cardsWrapperRef.current,
-          start: isMobile ? "10% top" : "top top",
+          start: isMobile ? "top -5%" : "top top",
           end: commonScrollEnd,
           scrub: true,
           pin: true,
