@@ -36,9 +36,22 @@ export default function Footer() {
                     <li key={link.text}>
                       <a
                         href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="hover:text-Purple-500 cursor-pointer text-xs font-normal transition-all hover:underline md:text-base"
                       >
-                        {link.text}
+                        {link.imageSrc ? (
+                          <div className="flex-center border-Gray-100 size-10 rounded-full border lg:size-14">
+                            <Image
+                              src={link.imageSrc}
+                              alt={link.text}
+                              width={24}
+                              height={24}
+                            />
+                          </div>
+                        ) : (
+                          link.text
+                        )}
                       </a>
                     </li>
                   ))}

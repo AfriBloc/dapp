@@ -35,6 +35,11 @@ export const footerLinks = [
         href: "mail:contact@afribloc.com",
         text: "contact@afribloc.com",
       },
+      {
+        href: "https://x.com/afribloc_",
+        imageSrc: "/svgs/x-logo.svg",
+        text: "AfriBloc X",
+      },
     ],
   },
 ];
