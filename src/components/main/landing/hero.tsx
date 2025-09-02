@@ -8,6 +8,7 @@ import Partner2 from "/public/svgs/hedera.svg";
 
 import BaseButton from "@/components/ui/buttons/base-button";
 import { gsap } from "@/lib/gsap";
+import Link from "next/link";
 
 export default function Hero() {
   const sectionRef = useRef(null);
@@ -91,8 +92,12 @@ export default function Hero() {
                 Strategic Partnerships
               </span>
               <div className="flex items-center justify-start gap-2">
-                <Image src={Partner1} alt="partner image" className="" />
-                <Image src={Partner2} alt="partner image" className="" />
+                <Link href="http://doahq.com/home" target="_blank">
+                  <Image src={Partner1} alt="partner image" className="" />
+                </Link>
+                <Link href="https://hedera.com/" target="_blank">
+                  <Image src={Partner2} alt="partner image" className="" />
+                </Link>
               </div>
             </div>
           </div>

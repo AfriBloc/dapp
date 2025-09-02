@@ -2,6 +2,7 @@ import AppLogo from "@/components/ui/app-logo/app-logo";
 import { footerLinks } from "./routes";
 import Image from "next/image";
 import Partner2 from "/public/svgs/hedera.svg";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -17,9 +18,12 @@ export default function Footer() {
             </p>
             <div className="flex items-center justify-start gap-2">
               <span className="text-xs font-normal">Powered by</span>
-              <div className="flex items-center justify-start gap-2">
+              <Link
+                href="https://hedera.com/"
+                className="flex items-center justify-start gap-2"
+              >
                 <Image src={Partner2} alt="partner image" className="" />
-              </div>
+              </Link>
             </div>
           </div>
           <div className="grid w-full grid-cols-2 gap-5">
@@ -62,7 +66,7 @@ export default function Footer() {
         </div>
         <div className="col-start border-Gray-50 w-full gap-3 border-t py-4">
           <div>
-            <h6 className="text-xs font-semibold">Regulatory notice (BVI)</h6>
+            <h6 className="text-xs font-semibold mb-3">Regulatory notice (BVI)</h6>
             <p className="text-Gray-800 text-xs font-normal">
               Issuer incorporated in the British Virgin Islands. AfriBloc is not
               currently licensed by the BVI Financial Services Commission.
