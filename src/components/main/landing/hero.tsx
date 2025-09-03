@@ -1,93 +1,65 @@
 "use client";
 import Image from "next/image";
-import { useRef, useLayoutEffect } from "react";
-import { useMediaQuery } from "react-responsive";
+import { useRef, useState, useEffect } from "react"; // Added useState and useEffect
 import HeroImage from "/public/images/hero-video-thumbnail.png";
 import Partner1 from "/public/svgs/doahq.svg";
 import Partner2 from "/public/svgs/hedera.svg";
-
 import BaseButton from "@/components/ui/buttons/base-button";
-import { gsap } from "@/lib/gsap";
 import Link from "next/link";
 
 export default function Hero() {
-  const sectionRef = useRef(null);
-  const h1Ref = useRef(null);
-  const pRef = useRef(null);
-  const buttonRef = useRef(null);
-  const stategryRef = useRef(null);
-  const imageRef = useRef(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(true);
 
-  const isMobile = useMediaQuery({ maxWidth: 768 });
-
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch((error) => {
+        console.log("Autoplay prevented:", error);
+        setIsPlaying(false);
       });
+    }
+  }, []);
 
-      tl.to(h1Ref.current, { y: -300, opacity: 0, ease: "power1.inOut" }, 0)
-        .to(pRef.current, { y: -250, opacity: 0, ease: "power1.inOut" }, 0)
-        .to(buttonRef.current, { y: -200, opacity: 0, ease: "power1.inOut" }, 0)
-        .to(
-          stategryRef.current,
-          { y: -150, opacity: 0, ease: "power1.inOut" },
-          0,
-        );
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setIsMuted(videoRef.current.muted);
+    }
+  };
 
-      if (isMobile) {
-        tl.to(
-          imageRef.current,
-          { y: 200, opacity: 0, ease: "power1.inOut" },
-          0,
-        );
+  const togglePlayPause = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+        setIsPlaying(true);
       } else {
-        tl.to(
-          imageRef.current,
-          { x: 500, opacity: 0, ease: "power1.inOut" },
-          0,
-        );
+        videoRef.current.pause();
+        setIsPlaying(false);
       }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, [isMobile]);
+    }
+  };
 
   return (
-    <section ref={sectionRef} className="lg:p-4">
+    <section className="lg:p-4">
       <div className="text-Gray-900 overflow-hidden bg-white bg-[url(/svgs/hero-bg.svg)] bg-cover bg-no-repeat pt-26 lg:rounded-2xl lg:pt-40">
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="flex size-full flex-col justify-center gap-4 px-2 lg:items-start lg:px-14 lg:pb-20">
-            <h1
-              ref={h1Ref}
-              className="text-center text-4xl font-bold md:text-6xl md:leading-[120%] lg:text-start"
-            >
+            <h1 className="text-center text-4xl font-bold md:text-6xl md:leading-[120%] lg:text-start">
               Global Access to <br /> Africa’s Prime <br /> Real Estate
             </h1>
-            <p
-              ref={pRef}
-              className="max-w-[481px] text-center text-sm font-normal lg:text-start lg:text-lg"
-            >
+            <p className="max-w-[481px] text-center text-sm font-normal lg:text-start lg:text-lg">
               From Lagos to Nairobi, invest in high-growth cities, earn monthly
               dividends from rental income, and share in capital appreciation at
               exit.
             </p>
             <BaseButton
-              ref={buttonRef}
               href="/create-an-account"
               className="w-full px-8 !text-base lg:w-fit"
             >
               Own a Bloc
             </BaseButton>
-            <div
-              ref={stategryRef}
-              className="flex items-center justify-start lg:gap-2"
-            >
+            <div className="flex items-center justify-start lg:gap-2">
               <span className="text-xs font-normal">
                 Strategic Partnerships
               </span>
@@ -101,13 +73,96 @@ export default function Hero() {
               </div>
             </div>
           </div>
-          <div className="flex w-full items-center justify-center lg:items-end lg:justify-end">
-            <Image
-              ref={imageRef}
-              src={HeroImage}
-              alt="hero image"
-              className="h-[400px] w-full max-w-[550px] lg:h-[490px]"
+          <div className="relative flex w-full items-center justify-center lg:items-end lg:justify-end">
+            <video
+              ref={videoRef}
+              src="/videos/DOA_Afribloc.mp4"
+              poster={HeroImage.src}
+              loop
+              playsInline
+              muted={isMuted}
+              className="h-[400px] w-full max-w-[550px] rounded-lg object-cover lg:h-[490px]"
             />
+            <div className="absolute right-4 bottom-4 flex gap-2">
+              <button
+                onClick={togglePlayPause}
+                className="bg-opacity-50 rounded-full bg-black p-2 text-white"
+              >
+                {isPlaying ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                )}
+              </button>
+              <button
+                onClick={toggleMute}
+                className="bg-opacity-50 rounded-full bg-black p-2 text-white"
+              >
+                {isMuted ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17.293 17.293A8 8 0 016.707 6.707m10.586 10.586L6.707 6.707M12 17a4 4 0 004-4V9a4 4 0 10-8 0v4a4 4 0 004 4z"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15.536 8.464A10.003 10.003 0 0012 5V2a10 10 0 013.536 6.464zm-2.545 11.313A9.998 9.998 0 0112 19v3a10 10 0 002.985-1.607l-2.498-2.498zM5.071 9.071a10.003 10.003 0 000 5.858l-2.498 2.498A10 10 0 012 12a10 10 0 013.071-5.858zM12 13a3 3 0 100-6 3 3 0 000 6z"
+                    />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </div>
