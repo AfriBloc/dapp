@@ -8,25 +8,10 @@ import Image from "next/image";
 import ProgressBar from "@/components/ui/progress-bar/progress-bar";
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
+import { properties } from "@/mocks/properties";
+import { Property } from "@/types/property";
 
-const dealData = [
-  {
-    title: "Two bedroom Terrace",
-    imageSrc: DealImage1,
-    percentage: 10,
-  },
-  {
-    title: "Tokenization",
-
-    imageSrc: DealImage2,
-    percentage: 90,
-  },
-  {
-    title: "Invest in Minutes",
-    imageSrc: DealImage3,
-    percentage: 50,
-  },
-];
+const dealImages = [DealImage1, DealImage2, DealImage3];
 
 export default function FeaturedDeals() {
   const sectionRef = useRef(null);
@@ -68,48 +53,47 @@ export default function FeaturedDeals() {
           </p>
         </div>
         <div className="grid w-full gap-5 lg:grid-cols-3">
-          {dealData.map((data, idx) => (
+          {properties.map((property: Property, idx: number) => (
             <div
-              key={idx}
+              key={property.id}
               className="col-start w-full overflow-hidden rounded-2xl shadow-[0px_4px_20px_0px_#0000000D]"
             >
               <Image
-                src={data.imageSrc}
+                src={dealImages[idx % dealImages.length]}
                 alt="deal image"
                 className="h-[294px] w-full"
               />
               <div className="col-start w-full gap-2 p-5">
-                <h3 className="text-lg font-bold md:text-2xl">{data.title}</h3>
+                <h3 className="text-lg font-bold md:text-2xl">
+                  {property.description}
+                </h3>
                 <div className="flex-start gap-1">
                   <Image src={MapIndicator} alt="icon" />
                   <p className="text-Gray-700 text-sm font-normal">
-                    Orchid road, Lekki, Lagos, Nigeria
+                    {property.location}
                   </p>
                 </div>
                 <div className="border-BlueGray-100 flex-between w-full gap-2 rounded-full border px-3 py-2">
-                  <ProgressBar
-                    percentage={data.percentage}
-                    className="h-2 flex-1"
-                  />
-                  <span className="text-sm font-normal">
-                    {data.percentage}%
-                  </span>
+                  <ProgressBar percentage={75} className="h-2 flex-1" />{" "}
+                  {/* Placeholder percentage */}
+                  <span className="text-sm font-normal">75%</span>{" "}
+                  {/* Placeholder percentage */}
                 </div>
                 <div className="border-Blue-100 my-3 flex w-full flex-wrap items-start justify-start gap-6 rounded-xl border px-4 py-2">
                   <div className="col-start gap-1.5">
                     <span className="text-Gray-700 text-xs font-normal">
                       Projected ROI
                     </span>
-                    <span className="text-base font-normal md:text-lg">
-                      11.5%
+                    <span className="font-normal text-sm lg:text-base">
+                      {property.annualizedROI}
                     </span>
                   </div>
                   <div className="col-start gap-1.5">
                     <span className="text-Gray-700 text-xs font-normal">
                       Gross yield
                     </span>
-                    <span className="text-base font-normal md:text-lg">
-                      11.5%
+                    <span className="font-normal text-sm lg:text-base">
+                      {property.grossRentalYield}
                     </span>
                   </div>
                 </div>

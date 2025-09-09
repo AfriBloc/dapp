@@ -4,8 +4,9 @@ import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import BaseButton from "@/components/ui/buttons/base-button";
+import { Property } from "@/types/property";
 
-export default function DocumentSection() {
+export default function DocumentSection({ property }: { property: Property }) {
   const [openDocument, setOpenDocument] = useState(true);
 
   return (
@@ -30,14 +31,12 @@ export default function DocumentSection() {
           )}
         >
           <div className="grid w-full grid-cols-2 gap-3 md:gap-5">
-            {Array.from({ length: 4 }).map((_, idx) => (
+            {property.propertyDetails.propertyDocuments.map((doc, idx) => (
               <button
                 key={idx}
                 className="flex-between bg-BlueGray-50 h-10 rounded-lg px-2 sm:px-4"
               >
-                <h4 className="text-xs font-medium md:text-sm">
-                  Projections.pdf
-                </h4>
+                <h4 className="text-xs font-medium md:text-sm">{doc}</h4>
                 <Image src={DownloadIcon} alt="download icon" />
               </button>
             ))}
@@ -47,7 +46,9 @@ export default function DocumentSection() {
       <div className="border-BlueGray-100 flex w-full flex-col items-start justify-start gap-4 rounded-lg border p-3 text-start outline-none md:flex-row md:items-center md:justify-between">
         <div className="col-start">
           <h3 className="text-sm font-semibold md:text-base">Got any questions</h3>
-          <p className="text-xs md:text-sm font-normal text-Gray-600">Projections.pdf</p>
+          <p className="text-xs md:text-sm font-normal text-Gray-600">
+            Contact us for more information.
+          </p>
         </div>
         <div className="flex items-start gap-4">
           <BaseButton

@@ -1,10 +1,15 @@
+"use client";
 import { Minus, Plus } from "lucide-react";
 import WalletIcon from "/public/svgs/wallet.svg";
 import Image from "next/image";
 import BaseButton from "@/components/ui/buttons/base-button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Property } from "@/types/property";
+import { useCurrency } from "@/providers/currency-provider";
 
-export default function InvestAction() {
+export default function InvestAction({ property }: { property: Property }) {
+  const { formatAndConvertCurrency } = useCurrency();
+
   return (
     <div className="col-start w-full gap-6">
       <div className="w-full rounded-lg p-3 text-start shadow-[0px_4px_20px_0px_#0000000D] outline-none md:p-5">
@@ -56,7 +61,9 @@ export default function InvestAction() {
               <div className="flex items-center gap-2">
                 <span className="text-Gray-600 text-xs font-normal">
                   Balance:{" "}
-                  <span className="text-Gray-900 text-sm">₦450,000,000</span>
+                  <span className="text-Gray-900 text-sm">
+                    {formatAndConvertCurrency(property.listingPrice, "NGN")}
+                  </span>
                 </span>
                 <RadioGroupItem value="wallet" id="wallet" className="" />
               </div>
