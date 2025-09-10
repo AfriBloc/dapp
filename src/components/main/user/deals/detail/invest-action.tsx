@@ -8,7 +8,7 @@ import { Property } from "@/types/property";
 import { useCurrency } from "@/providers/currency-provider";
 
 export default function InvestAction({ property }: { property: Property }) {
-  const { formatAndConvertCurrency } = useCurrency();
+  const { formatAndConvertCurrency, currency } = useCurrency();
 
   return (
     <div className="col-start w-full gap-6">
@@ -62,7 +62,10 @@ export default function InvestAction({ property }: { property: Property }) {
                 <span className="text-Gray-600 text-xs font-normal">
                   Balance:{" "}
                   <span className="text-Gray-900 text-sm">
-                    {formatAndConvertCurrency(property.listingPrice, "NGN")}
+                    {formatAndConvertCurrency(
+                      property.listingPrice,
+                      currency || "NGN",
+                    )}
                   </span>
                 </span>
                 <RadioGroupItem value="wallet" id="wallet" className="" />
@@ -70,7 +73,9 @@ export default function InvestAction({ property }: { property: Property }) {
             </div>
           </RadioGroup>
         </div>
-        <BaseButton className="mt-5 w-full !py-4">Make Payment</BaseButton>
+        <BaseButton className="mt-5 w-full !py-4" disabled>
+          Make Payment
+        </BaseButton>
       </div>
     </div>
   );

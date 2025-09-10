@@ -43,6 +43,13 @@ export const properties = [
       ],
       propertyDocuments: ["Governor’s Consent"],
     },
+    images: [
+      "https://ik.imagekit.io/zyqdqinsh/Property%201/efb6db5a-b8d2-4e49-ac1f-21578962960f.JPG?updatedAt=1757398026398",
+      "https://ik.imagekit.io/zyqdqinsh/Property%201/1a192a0c-2d16-4876-aaff-b5e8fff16dd5.JPG?updatedAt=1757398026429",
+      "https://ik.imagekit.io/zyqdqinsh/Property%201/9faf6356-5235-4720-ace3-e077347e79be.JPG?updatedAt=1757398025817",
+      "https://ik.imagekit.io/zyqdqinsh/Property%201/761a557e-7239-4e17-9c7c-4a80428ad3b1.JPG?updatedAt=1757398026039",
+      "https://ik.imagekit.io/zyqdqinsh/Property%201/9faf6356-5235-4720-ace3-e077347e79be.JPG?updatedAt=1757398025817",
+    ],
   },
   {
     id: "2",
@@ -90,6 +97,13 @@ export const properties = [
       ],
       propertyDocuments: ["Governor’s Consent", "Deed of Assignment", "Survey Plan"],
     },
+    images: [
+      "https://ik.imagekit.io/zyqdqinsh/Property%202/0194c412-dfd0-4a6d-9865-d898bc7cbf87.JPG?updatedAt=1757398251900",
+      "https://ik.imagekit.io/zyqdqinsh/Property%202/bc8defd1-507f-4a19-9b76-397f39487e45.JPG?updatedAt=1757398251921",
+      "https://ik.imagekit.io/zyqdqinsh/Property%202/a08cc16d-ff32-42bc-8ca4-8a24f0f43ddc.JPG?updatedAt=1757398251880",
+      "https://ik.imagekit.io/zyqdqinsh/Property%202/8dae3420-1823-4ab3-ae56-44cdcd9f9e72.JPG?updatedAt=1757398251829",
+      "https://ik.imagekit.io/zyqdqinsh/Property%202/27d21fee-3134-4e9a-bc97-52ac7968e17c.JPG?updatedAt=1757398251419",
+    ],
   },
   {
     id: "3",
@@ -136,5 +150,9 @@ export const properties = [
       ],
       propertyDocuments: ["Governor’s Consent"],
     },
+    images: [
+      "https://ik.imagekit.io/zyqdqinsh/Property%203/8bc2e881-a386-44bb-a863-7507d5a06356.jpg?updatedAt=1757398820968",
+      "https://ik.imagekit.io/zyqdqinsh/Property%203/becbf502-11a9-4231-8015-b4cc64050c74.jpg?updatedAt=1757398820989",
+    ],
   },
 ];

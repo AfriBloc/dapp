@@ -1,8 +1,5 @@
 "use client";
 import BaseButton from "@/components/ui/buttons/base-button";
-import DealImage1 from "/public/images/deal1.png";
-import DealImage2 from "/public/images/deal2.png";
-import DealImage3 from "/public/images/deal3.png";
 import MapIndicator from "/public/svgs/map-indicator.svg";
 import Image from "next/image";
 import ProgressBar from "@/components/ui/progress-bar/progress-bar";
@@ -10,8 +7,6 @@ import { useLayoutEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import { properties } from "@/mocks/properties";
 import { Property } from "@/types/property";
-
-const dealImages = [DealImage1, DealImage2, DealImage3];
 
 export default function FeaturedDeals() {
   const sectionRef = useRef(null);
@@ -53,15 +48,17 @@ export default function FeaturedDeals() {
           </p>
         </div>
         <div className="grid w-full gap-5 lg:grid-cols-3">
-          {properties.map((property: Property, idx: number) => (
+          {properties.map((property: Property) => (
             <div
               key={property.id}
               className="col-start w-full overflow-hidden rounded-2xl shadow-[0px_4px_20px_0px_#0000000D]"
             >
               <Image
-                src={dealImages[idx % dealImages.length]}
+                src={property.images[0]}
                 alt="deal image"
-                className="h-[294px] w-full"
+                width={500}
+                height={294}
+                className="h-[294px] w-full object-cover"
               />
               <div className="col-start w-full gap-2 p-5">
                 <h3 className="text-lg font-bold md:text-2xl">

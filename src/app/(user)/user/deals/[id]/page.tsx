@@ -41,7 +41,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
         <h1 className="text-2xl font-bold lg:text-[40px] lg:leading-[100%]">
           {property.description}
         </h1>
-        <BedroomSlider />
+        <BedroomSlider property={property} />
         <div className="grid w-full gap-6 lg:grid-cols-2">
           <DealDetail property={property} />
           <div className="sticky top-24 z-50 self-start">

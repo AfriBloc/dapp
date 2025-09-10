@@ -25,4 +25,5 @@ export interface Property {
     whyInvest: string[];
     propertyDocuments: string[];
   };
+  images: string[];
 }

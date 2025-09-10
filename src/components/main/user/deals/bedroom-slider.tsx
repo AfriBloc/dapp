@@ -1,50 +1,13 @@
 "use client";
 import Image from "next/image";
-import DealImage1 from "/public/images/deal1.png";
-import DealImage2 from "/public/images/deal2.png";
-import DealImage3 from "/public/images/deal3.png";
 import DynamicSwiper from "@/components/ui/swiper/dynamic-swiper";
+import { Property } from "@/types/property";
 
-const dealData = [
-  {
-    title: "Two bedroom Terrace",
-    imageSrc: DealImage1,
-    percentage: 10,
-  },
-  {
-    title: "Tokenization",
-
-    imageSrc: DealImage2,
-    percentage: 90,
-  },
-  {
-    title: "Invest in Minutes",
-    imageSrc: DealImage3,
-    percentage: 50,
-  },
-  {
-    title: "Two bedroom Terrace",
-    imageSrc: DealImage1,
-    percentage: 10,
-  },
-  {
-    title: "Tokenization",
-
-    imageSrc: DealImage2,
-    percentage: 90,
-  },
-  {
-    title: "Invest in Minutes",
-    imageSrc: DealImage3,
-    percentage: 50,
-  },
-];
-
-export default function BedroomSlider() {
+export default function BedroomSlider({ property }: { property: Property }) {
   return (
-    <div className="h-80 w-full rounded-2xl">
+    <div className="flex-center h-[350px] w-full rounded-2xl">
       <DynamicSwiper
-        data={dealData}
+        data={property.images}
         slidesPerView={1}
         className="!mx-0 size-full max-w-full"
         showPagination={false}
@@ -52,14 +15,14 @@ export default function BedroomSlider() {
         showCustomPaginationPagination={true}
         customPaginationClassName="absolute w-fit left-2/4 right-2/4 -translate-x-2/4 bottom-2 z-10"
         autoplay={{ delay: 2000, disableOnInteraction: false }}
-        renderSlide={(deal) => {
+        renderSlide={(imageSrc) => {
           return (
             <Image
-              src={deal.imageSrc}
+              src={imageSrc}
               width={320}
               height={400}
-              alt={deal.title}
-              className="!h-[90%] w-full rounded-lg object-cover"
+              alt={property.description}
+              className="mx-auto !h-[90%] w-[50%] rounded-lg border border-gray-100"
             />
           );
         }}

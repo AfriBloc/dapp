@@ -4,24 +4,24 @@ import MapIndicator from "/public/svgs/map-indicator.svg";
 import BedIcon from "/public/svgs/bed.svg";
 import BathtubIcon from "/public/svgs/bathtub.svg";
 import RotateIcon from "/public/svgs/rotate.svg";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import ProgressBar from "@/components/ui/progress-bar/progress-bar";
 import { useCurrency } from "@/providers/currency-provider";
 
 import { Property } from "@/types/property";
 
-export default function DealCard({
-  deal,
-  imageSrc,
-}: {
-  deal: Property;
-  imageSrc: StaticImageData;
-}) {
+export default function DealCard({ deal }: { deal: Property }) {
   const { formatAndConvertCurrency, currency } = useCurrency();
 
   return (
     <div className="col-start w-full overflow-hidden rounded-2xl shadow-[0px_4px_20px_0px_#0000000D]">
-      <Image src={imageSrc} alt="deal image" className="h-[226px] w-full" />
+      <Image
+        src={deal.images[0]}
+        alt="deal image"
+        width={500}
+        height={226}
+        className="h-[226px] w-full object-cover"
+      />
       <div className="col-start w-full gap-2 p-5">
         <div className="flex flex-wrap items-center justify-start gap-2">
           <span className="text-Gray-800 border-Gray-50 border-r pr-2 text-xs font-normal">
@@ -67,13 +67,15 @@ export default function DealCard({
             <span className="text-Gray-700 text-xs font-normal">
               Projected ROI
             </span>
-            <span className="text-sm text-end font-medium">{deal.annualizedROI}</span>
+            <span className="text-end text-sm font-medium">
+              {deal.annualizedROI}
+            </span>
           </div>
           <div className="flex-between w-full gap-1.5">
             <span className="text-Gray-700 text-xs font-normal">
               Gross yield
             </span>
-            <span className="text-sm text-end font-medium">
+            <span className="text-end text-sm font-medium">
               {deal.grossRentalYield}
             </span>
           </div>
