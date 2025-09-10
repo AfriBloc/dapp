@@ -7,41 +7,9 @@ import BathtubIcon from "/public/svgs/bathtub.svg";
 import KitchenIcon from "/public/svgs/kitchen.svg";
 import ChairIcon from "/public/svgs/chair.svg";
 import Image from "next/image";
+import { Property } from "@/types/property";
 
-const whyBreakdowns = [
-  {
-    title: "Modern Urban Living",
-    content:
-      "J One Tower in Business Bay offers stylish, fully furnished apartments with smart layouts and premium finishes, set within a dynamic community.",
-  },
-  {
-    title: "Excellent Facilities",
-    content:
-      "Residents enjoy amenities such as temperature controlled infinity pools, a fully equipped gym, spa with sauna and steam rooms, children’s play areas, sky gardens, 24/7 security, concierge services, and on site retail outlets.",
-  },
-  {
-    title: "Strong Rental Appeal",
-    content:
-      "This 12th floor unit with peaceful community and lake views is vacant and ready for immediate occupancy, appealing to long term tenants and ensuring consistent rental demand.",
-  },
-  {
-    title: "Attractive Investment Returns",
-    content:
-      "The unit provides an estimated net rental yield of 5.09% in the first year, a projected average rental yield over 5 years 5.24% over five years, and an annualized ROI of 11.55% over five years, which includes both capital appreciation and rental returns.",
-  },
-  {
-    title: "Below Market Price",
-    content:
-      "Priced at NGN 1,700,000 approximately 9.33% below the Estimated NGN 1,874,943 valuation by third party company, offering a strong capital gain potential.",
-  },
-  {
-    title: "Prime Location",
-    content:
-      "Strategically located in Orchid road with easy access to Lekki Phase one, and environs, ensuring excellent connectivity.",
-  },
-];
-
-export default function CostBreakdownSection() {
+export default function CostBreakdownSection({ property }: { property: Property }) {
   const [openCost, setOpenCost] = useState({
     description: true,
     why: true,
@@ -79,57 +47,35 @@ export default function CostBreakdownSection() {
             openCost.description ? "max-h-[1000px] py-2" : "max-h-0",
           )}
         >
-          <p>
-            J One Tower, located in the vibrant Business Bay community, is a
-            modern twin-tower development offering luxurious urban living with
-            easy access to key Dubai landmarks. <br /> <br />
-            The subject unit, situated on the 12th floor, is a fully furnished
-            76.16 sqm apartment featuring a serene community view, with a
-            picturesque lake located behind the building, enhancing the tranquil
-            atmosphere. C <br />
-            <span className="text-Purple-500">Read more</span>
-          </p>
+          <p>{property.description}</p>
           <div className="col-start w-full gap-2">
             <h6 className="text-xs font-semibold md:text-sm">What’s in it</h6>
             <div className="flex w-full max-w-[70%] flex-wrap items-center justify-start gap-2">
-              <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 border-r pr-1.5 text-[10px] font-normal sm:pr-2 sm:text-xs">
-                <Image src={BedIcon} alt="bed icon" /> 1 Bedroom
-              </span>
-              <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 border-r pr-1.5 text-[10px] font-normal sm:pr-2 sm:text-xs">
-                <Image src={BathtubIcon} alt="bathtub icon" /> 1 Bathroom
-              </span>
-              <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 text-[10px] font-normal sm:text-xs">
-                <Image src={KitchenIcon} alt="kitchen icon" /> 1 Kitchen
-              </span>
-              <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 pr-1.5 text-[10px] font-normal sm:pr-2 sm:text-xs">
-                <Image src={ChairIcon} alt="chair icon" /> 1 Living room
-              </span>
+              {property.propertyDetails.whatIsInIt.map((item, idx) => (
+                <span
+                  key={idx}
+                  className="text-Gray-800 border-Gray-50 flex items-center gap-1 border-r pr-1.5 text-[10px] font-normal sm:pr-2 sm:text-xs"
+                >
+                  {item.includes("bedroom") && <Image src={BedIcon} alt="bed icon" />}
+                  {item.includes("bathroom") && <Image src={BathtubIcon} alt="bathtub icon" />}
+                  {item.includes("kitchen") && <Image src={KitchenIcon} alt="kitchen icon" />}
+                  {item.includes("living") && <Image src={ChairIcon} alt="chair icon" />}
+                  {item}
+                </span>
+              ))}
             </div>
           </div>
           <div className="col-start w-full gap-2">
             <h6 className="text-xs font-semibold md:text-sm">Amenities</h6>
             <div className="flex w-full max-w-[70%] flex-wrap items-center justify-start gap-2">
-              <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 border-r pr-1.5 text-[10px] font-normal sm:pr-2 sm:text-xs">
-                <Image src={BedIcon} alt="bed icon" /> Playing area
-              </span>
-              <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 border-r pr-1.5 text-[10px] font-normal sm:pr-2 sm:text-xs">
-                <Image src={BathtubIcon} alt="bathtub icon" /> Community view
-              </span>
-              <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 text-[10px] font-normal sm:text-xs">
-                <Image src={KitchenIcon} alt="kitchen icon" /> Spa
-              </span>
-              <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 border-r pr-1.5 text-[10px] font-normal sm:pr-2 sm:text-xs">
-                <Image src={ChairIcon} alt="chair icon" /> Gym
-              </span>
-              <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 border-r pr-1.5 text-[10px] font-normal sm:pr-2 sm:text-xs">
-                <Image src={BedIcon} alt="bathtub icon" /> Health Club
-              </span>
-              <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 border-r pr-1.5 text-[10px] font-normal sm:pr-3 sm:text-xs">
-                <Image src={BathtubIcon} alt="baththub icon" /> Covered parking
-              </span>
-              <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 text-[10px] font-normal sm:text-xs">
-                <Image src={KitchenIcon} alt="kitchen icon" /> Swimming Pool
-              </span>
+              {property.propertyDetails.amenities.map((item, idx) => (
+                <span
+                  key={idx}
+                  className="text-Gray-800 border-Gray-50 flex items-center gap-1 border-r pr-1.5 text-[10px] font-normal sm:pr-2 sm:text-xs"
+                >
+                  {item}
+                </span>
+              ))}
             </div>
           </div>
           <div className="col-start w-full gap-2">
@@ -137,7 +83,7 @@ export default function CostBreakdownSection() {
             <div className="flex-start gap-1">
               <Image src={MapIndicator} alt="icon" />
               <p className="text-Gray-700 text-xs font-normal md:text-sm">
-                Orchid road, Lekki, Lagos, Nigeria
+                {property.location}
               </p>
             </div>
             <iframe
@@ -169,45 +115,43 @@ export default function CostBreakdownSection() {
           </h4>
           <ChevronDown
             className={`text-base text-inherit ${
-              openCost.description ? "rotate-180" : "rotate-0"
+              openCost.why ? "rotate-180" : "rotate-0"
             } transition-all duration-300`}
           />
         </button>
         <div
           className={cn(
             "text-Gray-800 w-full space-y-5 overflow-hidden text-xs font-normal transition-all duration-300 md:text-sm",
-            openCost.description ? "max-h-[1000px] py-2" : "max-h-0",
+            openCost.why ? "max-h-[1000px] py-2" : "max-h-0",
           )}
         >
           <div className="col-start w-full gap-y-3">
-            {whyBreakdowns.map(
-              (why: { title: string; content: string }, idx: number) => (
-                <button
-                  key={idx}
-                  onClick={() => toggleWhy(idx)}
-                  className="border-BlueGray-50 bg-BlueGray-50 w-full rounded-2xl border p-3 text-start outline-none"
+            {property.propertyDetails.whyInvest.map((reason, idx) => (
+              <button
+                key={idx}
+                onClick={() => toggleWhy(idx)}
+                className="border-BlueGray-50 bg-BlueGray-50 w-full rounded-2xl border p-3 text-start outline-none"
+              >
+                <div className="flex w-full items-center justify-between select-none">
+                  <h4 className="max-w-[511px] text-sm font-semibold">
+                    {reason.split(".")[0]}
+                  </h4>
+                  <ChevronDown
+                    className={`text-sm text-inherit ${
+                      openWhy === idx ? "rotate-180" : "rotate-0"
+                    } transition-all duration-300`}
+                  />
+                </div>
+                <p
+                  className={cn(
+                    "w-full overflow-hidden text-xs font-normal transition-all duration-300 md:text-sm",
+                    openWhy === idx ? "max-h-[1000px] py-2" : "max-h-0",
+                  )}
                 >
-                  <div className="flex w-full items-center justify-between select-none">
-                    <h4 className="max-w-[511px] text-sm font-semibold">
-                      {why.title}
-                    </h4>
-                    <ChevronDown
-                      className={`text-sm text-inherit ${
-                        openWhy === idx ? "rotate-180" : "rotate-0"
-                      } transition-all duration-300`}
-                    />
-                  </div>
-                  <p
-                    className={cn(
-                      "w-full overflow-hidden text-xs font-normal transition-all duration-300 md:text-sm",
-                      openWhy === idx ? "max-h-[1000px] py-2" : "max-h-0",
-                    )}
-                  >
-                    {why.content}
-                  </p>
-                </button>
-              ),
-            )}
+                  {reason}
+                </p>
+              </button>
+            ))}
           </div>
         </div>
       </div>

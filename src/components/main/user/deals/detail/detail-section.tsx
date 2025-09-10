@@ -5,34 +5,45 @@ import RotateIcon from "/public/svgs/rotate.svg";
 import Image from "next/image";
 import ProgressBar from "@/components/ui/progress-bar/progress-bar";
 import { Info } from "lucide-react";
+import { Property } from "@/types/property";
+import { useCurrency } from "@/providers/currency-provider";
 
-export default function DetailSection() {
+export default function DetailSection({ property }: { property: Property }) {
+  const { formatAndConvertCurrency, currency } = useCurrency();
+
   return (
     <div id="detail" className="col-start w-full gap-4 md:gap-6">
       <div className="col-start w-full gap-4">
         <div className="flex flex-wrap items-center justify-start gap-2">
           <span className="text-Gray-800 border-Gray-50 border-r pr-1.5 text-[10px] font-normal sm:pr-2 sm:text-xs">
-            Apartment Terrace
+            {property.description}
           </span>
           <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 border-r pr-1.5 text-[10px] font-normal sm:pr-2 sm:text-xs">
-            <Image src={BedIcon} alt="bed icon" /> 2 bed
+            <Image src={BedIcon} alt="bed icon" /> {property.beds} bed
           </span>
           <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 border-r pr-1.5 text-[10px] font-normal sm:pr-2 sm:text-xs">
-            <Image src={BathtubIcon} alt="bathtub icon" /> 2 bath
+            <Image src={BathtubIcon} alt="bathtub icon" />{" "}
+            {
+              property.propertyDetails.whatIsInIt.filter((item) =>
+                item.includes("bathroom"),
+              ).length
+            }{" "}
+            bath
           </span>
           <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 text-[10px] font-normal sm:text-xs">
-            <Image src={RotateIcon} alt="rotate icon" /> 350 sqm2
+            <Image src={RotateIcon} alt="rotate icon" />{" "}
+            {property.landMeasurement}
           </span>
         </div>
         <div className="flex w-full items-center justify-between lg:items-start">
           <div className="col-start gap-1">
             <h3 className="text-lg font-bold md:text-2xl">
-              Two bedroom Terrace
+              {property.description}
             </h3>
             <div className="flex-start gap-1">
               <Image src={MapIndicator} alt="icon" />
               <p className="text-Gray-700 text-xs font-normal md:text-sm">
-                Orchid road, Lekki, Lagos, Nigeria
+                {property.location}
               </p>
             </div>
           </div>
@@ -41,7 +52,10 @@ export default function DetailSection() {
               Price per unit
             </h6>
             <h4 className="text-Purple-400 text-end text-base font-semibold md:text-lg">
-              ₦5,000
+              {formatAndConvertCurrency(
+                property.pricePerUnit,
+                currency || "NGN",
+              )}
             </h4>
           </div>
         </div>
@@ -50,19 +64,23 @@ export default function DetailSection() {
             <div className="flex-start gap-1 pr-4">
               <Image src={MapIndicator} alt="icon" />
               <p className="text-Gray-700 text-xs font-normal">
-                75,000 units sold
+                {property.numberOfUnits} units available
               </p>
             </div>
             <div className="flex-start border-Gray-50 gap-1 border-l pl-4">
               <Image src={MapIndicator} alt="icon" />
-              <p className="text-Gray-700 text-xs font-normal">215 investors</p>
+              <p className="text-Gray-700 text-xs font-normal">
+                {/* Placeholder for investors */}215 investors
+              </p>
             </div>
           </div>
           <div className="border-BlueGray-100 flex-between w-full gap-2 rounded-full border px-3 py-2 md:flex-1">
-            <ProgressBar percentage={10} className="h-2 flex-1" />
+            <ProgressBar percentage={75} className="h-2 flex-1" />{" "}
+            {/* Placeholder percentage */}
             <span className="text-sm font-normal">
-              {10}% <span className="hidden md:inline">funded</span>
-            </span>
+              75% <span className="hidden md:inline">funded</span>
+            </span>{" "}
+            {/* Placeholder percentage */}
           </div>
         </div>
       </div>
@@ -72,33 +90,41 @@ export default function DetailSection() {
             <span className="text-Gray-700 text-xs font-normal">
               Listing Price
             </span>
-            <span className="text-Purple-400 text-base font-semibold md:text-lg">
-              ₦450,000,000
+            <span className="text-Purple-400 text-end text-base font-semibold md:text-lg">
+              {formatAndConvertCurrency(property.listingPrice, "NGN")}
             </span>
           </li>
           <li className="flex-between w-full">
             <span className="text-Gray-700 text-xs font-normal">
               Net Rental Yield
             </span>
-            <span className="text-sm font-medium">5.24%</span>
+            <span className="text-end text-sm font-medium">
+              {property.netRentalYield}
+            </span>
           </li>
           <li className="flex-between w-full">
             <span className="text-Gray-700 text-xs font-normal">
               Annualised ROI
             </span>
-            <span className="text-sm font-medium">11.5%</span>
+            <span className="text-end text-sm font-medium">
+              {property.annualizedROI}
+            </span>
           </li>
           <li className="flex-between w-full">
             <span className="text-Gray-700 text-xs font-normal">
               Gross Rental yield
             </span>
-            <span className="text-sm font-medium">7.42%</span>
+            <span className="text-end text-sm font-medium">
+              {property.grossRentalYield}
+            </span>
           </li>
           <li className="flex-between w-full">
             <span className="text-Gray-700 text-xs font-normal">
               Funded date
             </span>
-            <span className="text-sm font-medium">7.42%</span>
+            <span className="text-end text-sm font-medium">
+              {property.fundedDate}
+            </span>
           </li>
         </ul>
         <ul className="col-start border-BlueGray-100 w-full gap-3 rounded-lg border p-4">
@@ -109,25 +135,36 @@ export default function DetailSection() {
             <span className="flex-center text-Gray-700 gap-1 text-xs font-normal">
               Property cost <Info className="size-3" />
             </span>
-            <span className="text-sm font-medium">₦435,000,000</span>
+            <span className="text-sm font-medium">
+              {formatAndConvertCurrency(
+                property.investmentCostBreakdown.propertyCost,
+                "NGN",
+              )}
+            </span>
           </li>
           <li className="flex-between w-full">
-            <span className="flex-center text-Gray-700 gap-1 text-xs font-normal">
+            <span className="flex items-start justify-start text-Gray-700 gap-1 text-xs font-normal">
               Purchase costs <Info className="size-3" />
             </span>
-            <span className="text-sm font-medium">11.5%</span>
+            <span className="text-sm font-medium text-end">
+              {property.investmentCostBreakdown.purchaseCosts}
+            </span>
           </li>
           <li className="flex-between w-full">
-            <span className="flex-center text-Gray-700 gap-1 text-xs font-normal">
+            <span className="flex items-start justify-start text-Gray-700 gap-1 text-xs font-normal">
               Transaction fees <Info className="size-3" />
             </span>
-            <span className="text-sm font-medium">₦4,000</span>
+            <span className="text-sm font-medium text-end">
+              {property.investmentCostBreakdown.transactionFees}
+            </span>
           </li>
           <li className="flex-between w-full">
-            <span className="flex-center text-Gray-700 gap-1 text-xs font-normal">
+            <span className="flex items-start justify-start text-Gray-700 gap-1 text-xs font-normal">
               MOF fees <Info className="size-3" />
             </span>
-            <span className="text-sm font-medium">₦3,000</span>
+            <span className="text-sm font-medium text-end">
+              {property.investmentCostBreakdown.mofFees}
+            </span>
           </li>
         </ul>
       </div>
