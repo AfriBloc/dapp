@@ -1,4 +1,5 @@
 import AppLogo from "@/components/ui/app-logo/app-logo";
+import OnboardingProvider from "@/contexts/onboardingContext";
 
 export default function AuthLayout({
   children,
@@ -11,9 +12,11 @@ export default function AuthLayout({
         <AppLogo />
       </div>
 
-      <section className="flex flex-1 items-center justify-center overflow-hidden">
-        {children}
-      </section>
+      <OnboardingProvider>
+        <section className="flex flex-1 items-center justify-center overflow-hidden">
+          <div className="mx-auto w-full max-w-[408px]">{children}</div>
+        </section>
+      </OnboardingProvider>
     </section>
   );
 }

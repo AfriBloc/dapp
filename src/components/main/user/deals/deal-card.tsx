@@ -6,7 +6,7 @@ import BathtubIcon from "/public/svgs/bathtub.svg";
 import RotateIcon from "/public/svgs/rotate.svg";
 import Image, { StaticImageData } from "next/image";
 import ProgressBar from "@/components/ui/progress-bar/progress-bar";
-import { useCurrency } from "@/providers/currency-provider";
+import { useCurrency } from "@/contexts/currency-provider";
 
 import { Property } from "@/types/property";
 
@@ -67,13 +67,15 @@ export default function DealCard({
             <span className="text-Gray-700 text-xs font-normal">
               Projected ROI
             </span>
-            <span className="text-sm text-end font-medium">{deal.annualizedROI}</span>
+            <span className="text-end text-sm font-medium">
+              {deal.annualizedROI}
+            </span>
           </div>
           <div className="flex-between w-full gap-1.5">
             <span className="text-Gray-700 text-xs font-normal">
               Gross yield
             </span>
-            <span className="text-sm text-end font-medium">
+            <span className="text-end text-sm font-medium">
               {deal.grossRentalYield}
             </span>
           </div>

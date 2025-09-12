@@ -13,6 +13,7 @@ import LogOutIcon from "/public/svgs/log-out.svg";
 import { cn } from "@/lib/utils";
 import { getNameInitials } from "@/helpers/string";
 import { ChevronDown } from "lucide-react";
+import { logoutAction } from "@/lib/actions/auth.actions";
 
 type ProfileBoxProps = {
   imageUrl: string | null;
@@ -33,7 +34,7 @@ export default function ProfileBox({
 
   const handleLogout = async () => {
     setIsLoading(true);
-    // await logoutAction();
+    await logoutAction();
     setIsLoading(false);
     push("/");
   };
@@ -63,8 +64,8 @@ export default function ProfileBox({
               </div>
             )}
 
-            <p className="text-Gray-800 text-base font-medium">
-              {firstName.length > 10 ? firstName.slice(0, 10) + "..." : firstName}
+            <p className="text-Gray-800 text-base font-medium capitalize">
+              {firstName}
             </p>
           </div>
           <ChevronDown

@@ -6,7 +6,7 @@ import Image from "next/image";
 import ProgressBar from "@/components/ui/progress-bar/progress-bar";
 import { Info } from "lucide-react";
 import { Property } from "@/types/property";
-import { useCurrency } from "@/providers/currency-provider";
+import { useCurrency } from "@/contexts/currency-provider";
 
 export default function DetailSection({ property }: { property: Property }) {
   const { formatAndConvertCurrency, currency } = useCurrency();
@@ -143,26 +143,26 @@ export default function DetailSection({ property }: { property: Property }) {
             </span>
           </li>
           <li className="flex-between w-full">
-            <span className="flex items-start justify-start text-Gray-700 gap-1 text-xs font-normal">
+            <span className="text-Gray-700 flex items-start justify-start gap-1 text-xs font-normal">
               Purchase costs <Info className="size-3" />
             </span>
-            <span className="text-sm font-medium text-end">
+            <span className="text-end text-sm font-medium">
               {property.investmentCostBreakdown.purchaseCosts}
             </span>
           </li>
           <li className="flex-between w-full">
-            <span className="flex items-start justify-start text-Gray-700 gap-1 text-xs font-normal">
+            <span className="text-Gray-700 flex items-start justify-start gap-1 text-xs font-normal">
               Transaction fees <Info className="size-3" />
             </span>
-            <span className="text-sm font-medium text-end">
+            <span className="text-end text-sm font-medium">
               {property.investmentCostBreakdown.transactionFees}
             </span>
           </li>
           <li className="flex-between w-full">
-            <span className="flex items-start justify-start text-Gray-700 gap-1 text-xs font-normal">
+            <span className="text-Gray-700 flex items-start justify-start gap-1 text-xs font-normal">
               MOF fees <Info className="size-3" />
             </span>
-            <span className="text-sm font-medium text-end">
+            <span className="text-end text-sm font-medium">
               {property.investmentCostBreakdown.mofFees}
             </span>
           </li>

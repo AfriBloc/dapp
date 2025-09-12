@@ -5,7 +5,7 @@ import Image from "next/image";
 import BaseButton from "@/components/ui/buttons/base-button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Property } from "@/types/property";
-import { useCurrency } from "@/providers/currency-provider";
+import { useCurrency } from "@/contexts/currency-provider";
 
 export default function InvestAction({ property }: { property: Property }) {
   const { formatAndConvertCurrency } = useCurrency();

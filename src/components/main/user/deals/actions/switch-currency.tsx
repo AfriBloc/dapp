@@ -1,7 +1,7 @@
 "use client";
 import { getCurrencySymbol } from "@/helpers/currency";
 import { cn } from "@/lib/utils";
-import { useCurrency } from "@/providers/currency-provider";
+import { useCurrency } from "@/contexts/currency-provider";
 
 export default function SwitchCurrency() {
   const { currency, setCurrency } = useCurrency();

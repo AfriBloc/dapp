@@ -2,7 +2,7 @@ import Image from "next/image";
 import SuccessImage from "/public/svgs/success.svg";
 import BaseButton from "@/components/ui/buttons/base-button";
 
-export default function AccountCreatedSuccessful() {
+export default function page() {
   return (
     <div className="col-center text-Gray-900 gap-5 p-4 lg:p-0">
       <Image src={SuccessImage} alt="success" />

@@ -18,11 +18,11 @@ export default function LoginForm() {
             <div className="space-y-3">
               <InputField
                 label="Email address"
-                name="email"
+                name="identifier"
                 type="email"
                 placeholder="Enter your email"
-                register={register("email")}
-                errorMessage={errors.email}
+                register={register("identifier")}
+                errorMessage={errors.identifier}
               />
 
               <InputField

@@ -1,13 +1,20 @@
 import PersonalInfoBox from "@/components/main/user/profile/personal-info-box";
 import BaseButton from "@/components/ui/buttons/base-button";
 import { getNameInitials } from "@/helpers/string";
+import { formatDate } from "@/lib/helpers";
+import { getUser } from "@/services/session";
+import { UserData } from "@/types/auth";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Profile",
 };
 
-export default function page() {
+export default async function page() {
+  const user = await getUser();
+
+  const { firstName, lastName, email, createdAt } = user as UserData;
+
   return (
     <main className="text-Gray-900 bg-white">
       <section className="col-start container gap-5 py-14">
@@ -18,16 +25,16 @@ export default function page() {
           <div className="flex w-full flex-col items-center justify-start gap-3 rounded-xl bg-white p-5 shadow-[0px_4px_20px_0px_#0000000D]">
             <div className="col-center">
               <div className="bg-Orange-25 text-Orange-500 flex size-28 items-center justify-center overflow-hidden rounded-full text-3xl font-medium uppercase md:text-[40px]">
-                {getNameInitials("Abosede Joseph")}
+                {getNameInitials(`${firstName} ${lastName}`)}
               </div>
-              <h3 className="text-Gray-900 text-center text-base font-bold md:text-lg">
-                Abosede Joseph
+              <h3 className="text-Gray-900 text-center text-base font-bold capitalize md:text-lg">
+                {firstName} {lastName}
               </h3>
               <p className="text-Gray-700 text-center text-sm font-normal">
-                bosemay04@gmail.com
+                {email}
               </p>
               <p className="text-Gray-500 text-center text-xs font-normal">
-                Joined: August 12, 2025
+                Joined: {formatDate(createdAt)}
               </p>
             </div>
             <BaseButton

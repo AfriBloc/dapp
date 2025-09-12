@@ -3,7 +3,7 @@ import EmptyState from "@/components/ui/empty-state";
 import React, { Suspense } from "react";
 import PortfolioCard from "./portfolio-card";
 import { formatCurrency } from "@/helpers/currency";
-import { useCurrency } from "@/providers/currency-provider";
+import { useCurrency } from "@/contexts/currency-provider";
 
 export default function PortfolioCards() {
   const { currency } = useCurrency();

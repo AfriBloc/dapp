@@ -1,8 +1,9 @@
 import { useRouter } from "next/navigation";
-import { showToast } from "@/lib/toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, LoginSchemaType } from "../schemas";
+import { signInAction } from "@/lib/actions/auth.actions";
+import { handleError, handleSuccess } from "@/lib/helpers";
 
 export default function useLogin() {
   const { push } = useRouter();
@@ -13,15 +14,15 @@ export default function useLogin() {
   );
 
   const onSubmit = async (data: LoginSchemaType) => {
-    console.log("🚀 ~ onSubmit ~ data:", data);
     try {
-      push("/user/deals");
-      showToast("Login Successful");
+      const rsp = await signInAction(data);
+      if (rsp?.error) {
+        handleError(rsp?.message);
+      } else {
+        handleSuccess(rsp?.message, push, "/user");
+      }
     } catch (error) {
-      showToast(
-        error instanceof Error ? error.message : "Something went wrong",
-        "error",
-      );
+      console.log("Login error:", error);
     }
   };
 

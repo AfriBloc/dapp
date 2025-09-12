@@ -2,18 +2,21 @@ import { showToast } from "@/lib/toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useCheckPassword from "@/hooks/use-check-password";
-import { useOnboarding } from "@/providers/onboarding-provider";
 import { SignUpSchema, SignUpSchemaType } from "../schemas";
+import { useOnboardingContext } from "@/contexts/onboardingContext";
+import { signupAction } from "@/lib/actions/auth.actions";
+import { handleError, handleSuccess } from "@/lib/helpers";
+import { useRouter } from "next/navigation";
 
 export default function useCreatePassword() {
-  const { steps, formData } = useOnboarding();
-  const { next } = steps;
+  const { push } = useRouter();
+  const { userFormData } = useOnboardingContext();
 
   const { register, handleSubmit, formState, watch } =
     useForm<SignUpSchemaType>({
       resolver: zodResolver(SignUpSchema),
       defaultValues: {
-        ...formData,
+        ...userFormData,
         password: "",
         confirmPassword: "",
       },
@@ -22,12 +25,16 @@ export default function useCreatePassword() {
   const { passwordCheck, isDisabled } = useCheckPassword(watch("password"));
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log("🚀 ~ useCreateNewPassword ~ data:", data);
     if (!isDisabled) {
       try {
-        next();
-      } catch {
-        showToast("Something went wrong", "error");
+        const rsp = await signupAction(data);
+        if (rsp?.error) {
+          handleError(rsp?.message);
+        } else {
+          handleSuccess(rsp?.message, push, "/account-created-successful");
+        }
+      } catch (error) {
+        console.log("Create user error:", error);
       }
     }
   });

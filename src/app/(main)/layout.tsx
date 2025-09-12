@@ -1,6 +1,6 @@
 import Footer from "@/components/main/footer/footer";
 import UserHeader from "@/components/main/user/user-header/user-header";
-import CurrencyProvider from "@/providers/currency-provider";
+import CurrencyProvider from "@/contexts/currency-provider";
 
 export default function UserLayout({
   children,

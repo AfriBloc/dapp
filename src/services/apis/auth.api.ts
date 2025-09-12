@@ -1,0 +1,30 @@
+import {
+  ApiResponse,
+  AuthResponse,
+  Login,
+  SendOTP,
+  SignUp,
+  VerifyOTP,
+  VerifyOTPResponse,
+} from "@/types/auth";
+
+import { Api } from "./api";
+
+export const signupApi = (body: SignUp) => {
+  return Api.post<SignUp, AuthResponse>("/auth/register", body, true);
+};
+
+export const signinApi = (body: Login) => {
+  return Api.post<Login, AuthResponse>("/auth/login", body);
+};
+
+export const sendOTPApi = (body: SendOTP) => {
+  return Api.post<SendOTP, VerifyOTPResponse>("/auth/generate-otp", body);
+};
+
+export const verifyEmailApi = (body: VerifyOTP) => {
+  return Api.post<VerifyOTP, ApiResponse & { access_token: string }>(
+    "/auth/verify-otp",
+    body,
+  );
+};

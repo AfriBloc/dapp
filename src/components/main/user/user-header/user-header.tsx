@@ -3,8 +3,13 @@ import React from "react";
 import HeaderLinks from "./header-links";
 import ProfileBox from "./profile-box";
 import UserMobileNav from "./user-mobile-nav";
+import { UserData } from "@/types/auth";
+import { getUser } from "@/services/session";
 
-export default function UserHeader() {
+export default async function UserHeader() {
+  const user = await getUser();
+
+  const { firstName, lastName, email } = user as UserData;
   return (
     <header className="border-Gray-25 w-full border-b bg-white py-3">
       <div className="container">
@@ -14,8 +19,8 @@ export default function UserHeader() {
             <HeaderLinks />
             <ProfileBox
               imageUrl={""}
-              firstName="John"
-              email="johndoe@gmail.com"
+              firstName={`${firstName} ${lastName}`}
+              email={email}
             />
           </div>
           <UserMobileNav />
