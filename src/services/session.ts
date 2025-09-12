@@ -28,6 +28,7 @@ export async function encrypt(payload: EncryptData) {
     .sign(key);
 }
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 export async function decrypt(input: string): Promise<any> {
   try {
     const { payload } = await jwtVerify(input, key, {

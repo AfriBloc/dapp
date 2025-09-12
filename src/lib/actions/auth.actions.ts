@@ -6,13 +6,7 @@ import {
   verifyEmailApi,
 } from "@/services/apis/auth.api";
 import { logout, setCookie } from "@/services/session";
-import {
-  ActionFormStatus,
-  Login,
-  SendOTP,
-  SignUp,
-  VerifyOTP,
-} from "@/types/auth";
+import { Login, SendOTP, SignUp, VerifyOTP } from "@/types/auth";
 
 export const signupAction = async (body: SignUp) => {
   try {
@@ -43,11 +37,8 @@ export const signupAction = async (body: SignUp) => {
 };
 
 export const signInAction = async (body: Login) => {
-  console.log("login-body>>>", body);
   try {
     const rsp = await signinApi(body);
-
-    console.log("login>>>", rsp);
 
     if (!rsp.ok) {
       return {
