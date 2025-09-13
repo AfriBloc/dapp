@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { EnterOTPSchema, EnterOTPSchemaType } from "../schemas";
 import { useOnboarding } from "@/providers/onboarding-provider";
 import { showToast } from "@/lib/toast";
+import { verifyOtp } from "@/lib/actions/auth.actions";
 
 export default function useVerifyEmailAddress() {
   const { steps, formData } = useOnboarding();
@@ -12,14 +13,19 @@ export default function useVerifyEmailAddress() {
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    const verifyOTPData = {
+    const payload = {
       email: formData.email,
-      otp: data.otp,
+      otp: Number(data.otp),
     };
-    console.log("🚀 ~ useVerifyEmailAddress ~ verifyOTPData:", verifyOTPData);
 
     try {
-      next();
+      const res = await verifyOtp(payload);
+      if (!res.error) {
+        showToast(res.message);
+        next();
+      } else {
+        showToast(res.message, "error");
+      }
     } catch {
       showToast("Something went wrong", "error");
     }

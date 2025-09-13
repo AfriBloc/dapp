@@ -3,6 +3,7 @@ import { showToast } from "@/lib/toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, LoginSchemaType } from "../schemas";
+import { loginUser } from "@/lib/actions/auth.actions";
 
 export default function useLogin() {
   const { push } = useRouter();
@@ -13,10 +14,18 @@ export default function useLogin() {
   );
 
   const onSubmit = async (data: LoginSchemaType) => {
-    console.log("🚀 ~ onSubmit ~ data:", data);
+    const payload: Login = {
+      identifier: data.email,
+      password: data.password,
+    };
     try {
-      push("/user/deals");
-      showToast("Login Successful");
+      const res = await loginUser(payload);
+      if (!res.error) {
+        showToast(res.message);
+        push("/user/deals");
+      } else {
+        showToast(res.message, "error");
+      }
     } catch (error) {
       showToast(
         error instanceof Error ? error.message : "Something went wrong",

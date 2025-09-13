@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import useCheckPassword from "@/hooks/use-check-password";
 import { useOnboarding } from "@/providers/onboarding-provider";
 import { SignUpSchema, SignUpSchemaType } from "../schemas";
+import { registerUser } from "@/lib/actions/auth.actions";
 
 export default function useCreatePassword() {
   const { steps, formData } = useOnboarding();
@@ -22,10 +23,15 @@ export default function useCreatePassword() {
   const { passwordCheck, isDisabled } = useCheckPassword(watch("password"));
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log("🚀 ~ useCreateNewPassword ~ data:", data);
     if (!isDisabled) {
       try {
-        next();
+        const res = await registerUser(data);
+        if (!res.error) {
+          showToast(res.message);
+          next();
+        } else {
+          showToast(res.message, "error");
+        }
       } catch {
         showToast("Something went wrong", "error");
       }

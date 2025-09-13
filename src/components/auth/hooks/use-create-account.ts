@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpSchema } from "../schemas";
 import { useOnboarding } from "@/providers/onboarding-provider";
+import { showToast } from "@/lib/toast";
+import { generateOtp } from "@/lib/actions/auth.actions";
 
 const CreateAccountSchema = SignUpSchema.pick({
   firstName: true,
@@ -21,9 +23,19 @@ export default function useCreateAccount() {
       resolver: zodResolver(CreateAccountSchema),
     });
 
-  const onSubmit = (data: CreateAccountSchemaType) => {
+  const onSubmit = async (data: CreateAccountSchemaType) => {
     setFormData(data);
-    next();
+    try {
+      const res = await generateOtp({ email: data.email });
+      if (!res.error) {
+        showToast(res.message);
+        next();
+      } else {
+        showToast(res.message, "error");
+      }
+    } catch {
+      showToast("Something went wrong", "error");
+    }
   };
 
   return {
