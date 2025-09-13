@@ -5,7 +5,7 @@ import Link from "next/link";
 import DetailSection from "./detail-section";
 import CostBreakdownSection from "./cost-breakdown-section";
 import DocumentSection from "./document-section";
-import { Property } from "@/types/property";
+import { Property, PropertyTypes } from "@/types/property";
 
 const dealsTabs = [
   { tab: "detail", text: "Property details" },
@@ -34,7 +34,7 @@ const DealTabs = ({ selectedTab }: { selectedTab: string }) => {
   );
 };
 
-export default function DealDetail({ property }: { property: Property }) {
+export default function DealDetail({ property }: { property: PropertyTypes }) {
   const selectedTab = "detail";
 
   return (

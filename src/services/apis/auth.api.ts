@@ -28,3 +28,10 @@ export const verifyEmailApi = (body: VerifyOTP) => {
     body,
   );
 };
+
+export const getSumSubToken = (body: VerifyOTP) => {
+  return Api.post<VerifyOTP, ApiResponse & { access_token: string }>(
+    "/auth/verify-otp",
+    body,
+  );
+};

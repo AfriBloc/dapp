@@ -1,4 +1,4 @@
-import SwitchCurrency from "@/components/main/user/deals/actions/switch-currency";
+import CurrencySwitcher from "@/components/main/user/deals/actions/currencySwitcher";
 import TransactionHistory from "@/components/main/user/wallet/transaction-history";
 import WalletBalanceCard from "@/components/main/user/wallet/wallet-balance-card";
 import { Metadata } from "next";
@@ -15,7 +15,7 @@ export default function page() {
           <h1 className="text-2xl font-bold lg:text-[40px] lg:leading-[100%]">
             Wallet
           </h1>
-          <SwitchCurrency />
+          <CurrencySwitcher />
         </div>
         <WalletBalanceCard />
         <TransactionHistory />

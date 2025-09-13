@@ -56,7 +56,7 @@ export default function FeaturedDeals() {
           {properties.map((property: Property, idx: number) => (
             <div
               key={property.id}
-              className="col-start w-full overflow-hidden rounded-2xl shadow-[0px_4px_20px_0px_#0000000D]"
+              className="col-start shadow-3xl w-full overflow-hidden rounded-2xl"
             >
               <Image
                 src={dealImages[idx % dealImages.length]}
@@ -84,7 +84,7 @@ export default function FeaturedDeals() {
                     <span className="text-Gray-700 text-xs font-normal">
                       Projected ROI
                     </span>
-                    <span className="font-normal text-sm lg:text-base">
+                    <span className="text-sm font-normal lg:text-base">
                       {property.annualizedROI}
                     </span>
                   </div>
@@ -92,7 +92,7 @@ export default function FeaturedDeals() {
                     <span className="text-Gray-700 text-xs font-normal">
                       Gross yield
                     </span>
-                    <span className="font-normal text-sm lg:text-base">
+                    <span className="text-sm font-normal lg:text-base">
                       {property.grossRentalYield}
                     </span>
                   </div>

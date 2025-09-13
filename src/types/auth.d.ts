@@ -76,14 +76,13 @@ export type UserData = {
   updatedAt: string;
 };
 
+export type AccessToken = { accessToken: string };
 export type AuthResponse = ApiResponse & { user: UserData } & AccessToken;
 
 export type UserDataAndAccessToken = {
   access_token: string;
   user?: UserData;
 };
-
-export type AccessToken = { access_token: string };
 
 export type RequestPasswordReset = {
   identifier: string;

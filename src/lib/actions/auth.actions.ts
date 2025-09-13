@@ -19,8 +19,8 @@ export const signupAction = async (body: SignUp) => {
       };
     }
 
-    const { access_token, user } = rsp?.body;
-    await setCookie({ access_token, user });
+    const { accessToken, user } = rsp?.body;
+    await setCookie({ access_token: accessToken, user });
 
     return {
       error: false,
@@ -40,6 +40,8 @@ export const signInAction = async (body: Login) => {
   try {
     const rsp = await signinApi(body);
 
+    console.log("login>>", rsp);
+
     if (!rsp.ok) {
       return {
         error: true,
@@ -47,8 +49,8 @@ export const signInAction = async (body: Login) => {
       };
     }
 
-    const { access_token, user } = rsp?.body;
-    await setCookie({ access_token, user });
+    const { accessToken, user } = rsp?.body;
+    await setCookie({ access_token: accessToken, user });
 
     return {
       error: false,

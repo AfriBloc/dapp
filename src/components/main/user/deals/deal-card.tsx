@@ -1,92 +1,124 @@
 "use client";
 import BaseButton from "@/components/ui/buttons/base-button";
-import MapIndicator from "/public/svgs/map-indicator.svg";
-import BedIcon from "/public/svgs/bed.svg";
-import BathtubIcon from "/public/svgs/bathtub.svg";
-import RotateIcon from "/public/svgs/rotate.svg";
 import Image, { StaticImageData } from "next/image";
 import ProgressBar from "@/components/ui/progress-bar/progress-bar";
-import { useCurrency } from "@/contexts/currency-provider";
 
-import { Property } from "@/types/property";
+import { PropertyTypes } from "@/types/property";
+import {
+  BathIcon,
+  BedIcon,
+  MapPinIcon,
+  SqmIcon,
+} from "../../../../../public/svgs/svgs";
+import Field from "@/components/ui/field";
+import { useMemo } from "react";
+import { formatNumInThousands } from "@/lib/helpers";
+import { useCurrencyContext } from "@/contexts/currencyProvider";
 
-export default function DealCard({
-  deal,
-  imageSrc,
-}: {
-  deal: Property;
-  imageSrc: StaticImageData;
-}) {
-  const { formatAndConvertCurrency, currency } = useCurrency();
-
+export const DealCard = ({ deal }: { deal: PropertyTypes }) => {
   return (
-    <div className="col-start w-full overflow-hidden rounded-2xl shadow-[0px_4px_20px_0px_#0000000D]">
-      <Image src={imageSrc} alt="deal image" className="h-[226px] w-full" />
-      <div className="col-start w-full gap-2 p-5">
-        <div className="flex flex-wrap items-center justify-start gap-2">
-          <span className="text-Gray-800 border-Gray-50 border-r pr-2 text-xs font-normal">
-            {deal.description}
-          </span>
-          <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 border-r pr-2 text-xs font-normal">
-            <Image src={BedIcon} alt="bed icon" /> {deal.beds} bed
-          </span>
-          <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 border-r pr-2 text-xs font-normal">
-            <Image src={BathtubIcon} alt="bathtub icon" />{" "}
-            {
-              deal.propertyDetails.whatIsInIt.filter((item) =>
-                item.includes("bathroom"),
-              ).length
-            }{" "}
+    <article className="col-start shadow-3xl w-full overflow-hidden rounded-2xl">
+      <figure className="relative h-[226px] w-full overflow-hidden">
+        <Image
+          src={deal?.imageUrls[0]}
+          alt={deal?.title}
+          fill
+          sizes="100%"
+          className=""
+        />
+      </figure>
+      <article className="col-start w-full gap-2 p-5">
+        <ul className="divide-Gray-50 flex flex-wrap items-center justify-start gap-2 divide-x">
+          <li className="text-Gray-800 border-r pr-2 text-xs font-normal">
+            {deal?.type}
+          </li>
+          <li className="text-Gray-800 flex items-center gap-1 border-r pr-2 text-xs font-normal">
+            <BedIcon /> {deal?.bedrooms} bed
+          </li>
+          <li className="text-Gray-800 flex items-center gap-1 border-r pr-2 text-xs font-normal">
+            <BathIcon />
+            {deal?.bathroom}
             bath
-          </span>
-          <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 text-xs font-normal">
-            <Image src={RotateIcon} alt="rotate icon" /> {deal.landMeasurement}
-          </span>
-        </div>
-        <h3 className="text-lg font-bold md:text-2xl">{deal.description}</h3>
-        <div className="flex-start gap-1">
-          <Image src={MapIndicator} alt="icon" />
-          <p className="text-Gray-700 text-sm font-normal">{deal.location}</p>
-        </div>
+          </li>
+          <li className="text-Gray-800 flex items-center gap-1 text-xs font-normal">
+            <SqmIcon /> {deal?.landMeasurement}
+          </li>
+        </ul>
+        <hgroup className="space-y-2">
+          <h3 className="text-lg font-bold md:text-2xl">{deal?.title}</h3>
+
+          <h6 className="text-Gray-700 flex items-center gap-1 text-sm font-normal">
+            <MapPinIcon />
+            {deal?.location}
+          </h6>
+        </hgroup>
+
         <div className="border-BlueGray-100 flex-between w-full gap-2 rounded-full border px-3 py-2">
           <ProgressBar percentage={75} className="h-2 flex-1" />{" "}
           {/* Placeholder percentage */}
           <span className="text-sm font-normal">75%</span>{" "}
           {/* Placeholder percentage */}
         </div>
-        <div className="border-Blue-100 my-3 flex w-full flex-col items-start justify-start gap-2 rounded-xl border px-4 py-2">
-          <div className="flex-between w-full gap-1.5">
-            <span className="text-Gray-700 text-xs font-normal">
-              Listing Price
-            </span>
-            <span className="text-Purple-400 text-base font-semibold md:text-lg">
-              {formatAndConvertCurrency(deal.listingPrice, currency)}
-            </span>
-          </div>
-          <div className="flex-between w-full">
-            <span className="text-Gray-700 text-xs font-normal">
-              Projected ROI
-            </span>
-            <span className="text-end text-sm font-medium">
-              {deal.annualizedROI}
-            </span>
-          </div>
-          <div className="flex-between w-full gap-1.5">
-            <span className="text-Gray-700 text-xs font-normal">
-              Gross yield
-            </span>
-            <span className="text-end text-sm font-medium">
-              {deal.grossRentalYield}
-            </span>
-          </div>
-        </div>
+
+        <ul className="border-Blue-100 my-3 flex w-full flex-col items-start justify-start gap-2 rounded-xl border px-4 py-2">
+          <li className="w-full">
+            <Field
+              title="Listing Price"
+              value={
+                <MarketPrice
+                  price={parseInt(deal.listingPrice)}
+                  className="text-Purple-400 flex-1 !text-end text-base font-semibold md:text-lg"
+                />
+              }
+              wrapperClassName="justify-between"
+            />
+          </li>
+
+          <li className="w-full">
+            <Field
+              title="Projected ROI"
+              value={`${deal.annualisedRoiPct}%`}
+              wrapperClassName="justify-between"
+              className="text-end"
+            />
+          </li>
+
+          <li className="w-full">
+            <Field
+              title="Gross yield"
+              value={`${deal.grossRentalYieldPct}%`}
+              wrapperClassName="justify-between"
+              className="text-end"
+            />
+          </li>
+        </ul>
         <BaseButton
           href={`/user/deals/${deal.id}`}
           className="w-full px-8 !text-base"
         >
           Own this bloc
         </BaseButton>
-      </div>
-    </div>
+      </article>
+    </article>
   );
-}
+};
+
+export const MarketPrice = ({
+  price,
+  className,
+}: {
+  className?: string;
+  price: number;
+}) => {
+  const { currency } = useCurrencyContext();
+
+  const formatedPrice = useMemo(() => {
+    return currency === "$" ? parseFloat(price?.toString()) / 1530 : price;
+  }, [currency, price]);
+  return (
+    <span className={className}>
+      {currency}
+      {formatNumInThousands(formatedPrice?.toFixed(3))}
+    </span>
+  );
+};

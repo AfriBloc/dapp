@@ -1,11 +1,11 @@
 "use client";
-import { useCurrency } from "@/contexts/currency-provider";
+import { useCurrencyContext } from "@/contexts/currencyProvider";
 import FundWalletModal from "./modals/fund-wallet-modal";
 import WithdrawModal from "./modals/withdraw-modal";
 import { formatCurrency } from "@/helpers/currency";
 
 export default function WalletBalanceCard() {
-  const { currency } = useCurrency();
+  const { currency } = useCurrencyContext();
 
   return (
     <div className="flex min-h-24 w-full flex-col gap-3 rounded-xl bg-white px-4 py-3.5 shadow-[0px_4px_20px_0px_#0000000D] md:flex-row md:items-center md:justify-between">

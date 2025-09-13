@@ -4,14 +4,18 @@ import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import BaseButton from "@/components/ui/buttons/base-button";
-import { Property } from "@/types/property";
+import { PropertyTypes } from "@/types/property";
 
-export default function DocumentSection({ property }: { property: Property }) {
+export default function DocumentSection({
+  property,
+}: {
+  property: PropertyTypes;
+}) {
   const [openDocument, setOpenDocument] = useState(true);
 
   return (
-    <div id="document" className="col-start w-full gap-6">
-      <div className="border-BlueGray-100 w-full rounded-lg border p-3 text-start outline-none">
+    <section id="document" className="col-start w-full gap-6">
+      <article className="border-BlueGray-100 w-full rounded-lg border p-3 text-start outline-none">
         <button
           type="button"
           onClick={() => setOpenDocument((prev) => !prev)}
@@ -31,22 +35,35 @@ export default function DocumentSection({ property }: { property: Property }) {
           )}
         >
           <div className="grid w-full grid-cols-2 gap-3 md:gap-5">
-            {property.propertyDetails.propertyDocuments.map((doc, idx) => (
-              <button
-                key={idx}
+            {property?.governorsConsentUrl && (
+              <a
+                href={property?.governorsConsentUrl}
                 className="flex-between bg-BlueGray-50 h-10 rounded-lg px-2 sm:px-4"
               >
-                <h4 className="text-xs font-medium md:text-sm">{doc}</h4>
+                <h4 className="text-xs font-medium md:text-sm">
+                  Governor's Consent
+                </h4>
                 <Image src={DownloadIcon} alt="download icon" />
-              </button>
-            ))}
+              </a>
+            )}
+            {property?.surveyPlanUrl && (
+              <a
+                href={property?.surveyPlanUrl}
+                className="flex-between bg-BlueGray-50 h-10 rounded-lg px-2 sm:px-4"
+              >
+                <h4 className="text-xs font-medium md:text-sm">Survey Plan</h4>
+                <Image src={DownloadIcon} alt="download icon" />
+              </a>
+            )}
           </div>
         </div>
-      </div>
-      <div className="border-BlueGray-100 flex w-full flex-col items-start justify-start gap-4 rounded-lg border p-3 text-start outline-none md:flex-row md:items-center md:justify-between">
+      </article>
+      <article className="border-BlueGray-100 flex w-full flex-col items-start justify-start gap-4 rounded-lg border p-3 text-start outline-none md:flex-row md:items-center md:justify-between">
         <div className="col-start">
-          <h3 className="text-sm font-semibold md:text-base">Got any questions</h3>
-          <p className="text-xs md:text-sm font-normal text-Gray-600">
+          <h3 className="text-sm font-semibold md:text-base">
+            Got any questions
+          </h3>
+          <p className="text-Gray-600 text-xs font-normal md:text-sm">
             Contact us for more information.
           </p>
         </div>
@@ -64,7 +81,7 @@ export default function DocumentSection({ property }: { property: Property }) {
             Email
           </BaseButton>
         </div>
-      </div>
-    </div>
+      </article>
+    </section>
   );
 }

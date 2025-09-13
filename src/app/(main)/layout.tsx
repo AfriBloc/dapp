@@ -1,6 +1,6 @@
 import Footer from "@/components/main/footer/footer";
 import UserHeader from "@/components/main/user/user-header/user-header";
-import CurrencyProvider from "@/contexts/currency-provider";
+import { Providers } from "@/contexts/providers";
 
 export default function UserLayout({
   children,
@@ -8,10 +8,10 @@ export default function UserLayout({
   children: React.ReactNode;
 }) {
   return (
-    <CurrencyProvider>
+    <Providers>
       <UserHeader />
       {children}
       <Footer />
-    </CurrencyProvider>
+    </Providers>
   );
 }

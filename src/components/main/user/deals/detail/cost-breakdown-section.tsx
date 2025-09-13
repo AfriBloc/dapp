@@ -7,9 +7,13 @@ import BathtubIcon from "/public/svgs/bathtub.svg";
 import KitchenIcon from "/public/svgs/kitchen.svg";
 import ChairIcon from "/public/svgs/chair.svg";
 import Image from "next/image";
-import { Property } from "@/types/property";
+import { PropertyTypes } from "@/types/property";
 
-export default function CostBreakdownSection({ property }: { property: Property }) {
+export default function CostBreakdownSection({
+  property,
+}: {
+  property: PropertyTypes;
+}) {
   const [openCost, setOpenCost] = useState({
     description: true,
     why: true,
@@ -22,8 +26,8 @@ export default function CostBreakdownSection({ property }: { property: Property 
   };
 
   return (
-    <div id="cost-breakdown" className="col-start w-full gap-6">
-      <div className="border-BlueGray-100 w-full rounded-lg border p-3 text-start outline-none">
+    <section id="cost-breakdown" className="col-start w-full gap-6">
+      <article className="border-BlueGray-100 w-full rounded-lg border p-3 text-start outline-none">
         <button
           type="button"
           onClick={() =>
@@ -48,27 +52,35 @@ export default function CostBreakdownSection({ property }: { property: Property 
           )}
         >
           <p>{property.description}</p>
-          <div className="col-start w-full gap-2">
+          <ul className="col-start w-full gap-2">
             <h6 className="text-xs font-semibold md:text-sm">What’s in it</h6>
-            <div className="flex w-full max-w-[70%] flex-wrap items-center justify-start gap-2">
-              {property.propertyDetails.whatIsInIt.map((item, idx) => (
-                <span
+            <ul className="flex w-full max-w-[90%] flex-wrap items-center justify-start gap-2">
+              {property?.features?.map((item, idx) => (
+                <li
                   key={idx}
                   className="text-Gray-800 border-Gray-50 flex items-center gap-1 border-r pr-1.5 text-[10px] font-normal sm:pr-2 sm:text-xs"
                 >
-                  {item.includes("bedroom") && <Image src={BedIcon} alt="bed icon" />}
-                  {item.includes("bathroom") && <Image src={BathtubIcon} alt="bathtub icon" />}
-                  {item.includes("kitchen") && <Image src={KitchenIcon} alt="kitchen icon" />}
-                  {item.includes("living") && <Image src={ChairIcon} alt="chair icon" />}
+                  {item?.toLowerCase()?.includes("bedrooms") && (
+                    <Image src={BedIcon} alt="bed icon" />
+                  )}
+                  {item?.toLowerCase()?.includes("bathrooms") && (
+                    <Image src={BathtubIcon} alt="bathtub icon" />
+                  )}
+                  {item?.toLowerCase()?.includes("kitchen") && (
+                    <Image src={KitchenIcon} alt="kitchen icon" />
+                  )}
+                  {item?.toLowerCase()?.includes("living") && (
+                    <Image src={ChairIcon} alt="chair icon" />
+                  )}
                   {item}
-                </span>
+                </li>
               ))}
-            </div>
-          </div>
+            </ul>
+          </ul>
           <div className="col-start w-full gap-2">
             <h6 className="text-xs font-semibold md:text-sm">Amenities</h6>
             <div className="flex w-full max-w-[70%] flex-wrap items-center justify-start gap-2">
-              {property.propertyDetails.amenities.map((item, idx) => (
+              {property?.amenities?.map((item, idx) => (
                 <span
                   key={idx}
                   className="text-Gray-800 border-Gray-50 flex items-center gap-1 border-r pr-1.5 text-[10px] font-normal sm:pr-2 sm:text-xs"
@@ -98,8 +110,8 @@ export default function CostBreakdownSection({ property }: { property: Property 
             ></iframe>
           </div>
         </div>
-      </div>
-      <div className="border-BlueGray-100 w-full rounded-lg border p-3 text-start outline-none">
+      </article>
+      <article className="border-BlueGray-100 w-full rounded-lg border p-3 text-start outline-none">
         <button
           type="button"
           onClick={() =>
@@ -126,7 +138,7 @@ export default function CostBreakdownSection({ property }: { property: Property 
           )}
         >
           <div className="col-start w-full gap-y-3">
-            {property.propertyDetails.whyInvest.map((reason, idx) => (
+            {property?.whyInvest?.map((reason, idx) => (
               <button
                 key={idx}
                 onClick={() => toggleWhy(idx)}
@@ -134,7 +146,7 @@ export default function CostBreakdownSection({ property }: { property: Property 
               >
                 <div className="flex w-full items-center justify-between select-none">
                   <h4 className="max-w-[511px] text-sm font-semibold">
-                    {reason.split(".")[0]}
+                    {reason}
                   </h4>
                   <ChevronDown
                     className={`text-sm text-inherit ${
@@ -154,7 +166,7 @@ export default function CostBreakdownSection({ property }: { property: Property 
             ))}
           </div>
         </div>
-      </div>
-    </div>
+      </article>
+    </section>
   );
 }

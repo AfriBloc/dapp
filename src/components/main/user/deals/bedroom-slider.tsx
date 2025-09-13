@@ -40,11 +40,11 @@ const dealData = [
   },
 ];
 
-export default function BedroomSlider() {
+export default function BedroomSlider({ images }: { images: string[] }) {
   return (
     <div className="h-80 w-full rounded-2xl">
       <DynamicSwiper
-        data={dealData}
+        data={images}
         slidesPerView={1}
         className="!mx-0 size-full max-w-full"
         showPagination={false}
@@ -55,11 +55,11 @@ export default function BedroomSlider() {
         renderSlide={(deal) => {
           return (
             <Image
-              src={deal.imageSrc}
+              src={deal?.trimStart()}
               width={320}
               height={400}
-              alt={deal.title}
-              className="!h-[90%] w-full rounded-lg object-cover"
+              alt="Deals"
+              className="!h-full w-full rounded-lg object-cover"
             />
           );
         }}
