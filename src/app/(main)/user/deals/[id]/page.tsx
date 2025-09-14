@@ -4,8 +4,8 @@ import DealDetail from "@/components/main/user/deals/detail/deal-detail";
 import InvestAction from "@/components/main/user/deals/detail/invest-action";
 import KycStatInfo from "@/components/ui/info/kyc-stat-info";
 import { Metadata } from "next";
- import EmptyState from "@/components/ui/empty-state";
- import { getPropertyById } from "@/services/apis/properties.api";
+import EmptyState from "@/components/ui/empty-state";
+import { getPropertyById } from "@/services/apis/properties.api";
 
 export const metadata: Metadata = {
   title: "Deal details",
@@ -39,7 +39,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
         <div className="grid w-full gap-6 lg:grid-cols-2">
           <DealDetail property={rsp?.body?.data} />
           <div className="sticky top-24 z-50 self-start">
-            <InvestAction property={rsp?.body?.data} />
+            <InvestAction />
           </div>
         </div>
       </section>

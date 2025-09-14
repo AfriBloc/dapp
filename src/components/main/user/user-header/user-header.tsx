@@ -19,11 +19,17 @@ export default async function UserHeader() {
             <HeaderLinks />
             <ProfileBox
               imageUrl={""}
-              firstName={`${firstName} ${lastName}`}
+              firstName={`${firstName}`}
+              fullName={`${firstName} ${lastName}`}
               email={email}
             />
           </div>
-          <UserMobileNav />
+          <UserMobileNav
+            imageUrl={""}
+            firstName={`${firstName}`}
+            fullName={`${firstName} ${lastName}`}
+            email={email}
+          />
         </nav>
       </div>
     </header>

@@ -2,6 +2,7 @@
 import BaseButton from "@/components/ui/buttons/base-button";
 import Image from "next/image";
 import ProgressBar from "@/components/ui/progress-bar/progress-bar";
+import noImage from "../../../../../public/images/noImage.webp";
 
 import { PropertyTypes } from "@/types/property";
 import {
@@ -11,22 +12,47 @@ import {
   SqmIcon,
 } from "../../../../../public/svgs/svgs";
 import Field from "@/components/ui/field";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { formatNumInThousands } from "@/lib/helpers";
 import { useCurrencyContext } from "@/contexts/currencyProvider";
+import useFundWallet from "../wallet/hooks/use-fund-wallet";
+import { Minus, Plus } from "lucide-react";
 
 export const DealCard = ({ deal }: { deal: PropertyTypes }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imageError, setImageError] = useState(false);
+
+  const handleImageError = () => {
+    if (currentImageIndex < (deal?.imageUrls?.length || 0) - 1) {
+      setCurrentImageIndex((prev) => prev + 1);
+    } else {
+      setImageError(true);
+    }
+  };
   return (
     <article className="col-start shadow-3xl w-full overflow-hidden rounded-2xl">
       <figure className="relative h-[226px] w-full overflow-hidden">
-        <Image
-          src={deal?.imageUrls[0]}
-          alt={deal?.title}
-          fill
-          sizes="100%"
-          className=""
-        />
+        {!imageError && deal?.imageUrls?.length > 0 ? (
+          <Image
+            src={deal.imageUrls[currentImageIndex]}
+            alt={deal?.title}
+            fill
+            sizes="100%"
+            className="object-cover"
+            onError={handleImageError}
+          />
+        ) : (
+          <Image
+            src={noImage}
+            alt={deal?.title}
+            fill
+            sizes="100%"
+            className="object-cover"
+            onError={handleImageError}
+          />
+        )}
       </figure>
+
       <article className="col-start w-full gap-2 p-5">
         <ul className="divide-Gray-50 flex flex-wrap items-center justify-start gap-2 divide-x">
           <li className="text-Gray-800 border-r pr-2 text-xs font-normal">
@@ -122,5 +148,40 @@ export const MarketPrice = ({
       {currency}
       {formatNumInThousands(formatedPrice?.toFixed(3))}
     </span>
+  );
+};
+
+export const QtyInput = () => {
+  const { decrease, increase, value, handleValueChange } = useFundWallet();
+
+  return (
+    <div className="border-Gray-25 flex h-9 w-full items-center overflow-hidden rounded-lg border md:h-14">
+      <button
+        type="button"
+        className="bg-Gray-25 flex-center size-9 border md:size-14"
+        onClick={() => decrease("qty")}
+        disabled={value["qty"] === "0"}
+      >
+        <Minus className="size-5" />
+      </button>
+      <div className="flex flex-1 items-center justify-center gap-1 text-base">
+        <input
+          type="number"
+          inputMode="numeric"
+          placeholder="0"
+          className="focus text-Heading flex flex-1 bg-transparent text-center text-lg font-semibold focus:border-0 focus:outline-0 md:text-xl"
+          value={value?.qty}
+          onChange={(e) => handleValueChange("qty", e.target.value)}
+        />
+      </div>
+
+      <button
+        type="button"
+        className="bg-Gray-25 flex-center size-9 border md:size-14"
+        onClick={() => increase("qty")}
+      >
+        <Plus className="size-5" />
+      </button>
+    </div>
   );
 };

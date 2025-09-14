@@ -28,35 +28,40 @@ export default function DocumentSection({
             } transition-all duration-300`}
           />
         </button>
-        <div
-          className={cn(
-            "text-Gray-800 w-full space-y-5 overflow-hidden text-xs font-normal transition-all duration-300 md:text-sm",
-            openDocument ? "max-h-[1000px] py-2" : "max-h-0",
-          )}
-        >
-          <div className="grid w-full grid-cols-2 gap-3 md:gap-5">
-            {property?.governorsConsentUrl && (
-              <a
-                href={property?.governorsConsentUrl}
-                className="flex-between bg-BlueGray-50 h-10 rounded-lg px-2 sm:px-4"
-              >
-                <h4 className="text-xs font-medium md:text-sm">
-                  Governor&apos;s Consent
-                </h4>
-                <Image src={DownloadIcon} alt="download icon" />
-              </a>
-            )}
-            {property?.surveyPlanUrl && (
-              <a
-                href={property?.surveyPlanUrl}
-                className="flex-between bg-BlueGray-50 h-10 rounded-lg px-2 sm:px-4"
-              >
-                <h4 className="text-xs font-medium md:text-sm">Survey Plan</h4>
-                <Image src={DownloadIcon} alt="download icon" />
-              </a>
-            )}
-          </div>
-        </div>
+        {property?.governorsConsentUrl ||
+          (property?.surveyPlanUrl && (
+            <div
+              className={cn(
+                "text-Gray-800 w-full space-y-5 overflow-hidden text-xs font-normal transition-all duration-300 md:text-sm",
+                openDocument ? "max-h-[1000px] py-2" : "max-h-0",
+              )}
+            >
+              <div className="grid w-full grid-cols-2 gap-3 md:gap-5">
+                {property?.governorsConsentUrl && (
+                  <a
+                    href={property?.governorsConsentUrl}
+                    className="flex-between bg-BlueGray-50 h-10 rounded-lg px-2 sm:px-4"
+                  >
+                    <h4 className="text-xs font-medium md:text-sm">
+                      Governor&apos;s Consent
+                    </h4>
+                    <Image src={DownloadIcon} alt="download icon" />
+                  </a>
+                )}
+                {property?.surveyPlanUrl && (
+                  <a
+                    href={property?.surveyPlanUrl}
+                    className="flex-between bg-BlueGray-50 h-10 rounded-lg px-2 sm:px-4"
+                  >
+                    <h4 className="text-xs font-medium md:text-sm">
+                      Survey Plan
+                    </h4>
+                    <Image src={DownloadIcon} alt="download icon" />
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
       </article>
       <article className="border-BlueGray-100 flex w-full flex-col items-start justify-start gap-4 rounded-lg border p-3 text-start outline-none md:flex-row md:items-center md:justify-between">
         <div className="col-start">
@@ -69,13 +74,7 @@ export default function DocumentSection({
         </div>
         <div className="flex items-start gap-4">
           <BaseButton
-            href="#"
-            className="!text-Purple-500 border-Gray-50 border !bg-white px-8 !text-base"
-          >
-            Whatsapp
-          </BaseButton>
-          <BaseButton
-            href="#"
+            href="mailto:contact@afribloc.co"
             className="!text-Purple-500 border-Gray-50 border !bg-white px-8 !text-base"
           >
             Email

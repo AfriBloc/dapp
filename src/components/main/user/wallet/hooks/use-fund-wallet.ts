@@ -27,8 +27,6 @@ export default function useFundWallet() {
     queryFn: () => getRates("hbar", currency === "$" ? "usd" : "ngn"),
   });
 
-  console.log("rates", data);
-
   const HBARRate = data?.ok ? data?.body?.data?.rate : 0;
 
   const onSubmit = handleSubmit(async (data) => {
@@ -44,7 +42,7 @@ export default function useFundWallet() {
 
   const [value, setValue] = useState({
     amount: "100",
-    qty: "",
+    qty: "1",
   });
 
   const [errors, setErrors] = useState({

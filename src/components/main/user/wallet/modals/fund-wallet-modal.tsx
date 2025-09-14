@@ -17,7 +17,11 @@ import CoinIcon from "/public/svgs/coin.svg";
 import useFundWallet from "../hooks/use-fund-wallet";
 import CopyToClipboardBtn from "@/components/ui/copyToClipboardBtn";
 
-export default function FundWalletModal() {
+export default function FundWalletModal({
+  isVerified,
+}: {
+  isVerified: boolean;
+}) {
   const {
     watch,
     isModalOpen,
@@ -38,6 +42,7 @@ export default function FundWalletModal() {
         <BaseButton
           type="button"
           className="w-full px-6 !text-base lg:w-fit lg:px-10"
+          disabled={!isVerified}
         >
           Fund wallet
         </BaseButton>
@@ -78,13 +83,7 @@ export default function FundWalletModal() {
                   onChange={(e) => handleValueChange("amount", e.target.value)}
                 />
               </div>
-              {/* <input
-                type="number"
-                inputMode="numeric"
-                placeholder="USDC 0"
-                className="text-Heading placeholder:text-Heading h-full max-w-full flex-1 text-center text-lg font-semibold outline-none md:text-xl"
-                {...register("amount")}
-              /> */}
+
               <button
                 type="button"
                 className="bg-Gray-25 flex-center size-9 border md:size-14"

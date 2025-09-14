@@ -1,7 +1,6 @@
 import PersonalInfoBox from "@/components/main/user/profile/personal-info-box";
 import BaseButton from "@/components/ui/buttons/base-button";
-import { getNameInitials } from "@/helpers/string";
-import { formatDate } from "@/lib/helpers";
+import { formatDate, getNameInitials } from "@/lib/helpers";
 import { getUser } from "@/services/session";
 import { UserData } from "@/types/auth";
 import { Metadata } from "next";
