@@ -3,7 +3,7 @@ import IDCard from "/public/svgs/id-card.svg";
 import { getUser } from "@/services/session";
 import Sumsub from "@/components/main/user/kyc/sumsub";
 
-export default async function KycStatInfo() {
+export default async function KycStatInfo({ subtext }: { subtext?: string }) {
   const user = await getUser();
 
   if (user?.kycStatus?.toLowerCase() !== "pending") {
@@ -20,13 +20,13 @@ export default async function KycStatInfo() {
             Verify your account
           </h3>
           <p className="text-Gray-800 text-sm font-normal">
-            Get started by verifying your profile to start investing in Africa’s
-            top properties{" "}
+            {subtext
+              ? subtext
+              : `Get started by verifying your profile to start investing in Africa&apos;s
+            top properties`}
           </p>
         </div>
-        {/* <button className="text-Purple-500 text-start text-sm font-semibold underline lg:text-base whitespace-nowrap">
-          Start verification
-        </button> */}
+
         <Sumsub />
       </div>
     </div>

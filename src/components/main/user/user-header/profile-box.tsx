@@ -11,13 +11,14 @@ import {
 } from "@/components/ui/popover";
 import LogOutIcon from "/public/svgs/log-out.svg";
 import { cn } from "@/lib/utils";
-import { getNameInitials } from "@/helpers/string";
 import { ChevronDown } from "lucide-react";
 import { logoutAction } from "@/lib/actions/auth.actions";
+import { getNameInitials } from "@/lib/helpers";
 
-type ProfileBoxProps = {
+export type ProfileBoxProps = {
   imageUrl: string | null;
   firstName: string;
+  fullName: string;
   email: string;
   className?: string;
 };
@@ -25,6 +26,7 @@ type ProfileBoxProps = {
 export default function ProfileBox({
   imageUrl,
   firstName,
+  fullName,
   email,
   className,
 }: ProfileBoxProps) {
@@ -96,11 +98,7 @@ export default function ProfileBox({
             )}
 
             <div>
-              <p className="text-Gray-800 text-base font-medium">
-                {firstName.length > 20
-                  ? firstName.slice(0, 20) + "..."
-                  : firstName}
-              </p>
+              <p className="text-Gray-800 text-base font-medium">{fullName}</p>
               <p className="text-Gray-500 text-sm">
                 {email.length > 22 ? email.slice(0, 22) + "..." : email}
               </p>

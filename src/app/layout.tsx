@@ -3,6 +3,8 @@ import "./globals.css";
 import { schibstedGrotesk } from "../../public/fonts";
 import { Toaster } from "sonner";
 import "@/lib/gsap";
+import { Providers } from "@/contexts/providers";
+import NextTopLoader from "nextjs-toploader";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.afribloc.co/"),
@@ -16,7 +18,7 @@ export const metadata: Metadata = {
     title: "Afribloc - Global Access to Africa’s Prime Real Estate",
     description:
       "Invest in high-growth cities across Africa, earn monthly dividends from rental income, and share in capital appreciation.",
-    url: "https://www.afribloc.co/", 
+    url: "https://www.afribloc.co/",
     siteName: "Afribloc",
     images: [
       {
@@ -48,8 +50,12 @@ export default function RootLayout({
       <body
         className={`${schibstedGrotesk.variable} font-schibstedGrotesk antialiased`}
       >
-        {children}
-        <Toaster position="top-right" className="!font-schibstedGrotesk" />
+        <Providers>
+          <NextTopLoader showSpinner={false} />
+
+          {children}
+          <Toaster position="top-right" className="!font-schibstedGrotesk" />
+        </Providers>
       </body>
     </html>
   );

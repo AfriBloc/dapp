@@ -18,7 +18,7 @@ import InputField from "@/components/ui/form/input-field";
 import useWithdraw from "../hooks/use-withdraw";
 import { Controller } from "react-hook-form";
 
-export default function WithdrawModal() {
+export default function WithdrawModal({ isVerified }: { isVerified: boolean }) {
   const {
     register,
     onSubmit,
@@ -28,7 +28,7 @@ export default function WithdrawModal() {
     watch,
     setValue,
     trigger,
-    control
+    control,
   } = useWithdraw();
 
   const destination = watch("destination");
@@ -36,7 +36,10 @@ export default function WithdrawModal() {
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <DialogTrigger asChild>
-        <BaseButton className="!text-Purple-500 border-Gray-50 w-full border !bg-white px-6 !text-base lg:w-fit lg:px-10">
+        <BaseButton
+          className="!text-Purple-500 border-Gray-50 w-full border !bg-white px-6 !text-base lg:w-fit lg:px-10"
+          disabled={!isVerified}
+        >
           Withdraw
         </BaseButton>
       </DialogTrigger>
