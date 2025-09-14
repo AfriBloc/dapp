@@ -12,9 +12,9 @@ export default function Footer() {
           <div className="col-start w-full gap-4">
             <AppLogo />
             <p className="text-Gray-800 max-w-[392px] text-sm font-normal">
-              AfriBloc is a Global access to Africa’s prime real estate. Start
-              from $25 to own a bloc, earn monthly dividends, and share in
-              capital appreciation at exit.
+              AfriBloc gives you Global access to Africa&apos;s prime real
+              estate. Start from $25 to own a bloc, earn monthly dividends, and
+              share in capital appreciation at exit.
             </p>
             <div className="flex items-center justify-start gap-2">
               <span className="text-xs font-normal">Powered by</span>
@@ -66,7 +66,9 @@ export default function Footer() {
         </div>
         <div className="col-start border-Gray-50 w-full gap-3 border-t py-4">
           <div>
-            <h6 className="text-xs font-semibold mb-3">Regulatory notice (BVI)</h6>
+            <h6 className="mb-3 text-xs font-semibold">
+              Regulatory notice (BVI)
+            </h6>
             <p className="text-Gray-800 text-xs font-normal">
               Issuer incorporated in the British Virgin Islands. AfriBloc is not
               currently licensed by the BVI Financial Services Commission.
