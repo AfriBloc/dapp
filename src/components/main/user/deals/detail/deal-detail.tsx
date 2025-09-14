@@ -5,7 +5,7 @@ import Link from "next/link";
 import DetailSection from "./detail-section";
 import CostBreakdownSection from "./cost-breakdown-section";
 import DocumentSection from "./document-section";
-import { Property, PropertyTypes } from "@/types/property";
+import { PropertyTypes } from "@/types/property";
 
 const dealsTabs = [
   { tab: "detail", text: "Property details" },

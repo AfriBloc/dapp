@@ -1,6 +1,7 @@
 "use server";
 import {
   changePasswordApi,
+  getSumsumbTokenApi,
   sendOTPApi,
   signinApi,
   signupApi,
@@ -46,8 +47,6 @@ export const signupAction = async (body: SignUp) => {
 export const signInAction = async (body: Login) => {
   try {
     const rsp = await signinApi(body);
-
-    console.log("login>>", rsp);
 
     if (!rsp.ok) {
       return {
@@ -140,6 +139,32 @@ export const changePasswordAction = async (body: UpdatePassword) => {
     return {
       error: false,
       message: rsp?.body?.message || "Email verified successfully",
+    };
+  } catch (error) {
+    console.log(error);
+
+    return {
+      error: true,
+      message: "Something went wrong",
+    };
+  }
+};
+
+export const getSumsumbTokenAction = async () => {
+  try {
+    const rsp = await getSumsumbTokenApi();
+
+    if (!rsp.ok) {
+      return {
+        error: true,
+        message: rsp?.body?.message || "Something went wrong",
+      };
+    }
+
+    return {
+      error: false,
+      message: rsp?.body?.message,
+      data: rsp?.body?.data?.token,
     };
   } catch (error) {
     console.log(error);

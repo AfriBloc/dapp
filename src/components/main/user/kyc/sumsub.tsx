@@ -1,7 +1,16 @@
 "use client";
 
-import snsWebSdk from "@sumsub/websdk";
-import React, { useEffect } from "react";
+import React, { useState, useTransition } from "react";
+import SumsubWebSdk from "@sumsub/websdk-react";
+import { getSumsumbTokenAction } from "@/lib/actions/auth.actions";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import BaseButton from "@/components/ui/buttons/base-button";
 
 declare global {
   interface Window {
@@ -11,54 +20,76 @@ declare global {
   }
 }
 
-export default function Sumsub({ token }: { token: string }) {
-  const getSumsumbToken = async (): Promise<string> => {
-    const rsp = await fetch(`http://159.65.213.14:5055/v1/kyc/access-token`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        authorization: `Bearer ${token}`,
-      },
+export default function Sumsub({ auth }: { auth?: boolean }) {
+  const [isPending, startTransition] = useTransition();
+  const [token, setToken] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const initializeSumsub = (): Promise<string> => {
+    return new Promise((res) => {
+      startTransition(async () => {
+        const rsp = await getSumsumbTokenAction();
+        if (!rsp?.error) {
+          setToken(rsp?.data as string);
+          res(rsp?.data as string);
+        }
+      });
     });
-
-    const result = await rsp?.json();
-
-    return result?.data?.token;
   };
 
-  useEffect(() => {
-    getSumsumbToken().then((_token) => {
-      const snsWebSdkInstance = snsWebSdk
+  const handleStartVerification = async () => {
+    await initializeSumsub();
+    setIsModalOpen(true);
+  };
 
-        .init(
-          _token,
-
-          getSumsumbToken,
-        )
-        .withConf({
-          lang: "en",
-          theme: "dark",
-        })
-        .withOptions({ addViewportTag: false, adaptIframeHeight: true })
-
-        .onMessage((type, payload) => {
-          console.log("onMessage", type, payload);
-
-          if (type === "idCheck.onApplicantStatusChanged") {
-            window.ReactNativeWebView?.postMessage(
-              JSON.stringify({ status: "DONE", payload }),
-            );
-          }
-        })
-        .build();
-
-      snsWebSdkInstance.launch("#sumsub-websdk-container");
-    });
-  }, [token]);
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setToken(""); // Reset token when modal closes
+  };
 
   return (
-    <div className="flex h-full min-h-screen w-full flex-col items-center overflow-auto bg-[#1B1B1F]">
-      <div id="sumsub-websdk-container"></div>
-    </div>
+    <Dialog open={isModalOpen} onOpenChange={handleModalClose}>
+      <DialogTrigger asChild>
+        {auth ? (
+          <BaseButton
+            onClick={handleStartVerification}
+            className="w-full px-6 !text-base lg:w-fit"
+            isSubmitting={isPending}
+          >
+            Verify my Identity
+          </BaseButton>
+        ) : (
+          <button
+            onClick={handleStartVerification}
+            disabled={isPending}
+            className="text-Purple-500 !h-auto !border-none !bg-transparent !p-0 text-start text-sm font-semibold whitespace-nowrap underline lg:text-base"
+          >
+            {isPending ? "Starting...." : "Start verification"}
+          </button>
+        )}
+      </DialogTrigger>
+      <DialogContent
+        aria-describedby={undefined}
+        className="max-h-[98vh] overflow-x-hidden overflow-y-auto p-0"
+      >
+        <DialogHeader className="p-6 pb-2">
+          <DialogTitle className="!text-center text-base font-semibold"></DialogTitle>
+        </DialogHeader>
+        <div className="flex-1 p-6 pt-0">
+          {token && (
+            <div className="h-full w-full">
+              <SumsubWebSdk
+                accessToken={token}
+                expirationHandler={initializeSumsub}
+                // config={config}
+                // options={options}
+                // onMessage={messageHandler}
+                // onError={errorHandler}
+              />
+            </div>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }

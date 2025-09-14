@@ -9,26 +9,26 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Copy, Minus, Plus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import CardIcon from "/public/svgs/card.svg";
 import BankIcon from "/public/svgs/bank.svg";
 import CoinIcon from "/public/svgs/coin.svg";
-import useClipboard from "@/hooks/use-clipboard";
 import useFundWallet from "../hooks/use-fund-wallet";
 import CopyToClipboardBtn from "@/components/ui/copyToClipboardBtn";
 
 export default function FundWalletModal() {
   const {
-    register,
-    onSubmit,
-    formState,
+    watch,
     isModalOpen,
     setIsModalOpen,
-    watch,
-    setValue,
+    decrease,
+    increase,
+    onSubmit,
+    value,
+    handleValueChange,
+    convertAmount,
   } = useFundWallet();
-  const { errors, isSubmitting } = formState;
 
   const paymentMethod = watch("paymentMethod");
 
@@ -60,32 +60,40 @@ export default function FundWalletModal() {
               <button
                 type="button"
                 className="bg-Gray-25 flex-center size-9 border md:size-14"
-                onClick={() =>
-                  setValue("amount", Math.max(0, watch("amount") - 1))
-                }
+                onClick={() => decrease("amount")}
+                disabled={value["amount"] === "0"}
               >
                 <Minus className="size-5" />
               </button>
-              <input
+              <div className="flex flex-1 items-center justify-center gap-1 text-base">
+                <span className="text-Heading w-3/6 text-end text-lg font-semibold md:text-xl">
+                  HBAR
+                </span>
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  placeholder="100"
+                  className="focus text-Heading flex w-3/6 bg-transparent text-lg font-semibold focus:border-0 focus:outline-0 md:text-xl"
+                  value={value?.amount}
+                  onChange={(e) => handleValueChange("amount", e.target.value)}
+                />
+              </div>
+              {/* <input
                 type="number"
                 inputMode="numeric"
                 placeholder="USDC 0"
                 className="text-Heading placeholder:text-Heading h-full max-w-full flex-1 text-center text-lg font-semibold outline-none md:text-xl"
                 {...register("amount")}
-              />
+              /> */}
               <button
                 type="button"
                 className="bg-Gray-25 flex-center size-9 border md:size-14"
-                onClick={() => setValue("amount", watch("amount") + 1)}
+                onClick={() => increase("amount")}
               >
                 <Plus className="size-5" />
               </button>
             </div>
-            {formState.errors.amount && (
-              <p className="text-xs text-red-500">
-                {formState.errors.amount.message}
-              </p>
-            )}
+            <p>{Number(convertAmount)?.toFixed(2)}</p>
           </div>
           <div className="col-start w-full gap-1">
             <label htmlFor="payment-method" className="text-sm font-normal">
@@ -94,7 +102,7 @@ export default function FundWalletModal() {
             <RadioGroup
               className="!w-full"
               value={paymentMethod}
-              onValueChange={(value) => setValue("paymentMethod", value)}
+              // onValueChange={(value) => setValue("paymentMethod", value)}
             >
               <article className="border-BlueGray-100 w-full space-y-5 rounded-lg border px-4 py-2">
                 <div className="flex-between w-full">
@@ -168,14 +176,14 @@ export default function FundWalletModal() {
                 />
               </article>
             </RadioGroup>
-            {errors.paymentMethod && (
+            {/* {errors.paymentMethod && (
               <p className="text-xs text-red-500">
                 {errors.paymentMethod.message}
               </p>
-            )}
+            )} */}
           </div>
           <SubmitButton
-            isSubmitting={isSubmitting}
+            // isSubmitting={isSubmitting}
             className="mt-3 w-full"
             disabled
           >

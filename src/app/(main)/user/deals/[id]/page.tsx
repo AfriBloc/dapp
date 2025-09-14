@@ -4,10 +4,8 @@ import DealDetail from "@/components/main/user/deals/detail/deal-detail";
 import InvestAction from "@/components/main/user/deals/detail/invest-action";
 import KycStatInfo from "@/components/ui/info/kyc-stat-info";
 import { Metadata } from "next";
-import { properties } from "@/mocks/properties";
-import EmptyState from "@/components/ui/empty-state";
-import BaseButton from "@/components/ui/buttons/base-button";
-import { getPropertyById } from "@/services/apis/properties.api";
+ import EmptyState from "@/components/ui/empty-state";
+ import { getPropertyById } from "@/services/apis/properties.api";
 
 export const metadata: Metadata = {
   title: "Deal details",

@@ -19,16 +19,8 @@ import useFundWallet from "../hooks/use-fund-wallet";
 import CopyToClipboardBtn from "@/components/ui/copyToClipboardBtn";
 
 export default function FundWalletModal() {
-  const {
-    register,
-    onSubmit,
-    formState,
-    isModalOpen,
-    setIsModalOpen,
-    watch,
-    setValue,
-  } = useFundWallet();
-  const { errors, isSubmitting } = formState;
+  const { onSubmit, isModalOpen, setIsModalOpen, watch } = useFundWallet();
+  // const { errors, isSubmitting } = formState;
 
   const paymentMethod = watch("paymentMethod");
   const [copy] = useClipboard("Copied!");
@@ -61,9 +53,9 @@ export default function FundWalletModal() {
               <button
                 type="button"
                 className="bg-Gray-25 flex-center size-9 border md:size-14"
-                onClick={() =>
-                  setValue("amount", Math.max(0, watch("amount") - 1))
-                }
+                // onClick={() =>
+                //   setValue("amount", Math.max(0, watch("amount") - 1))
+                // }
               >
                 <Minus className="size-5" />
               </button>
@@ -72,21 +64,21 @@ export default function FundWalletModal() {
                 inputMode="numeric"
                 placeholder="USDC 0"
                 className="text-Heading placeholder:text-Heading h-full max-w-full flex-1 text-center text-lg font-semibold outline-none md:text-xl"
-                {...register("amount")}
+                // {...register("amount")}
               />
               <button
                 type="button"
                 className="bg-Gray-25 flex-center size-9 border md:size-14"
-                onClick={() => setValue("amount", watch("amount") + 1)}
+                // onClick={() => setValue("amount", watch("amount") + 1)}
               >
                 <Plus className="size-5" />
               </button>
             </div>
-            {formState.errors.amount && (
+            {/* {formState.errors.amount && (
               <p className="text-xs text-red-500">
                 {formState.errors.amount.message}
               </p>
-            )}
+            )} */}
           </div>
           <div className="col-start w-full gap-1">
             <label htmlFor="payment-method" className="text-sm font-normal">
@@ -95,7 +87,7 @@ export default function FundWalletModal() {
             <RadioGroup
               className="!w-full"
               value={paymentMethod}
-              onValueChange={(value) => setValue("paymentMethod", value)}
+              // onValueChange={(value) => setValue("paymentMethod", value)}
             >
               <div className="border-BlueGray-100 flex-between h-10 w-full rounded-lg border px-4 md:h-14">
                 <div className="flex-start gap-2">
@@ -227,14 +219,14 @@ export default function FundWalletModal() {
                 <RadioGroupItem value="wallet" id="wallet" className="" />
               </div>
             </RadioGroup>
-            {errors.paymentMethod && (
+            {/* {errors.paymentMethod && (
               <p className="text-xs text-red-500">
                 {errors.paymentMethod.message}
               </p>
-            )}
+            )} */}
           </div>
           <SubmitButton
-            isSubmitting={isSubmitting}
+            // isSubmitting={isSubmitting}
             className="mt-3 w-full"
             disabled
           >

@@ -321,3 +321,14 @@ input[type="number"] {
   border-radius: 6px;
 }
 /* ====CURRENCY==== */
+
+/* ==SKELETON== */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+.animate-shimmer {
+  animation: shimmer 1.5s infinite;
+}
+/* ==SKELETON== */

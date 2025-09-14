@@ -116,7 +116,7 @@ export const MarketPrice = ({
     return currency === "$"
       ? parseFloat(price?.toString()) / usdNGNRate
       : price;
-  }, [currency, price]);
+  }, [currency, price, usdNGNRate]);
   return (
     <span className={className}>
       {currency}

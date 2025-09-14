@@ -1,4 +1,4 @@
-import SwitchCurrency from "@/components/main/user/deals/actions/switch-currency";
+import CurrencySwitcher from "@/components/main/user/deals/actions/currencySwitcher";
 import MyPortfolios from "@/components/main/user/portfolio/my-portfolios";
 import PortfolioCards from "@/components/main/user/portfolio/portfolio-cards";
 import KycStatInfo from "@/components/ui/info/kyc-stat-info";
@@ -16,7 +16,7 @@ export default function page() {
           <h1 className="text-2xl font-bold lg:text-[40px] lg:leading-[100%]">
             Portfolio
           </h1>
-          <SwitchCurrency />
+          <CurrencySwitcher />
         </div>
         <KycStatInfo />
         <div className="grid w-full grid-cols-1 items-start justify-start gap-5 lg:grid-cols-3">

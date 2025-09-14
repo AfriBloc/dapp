@@ -23,8 +23,6 @@ export default function CurrencyProvider({
   });
   const [currency, setCurrency] = useState("$");
 
-  console.log("rates", data);
-
   const usdNGNRate = data?.ok ? data?.body?.data?.rate : 1500;
   const value = {
     currency,

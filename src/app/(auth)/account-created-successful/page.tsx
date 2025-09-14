@@ -1,6 +1,7 @@
 import Image from "next/image";
 import SuccessImage from "/public/svgs/success.svg";
 import BaseButton from "@/components/ui/buttons/base-button";
+import Sumsub from "@/components/main/user/kyc/sumsub";
 
 export default function page() {
   return (
@@ -20,12 +21,7 @@ export default function page() {
         >
           Browse Properties
         </BaseButton>
-        <BaseButton
-          href="/user/deals"
-          className="w-full px-6 !text-base lg:w-fit"
-        >
-          Verify my Identity
-        </BaseButton>
+        <Sumsub auth />
       </div>
     </div>
   );

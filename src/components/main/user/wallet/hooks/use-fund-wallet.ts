@@ -1,42 +1,110 @@
 "use client";
 
-import { showToast } from "@/lib/toast";
+import { useMemo, useState } from "react";
+import { FundWalletSchema, FundWalletSchemaType } from "../schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FundWalletSchema, FundWalletSchemaType } from "../schemas";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { showToast } from "@/lib/toast";
+import { getRates } from "@/services/apis/properties.api";
+import { useQuery } from "@tanstack/react-query";
+import { useCurrencyContext } from "@/contexts/currencyProvider";
+export type Value = "amount" | "qty";
 
 export default function useFundWallet() {
+  const { currency } = useCurrencyContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { refresh } = useRouter();
-  const { register, handleSubmit, formState, watch, setValue } =
-    useForm<FundWalletSchemaType>({
-      resolver: zodResolver(FundWalletSchema),
-      defaultValues: {
-        amount: undefined,
-        paymentMethod: "",
-      },
-    });
+  // const { refresh } = useRouter();
+  const { handleSubmit, watch } = useForm<FundWalletSchemaType>({
+    resolver: zodResolver(FundWalletSchema),
+    defaultValues: {
+      amount: undefined,
+      paymentMethod: "",
+    },
+  });
+
+  const { data } = useQuery({
+    queryKey: ["hbar-rates"],
+    queryFn: () => getRates("hbar", currency === "$" ? "usd" : "ngn"),
+  });
+
+  console.log("rates", data);
+
+  const HBARRate = data?.ok ? data?.body?.data?.rate : 0;
 
   const onSubmit = handleSubmit(async (data) => {
     console.log("🚀 ~ useFundWallet ~ data:", data);
     try {
       showToast("Wallet funded successfully");
-      refresh();
+
       setIsModalOpen(false);
     } catch {
       showToast("Something went wrong", "error");
     }
   });
 
+  const [value, setValue] = useState({
+    amount: "100",
+    qty: "",
+  });
+
+  const [errors, setErrors] = useState({
+    amount: "",
+    qty: "",
+  });
+
+  const increase = (type: Value) => {
+    setValue((prev) => {
+      const newValue = Number(prev[type]) + 1;
+      return {
+        ...prev,
+        [type]: String(newValue),
+      };
+    });
+  };
+
+  const decrease = (type: Value) => {
+    setValue((prev) => {
+      const newValue = Number(prev[type]) - Number(prev[type]) + 1;
+      return {
+        ...prev,
+        [type]: String(newValue),
+      };
+    });
+  };
+
+  const handleValueChange = (type: Value, val: string) => {
+    if (val === "") {
+      setValue((prev) => ({
+        ...prev,
+        [type]: "",
+      }));
+      setErrors((prev) => ({ ...prev, [type]: "" }));
+      return;
+    } else {
+      setValue((prev) => ({
+        ...prev,
+        [type]: val,
+      }));
+    }
+  };
+
+  const convertAmount = useMemo(() => {
+    return HBARRate > 0
+      ? parseFloat(value?.amount?.toString()) / HBARRate
+      : value?.amount;
+  }, [HBARRate, value?.amount]);
+
   return {
-    register,
-    onSubmit,
-    formState,
+    value,
+    errors,
+    increase,
+    decrease,
+    handleValueChange,
     isModalOpen,
     setIsModalOpen,
-    watch,
     setValue,
+    watch,
+    onSubmit,
+    convertAmount,
   };
 }

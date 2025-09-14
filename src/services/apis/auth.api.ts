@@ -30,11 +30,16 @@ export const verifyEmailApi = (body: VerifyOTP) => {
   );
 };
 
-export const getSumSubToken = (body: VerifyOTP) => {
-  return Api.post<VerifyOTP, ApiResponse & { access_token: string }>(
-    "/auth/verify-otp",
-    body,
-  );
+export const getSumsumbTokenApi = () => {
+  return Api.post<
+    undefined,
+    ApiResponse & {
+      data: {
+        token: string;
+        userId: string;
+      };
+    }
+  >("/kyc/access-token", undefined, true);
 };
 
 export const changePasswordApi = (body: UpdatePassword) => {

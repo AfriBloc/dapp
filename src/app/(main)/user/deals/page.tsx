@@ -1,7 +1,9 @@
 import DealActions from "@/components/main/user/deals/actions/deals-actions";
+import { DealSkeleton } from "@/components/main/user/deals/dealSkeleton";
 import RenderDeals from "@/components/main/user/deals/render-deals";
 import KycStatInfo from "@/components/ui/info/kyc-stat-info";
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Deals",
@@ -16,7 +18,9 @@ export default function page() {
         </h1>
         <KycStatInfo />
         <DealActions />
-        <RenderDeals />
+        <Suspense fallback={<DealSkeleton />}>
+          <RenderDeals />
+        </Suspense>
       </section>
     </main>
   );

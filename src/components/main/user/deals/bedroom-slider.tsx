@@ -1,44 +1,44 @@
 "use client";
 import Image from "next/image";
-import DealImage1 from "/public/images/deal1.png";
-import DealImage2 from "/public/images/deal2.png";
-import DealImage3 from "/public/images/deal3.png";
+// import DealImage1 from "/public/images/deal1.png";
+// import DealImage2 from "/public/images/deal2.png";
+// import DealImage3 from "/public/images/deal3.png";
 import DynamicSwiper from "@/components/ui/swiper/dynamic-swiper";
 
-const dealData = [
-  {
-    title: "Two bedroom Terrace",
-    imageSrc: DealImage1,
-    percentage: 10,
-  },
-  {
-    title: "Tokenization",
+// const dealData = [
+//   {
+//     title: "Two bedroom Terrace",
+//     imageSrc: DealImage1,
+//     percentage: 10,
+//   },
+//   {
+//     title: "Tokenization",
 
-    imageSrc: DealImage2,
-    percentage: 90,
-  },
-  {
-    title: "Invest in Minutes",
-    imageSrc: DealImage3,
-    percentage: 50,
-  },
-  {
-    title: "Two bedroom Terrace",
-    imageSrc: DealImage1,
-    percentage: 10,
-  },
-  {
-    title: "Tokenization",
+//     imageSrc: DealImage2,
+//     percentage: 90,
+//   },
+//   {
+//     title: "Invest in Minutes",
+//     imageSrc: DealImage3,
+//     percentage: 50,
+//   },
+//   {
+//     title: "Two bedroom Terrace",
+//     imageSrc: DealImage1,
+//     percentage: 10,
+//   },
+//   {
+//     title: "Tokenization",
 
-    imageSrc: DealImage2,
-    percentage: 90,
-  },
-  {
-    title: "Invest in Minutes",
-    imageSrc: DealImage3,
-    percentage: 50,
-  },
-];
+//     imageSrc: DealImage2,
+//     percentage: 90,
+//   },
+//   {
+//     title: "Invest in Minutes",
+//     imageSrc: DealImage3,
+//     percentage: 50,
+//   },
+// ];
 
 export default function BedroomSlider({ images }: { images: string[] }) {
   return (

@@ -41,7 +41,7 @@ export default function DocumentSection({
                 className="flex-between bg-BlueGray-50 h-10 rounded-lg px-2 sm:px-4"
               >
                 <h4 className="text-xs font-medium md:text-sm">
-                  Governor's Consent
+                  Governor&apos;s Consent
                 </h4>
                 <Image src={DownloadIcon} alt="download icon" />
               </a>
