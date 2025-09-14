@@ -1,15 +1,10 @@
-import OnboardingProvider from "@/providers/onboarding-provider";
+import CreateAnAccount from "@/components/auth/create-an-account/create-an-account";
 import { Metadata } from "next";
-import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Create an account",
 };
 
 export default function page() {
-  return (
-    <Suspense>
-      <OnboardingProvider />
-    </Suspense>
-  );
+  return <CreateAnAccount />;
 }

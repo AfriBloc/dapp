@@ -1,8 +1,9 @@
 import Image from "next/image";
 import SuccessImage from "/public/svgs/success.svg";
 import BaseButton from "@/components/ui/buttons/base-button";
+import Sumsub from "@/components/main/user/kyc/sumsub";
 
-export default function AccountCreatedSuccessful() {
+export default function page() {
   return (
     <div className="col-center text-Gray-900 gap-5 p-4 lg:p-0">
       <Image src={SuccessImage} alt="success" />
@@ -20,12 +21,7 @@ export default function AccountCreatedSuccessful() {
         >
           Browse Properties
         </BaseButton>
-        <BaseButton
-          href="/user/deals"
-          className="w-full px-6 !text-base lg:w-fit"
-        >
-          Verify my Identity
-        </BaseButton>
+        <Sumsub auth />
       </div>
     </div>
   );

@@ -19,11 +19,13 @@ export const SignUpSchema = z
   });
 
 export const LoginSchema = z.object({
-  email: z.string().nonempty("Email is required").email("Invalid email"),
+  identifier: z.string().nonempty("Email is required").email("Invalid email"),
   password: z.string().nonempty("Password is required"),
 });
 
-export const ForgotPasswordSchema = LoginSchema.pick({ email: true });
+export const ForgotPasswordSchema = z.object({
+  email: z.string().nonempty("Email is required").email("Invalid email"),
+});
 
 export const EnterOTPSchema = z.object({
   otp: z

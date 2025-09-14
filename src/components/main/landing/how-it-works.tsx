@@ -168,10 +168,7 @@ export default function HowItWorks() {
           </div>
         </div>
         <div className="flex-center w-full">
-          <BaseButton
-            href="/create-an-account"
-            className="w-full px-8 !text-base lg:w-fit"
-          >
+          <BaseButton href="/user" className="w-full px-8 !text-base lg:w-fit">
             Get Started
           </BaseButton>
         </div>

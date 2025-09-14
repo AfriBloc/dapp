@@ -98,9 +98,10 @@
   --color-Green-700: #31694b;
   --color-Green-800: #26523a;
 
-  --color-SurfaceStroke: #EAEAEA;
-  --color-Heading: #2D2D2D;
+  --color-SurfaceStroke: #eaeaea;
+  --color-Heading: #2d2d2d;
   --color-DarkGray: #565656;
+  --shadow-3xl: 0px 4px 20px 0px #0000000d;
 }
 
 @theme inline {
@@ -235,25 +236,25 @@
 
 @layer utilities {
   .flex-center {
-    @apply flex justify-center items-center;
+    @apply flex items-center justify-center;
   }
   .flex-start {
-    @apply flex justify-start items-center;
+    @apply flex items-center justify-start;
   }
   .flex-end {
-    @apply flex justify-center items-baseline;
+    @apply flex items-baseline justify-center;
   }
   .flex-between {
-    @apply flex justify-between items-center;
+    @apply flex items-center justify-between;
   }
   .col-center {
-    @apply flex flex-col justify-center items-center;
+    @apply flex flex-col items-center justify-center;
   }
   .col-start {
-    @apply flex flex-col justify-start items-start;
+    @apply flex flex-col items-start justify-start;
   }
   .col-end {
-    @apply flex flex-col justify-end items-end;
+    @apply flex flex-col items-end justify-end;
   }
   .abs-center {
     @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
@@ -262,13 +263,13 @@
     @apply absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2;
   }
   .container {
-    @apply !w-[90%] mx-auto;
+    @apply mx-auto !w-[90%];
   }
 }
 
 @layer components {
   .home-header {
-    @apply top-0 right-0 left-0 z-50 py-6 transition-all duration-300 px-5 lg:px-0 lg:pt-0;
+    @apply top-0 right-0 left-0 z-50 px-5 py-6 transition-all duration-300 lg:px-0 lg:pt-0;
   }
 }
 
@@ -290,3 +291,44 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+/* ====CURRENCY==== */
+.toggleWrapper {
+  padding: 6px;
+  border-radius: 8px;
+  background: var(--color-Gray-25);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.2em;
+  justify-content: center;
+  min-width: 90px;
+  min-height: 26px;
+}
+
+.toggleActive,
+.toggleNotActive {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-Gray-500);
+  display: grid;
+  place-items: center;
+  padding: 4px;
+}
+
+.toggleActive {
+  font-weight: 600;
+  background: var(--color-white);
+  border-radius: 6px;
+}
+/* ====CURRENCY==== */
+
+/* ==SKELETON== */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+.animate-shimmer {
+  animation: shimmer 1.5s infinite;
+}
+/* ==SKELETON== */

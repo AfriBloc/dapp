@@ -1,17 +1,32 @@
-import DealImage1 from "/public/images/deal1.png";
-import DealImage2 from "/public/images/deal2.png";
-import DealImage3 from "/public/images/deal3.png";
-import DealCard from "./deal-card";
-import { properties } from "@/mocks/properties";
-import { Property } from "@/types/property";
+import { DealCard } from "./deal-card";
+import { getAllProperties } from "@/services/apis/properties.api";
+import EmptyState from "@/components/ui/empty-state";
 
-const dealImages = [DealImage1, DealImage2, DealImage3];
+export default async function RenderDeals() {
+  const rsp = await getAllProperties();
 
-export default function RenderDeals() {
+  if (!rsp?.ok) {
+    return (
+      <EmptyState
+        title="Error"
+        description={rsp?.body?.message}
+        className="min-h-[400px]"
+      />
+    );
+  }
+  if (rsp?.body?.data?.length === 0) {
+    return (
+      <EmptyState
+        title="No Data"
+        description="No Propperties"
+        className="min-h-[400px]"
+      />
+    );
+  }
   return (
     <div className="text-Gray-900 grid w-full gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {properties.map((property: Property, idx: number) => (
-        <DealCard key={property.id} deal={property} imageSrc={dealImages[idx % dealImages.length]} />
+      {rsp?.body?.data?.map((property) => (
+        <DealCard key={property.id} deal={property} />
       ))}
     </div>
   );

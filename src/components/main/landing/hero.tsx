@@ -55,7 +55,7 @@ export default function Hero() {
               exit.
             </p>
             <BaseButton
-              href="/create-an-account"
+              href="/user"
               className="w-full px-8 !text-base lg:w-fit"
             >
               Own a Bloc

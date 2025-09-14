@@ -1,6 +1,6 @@
 import EarnSimplified from "@/components/main/landing/earn-simplified";
 import Faq from "@/components/main/landing/faq";
-import FeaturedDeals from "@/components/main/landing/featured-deals";
+import FeaturedDeals from "@/components/main/landing/featureDeals/featured-deals";
 import GetStarted from "@/components/main/landing/get-started";
 import Hero from "@/components/main/landing/hero";
 import HowItWorks from "@/components/main/landing/how-it-works";

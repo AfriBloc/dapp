@@ -97,7 +97,7 @@ export default function Header({ where = "home" }: HeaderProps) {
           >
             Log In
           </BaseButton>
-          <BaseButton href="/create-an-account" className="px-8 !text-base">
+          <BaseButton href="/user" className="px-8 !text-base">
             Own a Bloc
           </BaseButton>
         </div>

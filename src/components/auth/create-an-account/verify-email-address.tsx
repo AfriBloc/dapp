@@ -1,15 +1,16 @@
 "use client";
 
-import { useOnboarding } from "@/providers/onboarding-provider";
 import OnboardingWrapper from "./onboarding-wrapper";
 import InputField from "@/components/ui/form/input-field";
 import SubmitButton from "@/components/ui/buttons/submit-button";
 import useVerifyEmailAddress from "../hooks/use-verify-email-address";
 import ResendCode from "../enter-otp/resend-code";
+import { maskEmailForDisplay } from "@/lib/helpers";
+import { useOnboardingContext } from "@/contexts/onboardingContext";
 
 export default function VerifyEmailAddress() {
-  const { formData } = useOnboarding();
-  const { email } = formData;
+  const { userFormData } = useOnboardingContext();
+  const { email } = userFormData;
 
   const { register, onSubmit, formState } = useVerifyEmailAddress();
   const { errors, isSubmitting } = formState;
@@ -17,7 +18,7 @@ export default function VerifyEmailAddress() {
   return (
     <OnboardingWrapper
       title="Enter OTP"
-      description="We sent a code to your email"
+      description={`We sent a code to your email ${maskEmailForDisplay(email)}`}
     >
       <form onSubmit={onSubmit} className="space-y-2">
         <InputField

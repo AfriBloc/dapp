@@ -43,7 +43,7 @@ export default function GetStarted() {
       >
         Start building your African real-estate portfolio today.
       </h2>
-      <BaseButton href="/create-an-account" className="px-8 !text-base">
+      <BaseButton href="/user" className="px-8 !text-base">
         Get Started
       </BaseButton>
     </section>

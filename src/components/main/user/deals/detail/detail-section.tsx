@@ -1,47 +1,44 @@
-import MapIndicator from "/public/svgs/map-indicator.svg";
-import BedIcon from "/public/svgs/bed.svg";
-import BathtubIcon from "/public/svgs/bathtub.svg";
-import RotateIcon from "/public/svgs/rotate.svg";
-import Image from "next/image";
 import ProgressBar from "@/components/ui/progress-bar/progress-bar";
 import { Info } from "lucide-react";
-import { Property } from "@/types/property";
-import { useCurrency } from "@/providers/currency-provider";
+import { PropertyTypes } from "@/types/property";
+import {
+  BathIcon,
+  BedIcon,
+  MapPinIcon,
+  SqmIcon,
+} from "../../../../../../public/svgs/svgs";
+import Field from "@/components/ui/field";
+import { MarketPrice } from "../deal-card";
 
-export default function DetailSection({ property }: { property: Property }) {
-  const { formatAndConvertCurrency, currency } = useCurrency();
-
+export default function DetailSection({
+  property,
+}: {
+  property: PropertyTypes;
+}) {
   return (
-    <div id="detail" className="col-start w-full gap-4 md:gap-6">
-      <div className="col-start w-full gap-4">
-        <div className="flex flex-wrap items-center justify-start gap-2">
-          <span className="text-Gray-800 border-Gray-50 border-r pr-1.5 text-[10px] font-normal sm:pr-2 sm:text-xs">
-            {property.description}
-          </span>
-          <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 border-r pr-1.5 text-[10px] font-normal sm:pr-2 sm:text-xs">
-            <Image src={BedIcon} alt="bed icon" /> {property.beds} bed
-          </span>
-          <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 border-r pr-1.5 text-[10px] font-normal sm:pr-2 sm:text-xs">
-            <Image src={BathtubIcon} alt="bathtub icon" />{" "}
-            {
-              property.propertyDetails.whatIsInIt.filter((item) =>
-                item.includes("bathroom"),
-              ).length
-            }{" "}
+    <section id="detail" className="col-start w-full gap-4 md:gap-6">
+      <section className="col-start w-full gap-4">
+        <ul className="divide-Gray-50 flex flex-wrap items-center justify-start gap-2 divide-x">
+          <li className="text-Gray-800 border-r pr-2 text-xs font-normal">
+            {property?.type}
+          </li>
+          <li className="text-Gray-800 flex items-center gap-1 border-r pr-2 text-xs font-normal">
+            <BedIcon /> {property?.bedrooms} bed
+          </li>
+          <li className="text-Gray-800 flex items-center gap-1 border-r pr-2 text-xs font-normal">
+            <BathIcon />
+            {property?.bathroom}
             bath
-          </span>
-          <span className="text-Gray-800 border-Gray-50 flex items-center gap-1 text-[10px] font-normal sm:text-xs">
-            <Image src={RotateIcon} alt="rotate icon" />{" "}
-            {property.landMeasurement}
-          </span>
-        </div>
-        <div className="flex w-full items-center justify-between lg:items-start">
+          </li>
+          <li className="text-Gray-800 flex items-center gap-1 text-xs font-normal">
+            <SqmIcon /> {property?.landMeasurement}
+          </li>
+        </ul>
+        <article className="flex w-full items-center justify-between lg:items-start">
           <div className="col-start gap-1">
-            <h3 className="text-lg font-bold md:text-2xl">
-              {property.description}
-            </h3>
+            <h3 className="text-lg font-bold md:text-2xl">{property.title}</h3>
             <div className="flex-start gap-1">
-              <Image src={MapIndicator} alt="icon" />
+              <MapPinIcon />
               <p className="text-Gray-700 text-xs font-normal md:text-sm">
                 {property.location}
               </p>
@@ -51,24 +48,23 @@ export default function DetailSection({ property }: { property: Property }) {
             <h6 className="text-Gray-700 text-end text-xs font-normal whitespace-nowrap md:text-sm">
               Price per unit
             </h6>
-            <h4 className="text-Purple-400 text-end text-base font-semibold md:text-lg">
-              {formatAndConvertCurrency(
-                property.pricePerUnit,
-                currency || "NGN",
-              )}
-            </h4>
+
+            <MarketPrice
+              price={parseInt(property.pricePerUnit)}
+              className="text-Purple-400 text-end text-base font-semibold md:text-lg"
+            />
           </div>
-        </div>
-        <div className="flex w-full items-center gap-4">
+        </article>
+        <article className="flex w-full items-center gap-4">
           <div className="hidden items-center justify-start md:flex">
             <div className="flex-start gap-1 pr-4">
-              <Image src={MapIndicator} alt="icon" />
+              <MapPinIcon />
               <p className="text-Gray-700 text-xs font-normal">
-                {property.numberOfUnits} units available
+                {property.numUnits} units available
               </p>
             </div>
             <div className="flex-start border-Gray-50 gap-1 border-l pl-4">
-              <Image src={MapIndicator} alt="icon" />
+              <MapPinIcon />
               <p className="text-Gray-700 text-xs font-normal">
                 {/* Placeholder for investors */}215 investors
               </p>
@@ -82,92 +78,137 @@ export default function DetailSection({ property }: { property: Property }) {
             </span>{" "}
             {/* Placeholder percentage */}
           </div>
-        </div>
-      </div>
-      <div className="grid w-full gap-5 lg:grid-cols-2">
+        </article>
+      </section>
+      <section className="grid w-full gap-5 lg:grid-cols-2">
         <ul className="bg-BlueGray-25 border-BlueGray-100 col-start w-full gap-3 rounded-lg border p-4">
           <li className="flex-between w-full">
-            <span className="text-Gray-700 text-xs font-normal">
-              Listing Price
-            </span>
-            <span className="text-Purple-400 text-end text-base font-semibold md:text-lg">
-              {formatAndConvertCurrency(property.listingPrice, "NGN")}
-            </span>
+            <Field
+              title="Listing Price"
+              value={
+                <MarketPrice
+                  price={parseInt(property.listingPrice)}
+                  className="text-Purple-400 flex-1 !text-end text-base font-semibold md:text-lg"
+                />
+              }
+              wrapperClassName="justify-between"
+              titleClassName="!w-5/12 !text-xs"
+            />
           </li>
           <li className="flex-between w-full">
-            <span className="text-Gray-700 text-xs font-normal">
-              Net Rental Yield
-            </span>
-            <span className="text-end text-sm font-medium">
-              {property.netRentalYield}
-            </span>
+            <Field
+              title="Net Rental Yield"
+              value={`${property?.annualisedRoiPct}%`}
+              wrapperClassName="justify-between"
+              className="text-end"
+              titleClassName="!w-5/12 !text-xs"
+            />
           </li>
           <li className="flex-between w-full">
-            <span className="text-Gray-700 text-xs font-normal">
-              Annualised ROI
-            </span>
-            <span className="text-end text-sm font-medium">
-              {property.annualizedROI}
-            </span>
+            <Field
+              title="Annualised ROI"
+              value={`${property?.annualisedRoiPct}%`}
+              wrapperClassName="justify-between"
+              className="text-end"
+              titleClassName=" !w-5/12 !text-xs"
+            />
           </li>
           <li className="flex-between w-full">
-            <span className="text-Gray-700 text-xs font-normal">
-              Gross Rental yield
-            </span>
-            <span className="text-end text-sm font-medium">
-              {property.grossRentalYield}
-            </span>
+            <Field
+              title="Gross Rental yield"
+              value={`${property?.grossRentalYieldPct}%`}
+              wrapperClassName="justify-between"
+              className="text-end"
+              titleClassName=" !w-5/12 !text-xs"
+            />
           </li>
           <li className="flex-between w-full">
-            <span className="text-Gray-700 text-xs font-normal">
-              Funded date
-            </span>
-            <span className="text-end text-sm font-medium">
-              {property.fundedDate}
-            </span>
+            <Field
+              title="Funded date"
+              value={`${property?.fundedDate}`}
+              wrapperClassName="justify-between"
+              className="text-end"
+              titleClassName=" !w-5/12 !text-xs"
+            />
           </li>
         </ul>
         <ul className="col-start border-BlueGray-100 w-full gap-3 rounded-lg border p-4">
-          <h5 className="text-xs font-semibold md:text-sm">
-            Investment cost breakdown
-          </h5>
+          <li>
+            <h5 className="text-xs font-semibold md:text-sm">
+              Investment cost breakdown
+            </h5>
+          </li>
+
           <li className="flex-between w-full">
-            <span className="flex-center text-Gray-700 gap-1 text-xs font-normal">
-              Property cost <Info className="size-3" />
-            </span>
-            <span className="text-sm font-medium">
-              {formatAndConvertCurrency(
-                property.investmentCostBreakdown.propertyCost,
-                "NGN",
-              )}
-            </span>
+            <Field
+              title={
+                <>
+                  Property cost <Info className="size-3" />
+                </>
+              }
+              value={
+                <MarketPrice
+                  price={parseInt(property.propertyPrice)}
+                  className="flex-1 !text-end text-sm"
+                />
+              }
+              wrapperClassName="justify-between"
+              titleClassName="!w-5/12 !text-xs flex items-center gap-1"
+            />
           </li>
           <li className="flex-between w-full">
-            <span className="flex items-start justify-start text-Gray-700 gap-1 text-xs font-normal">
-              Purchase costs <Info className="size-3" />
-            </span>
-            <span className="text-sm font-medium text-end">
-              {property.investmentCostBreakdown.purchaseCosts}
-            </span>
+            <Field
+              title={
+                <>
+                  Purchase cost <Info className="size-3" />
+                </>
+              }
+              value={
+                <MarketPrice
+                  price={parseInt(property.purchaseCosts)}
+                  className="flex-1 !text-end text-sm"
+                />
+              }
+              wrapperClassName="justify-between"
+              titleClassName="!w-5/12 !text-xs flex items-center gap-1"
+            />
           </li>
           <li className="flex-between w-full">
-            <span className="flex items-start justify-start text-Gray-700 gap-1 text-xs font-normal">
-              Transaction fees <Info className="size-3" />
-            </span>
-            <span className="text-sm font-medium text-end">
-              {property.investmentCostBreakdown.transactionFees}
-            </span>
+            <Field
+              title={
+                <>
+                  Transaction fees <Info className="size-3" />
+                </>
+              }
+              value={
+                <MarketPrice
+                  price={parseInt(property.transactionFees)}
+                  className="flex-1 !text-end text-sm"
+                />
+              }
+              wrapperClassName="justify-between"
+              titleClassName="!w-5/12 !text-xs flex items-center gap-1"
+            />
           </li>
           <li className="flex-between w-full">
-            <span className="flex items-start justify-start text-Gray-700 gap-1 text-xs font-normal">
-              MOF fees <Info className="size-3" />
-            </span>
-            <span className="text-sm font-medium text-end">
-              {property.investmentCostBreakdown.mofFees}
-            </span>
+            <Field
+              title={
+                <>
+                  MOF fees <Info className="size-3" />
+                </>
+              }
+              value={
+                <MarketPrice
+                  price={parseInt(property.mofFees)}
+                  className="flex-1 !text-end text-sm"
+                />
+              }
+              wrapperClassName="justify-between"
+              titleClassName="!w-5/12 !text-xs flex items-center gap-1"
+            />
           </li>
         </ul>
-      </div>
-    </div>
+      </section>
+    </section>
   );
 }

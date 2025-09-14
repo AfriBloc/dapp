@@ -2,25 +2,24 @@
 import EmptyState from "@/components/ui/empty-state";
 import React, { Suspense } from "react";
 import PortfolioCard from "./portfolio-card";
-import { formatCurrency } from "@/helpers/currency";
-import { useCurrency } from "@/providers/currency-provider";
+import { useCurrencyContext } from "@/contexts/currencyProvider";
 
 export default function PortfolioCards() {
-  const { currency } = useCurrency();
+  const { currency } = useCurrencyContext();
   return (
     <React.Fragment>
       <Suspense
         fallback={
           <EmptyState
             title="Total Portfolio"
-            description={formatCurrency(0, currency)}
+            description={"0"}
             className="flex min-h-24 w-full flex-col gap-3 rounded-xl px-4 py-3.5 shadow-[0px_4px_20px_0px_#0000000D]"
           />
         }
       >
         <PortfolioCard
           title="Total Portfolio"
-          value={formatCurrency(0, currency)}
+          value={`${currency}0.00`}
           noData={{
             title: "No data",
             description: "All portfolio will show here",
@@ -31,14 +30,14 @@ export default function PortfolioCards() {
         fallback={
           <EmptyState
             title="Total Amount invested"
-            description={formatCurrency(0, currency)}
+            description={"0"}
             className="flex min-h-24 w-full flex-col gap-3 rounded-xl px-4 py-3.5 shadow-[0px_4px_20px_0px_#0000000D]"
           />
         }
       >
         <PortfolioCard
           title="Total Amount invested"
-          value={formatCurrency(0, currency)}
+          value={`${currency}0.00`}
           noData={{
             title: "No data",
             description: "All invested amount will show here",
@@ -49,14 +48,14 @@ export default function PortfolioCards() {
         fallback={
           <EmptyState
             title="Total rental income to date"
-            description="0.00"
+            description={"0"}
             className="flex min-h-24 w-full flex-col gap-3 rounded-xl px-4 py-3.5 shadow-[0px_4px_20px_0px_#0000000D]"
           />
         }
       >
         <PortfolioCard
           title="Total rental income to date"
-          value={"0.00"}
+          value={`${currency}0.00`}
           noData={{
             title: "No data",
             description: "All rental income will show here",
