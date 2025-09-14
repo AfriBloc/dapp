@@ -1,6 +1,6 @@
 "use client";
 import BaseButton from "@/components/ui/buttons/base-button";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import ProgressBar from "@/components/ui/progress-bar/progress-bar";
 
 import { PropertyTypes } from "@/types/property";
@@ -110,10 +110,12 @@ export const MarketPrice = ({
   className?: string;
   price: number;
 }) => {
-  const { currency } = useCurrencyContext();
+  const { usdNGNRate, currency } = useCurrencyContext();
 
   const formatedPrice = useMemo(() => {
-    return currency === "$" ? parseFloat(price?.toString()) / 1530 : price;
+    return currency === "$"
+      ? parseFloat(price?.toString()) / usdNGNRate
+      : price;
   }, [currency, price]);
   return (
     <span className={className}>

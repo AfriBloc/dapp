@@ -1,12 +1,19 @@
 "use server";
 import {
+  changePasswordApi,
   sendOTPApi,
   signinApi,
   signupApi,
   verifyEmailApi,
 } from "@/services/apis/auth.api";
 import { logout, setCookie } from "@/services/session";
-import { Login, SendOTP, SignUp, VerifyOTP } from "@/types/auth";
+import {
+  Login,
+  SendOTP,
+  SignUp,
+  UpdatePassword,
+  VerifyOTP,
+} from "@/types/auth";
 
 export const signupAction = async (body: SignUp) => {
   try {
@@ -104,6 +111,31 @@ export const verifyEmailAction = async (body: VerifyOTP) => {
     }
 
     await setCookie({ access_token: rsp?.body?.access_token });
+
+    return {
+      error: false,
+      message: rsp?.body?.message || "Email verified successfully",
+    };
+  } catch (error) {
+    console.log(error);
+
+    return {
+      error: true,
+      message: "Something went wrong",
+    };
+  }
+};
+
+export const changePasswordAction = async (body: UpdatePassword) => {
+  try {
+    const rsp = await changePasswordApi(body);
+
+    if (!rsp.ok) {
+      return {
+        error: true,
+        message: rsp?.body?.message || "Something went wrong",
+      };
+    }
 
     return {
       error: false,

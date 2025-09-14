@@ -25,7 +25,7 @@ export type ResetPassword = {
 
 export type UpdatePassword = {
   oldPassword: string;
-  password: string;
+  newPassword: string;
 };
 
 export type ApiResponse = {

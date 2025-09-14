@@ -14,5 +14,13 @@ export const getPropertyById = (id: string) => {
 };
 
 export const getRates = (from: string, to: string) => {
-  return Api.get<getAllPropertiesRsp>(`/rates/${from}/${to}`);
+  return Api.get<
+    ApiResponse & {
+      data: {
+        from: string;
+        to: string;
+        rate: number;
+      };
+    }
+  >(`/rates/${from}/${to}`);
 };

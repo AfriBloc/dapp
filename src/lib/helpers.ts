@@ -96,3 +96,9 @@ export const formatNumInThousands = (number: number | string) => {
 
   return formattedVal + "." + Number(decimalPart);
 };
+
+export const handleCopyToClipboard = (id: string | number, val: string) => {
+  if (id) {
+    navigator.clipboard.writeText(val);
+  }
+};

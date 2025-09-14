@@ -4,6 +4,7 @@ import {
   Login,
   SendOTP,
   SignUp,
+  UpdatePassword,
   VerifyOTP,
   VerifyOTPResponse,
 } from "@/types/auth";
@@ -33,5 +34,13 @@ export const getSumSubToken = (body: VerifyOTP) => {
   return Api.post<VerifyOTP, ApiResponse & { access_token: string }>(
     "/auth/verify-otp",
     body,
+  );
+};
+
+export const changePasswordApi = (body: UpdatePassword) => {
+  return Api.post<UpdatePassword, ApiResponse & { access_token: string }>(
+    "/auth/change-password",
+    body,
+    true,
   );
 };

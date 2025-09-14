@@ -31,6 +31,7 @@ export default function FundWalletModal() {
   const { errors, isSubmitting } = formState;
 
   const paymentMethod = watch("paymentMethod");
+  const [copy] = useClipboard("Copied!");
 
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
@@ -96,7 +97,30 @@ export default function FundWalletModal() {
               value={paymentMethod}
               onValueChange={(value) => setValue("paymentMethod", value)}
             >
-              <article className="border-BlueGray-100 w-full space-y-5 rounded-lg border px-4 py-2">
+              <div className="border-BlueGray-100 flex-between h-10 w-full rounded-lg border px-4 md:h-14">
+                <div className="flex-start gap-2">
+                  <div className="flex-center bg-BlueGray-50 size-10 rounded-full">
+                    <Image src={CardIcon} alt="card icon" />
+                  </div>
+                  <label
+                    htmlFor="card"
+                    className="text-Gray-800 col-start text-sm font-normal"
+                  >
+                    <span>Debit / Credit Card</span>
+                    {/* <span className="text-Gray-600 flex items-center justify-start gap-1 text-[10px] font-normal">
+                      <Image
+                        src={StripeIcon}
+                        alt="stripe"
+                        className="rounded-full"
+                      />
+                      <span className="text-Gray-500 mt-0.5">Stripe - </span>{" "}
+                    </span> */}
+                    <span className="mt-0.5">Coming soon</span>
+                  </label>
+                </div>
+                <RadioGroupItem value="card" id="card" className="" disabled />
+              </div>
+              <div className="border-BlueGray-100 w-full space-y-5 rounded-lg border px-4 py-5">
                 <div className="flex-between w-full">
                   <div className="flex-start gap-2">
                     <div className="flex-center bg-BlueGray-50 size-10 rounded-full">
@@ -107,32 +131,87 @@ export default function FundWalletModal() {
                       className="text-Gray-800 col-start text-sm font-normal"
                     >
                       <span>Bank Transfer</span>
+                      <span className="text-Gray-500 text-[10px] font-normal">
+                        0% Transaction fees
+                      </span>
+                      <span className="mt-0.5">Coming soon</span>
                     </label>
                   </div>
-                  <span className="bg-Blue-25 text-Blue-600 rounded-full px-2 py-1 text-xs font-normal">
-                    Coming soon
-                  </span>
+                  <RadioGroupItem
+                    value="bank"
+                    id="bank"
+                    className=""
+                    disabled
+                  />
                 </div>
-              </article>
-              <article className="border-BlueGray-100 w-full space-y-5 rounded-lg border px-4 py-2">
-                <div className="flex-between w-full">
-                  <div className="flex-start gap-2">
-                    <div className="flex-center bg-BlueGray-50 size-10 rounded-full">
-                      <Image src={CardIcon} alt="bank icon" />
-                    </div>
-                    <label
-                      htmlFor="bank"
-                      className="text-Gray-800 col-start text-sm font-normal"
-                    >
-                      <span>Debit / Credit Card</span>
-                    </label>
+                {paymentMethod === "bank" && (
+                  <ul className="col-start bg-BlueGray-25 w-full gap-4 rounded-lg p-3">
+                    <li className="flex-between w-full">
+                      <span className="text-Gray-500 text-xs font-normal md:text-sm">
+                        Bank name
+                      </span>
+                      <span className="text-Gray-900 text-sm font-medium">
+                        Guaranty Trust Bank
+                      </span>
+                    </li>
+                    <li className="flex-between w-full">
+                      <span className="text-Gray-500 text-xs font-normal md:text-sm">
+                        Account name
+                      </span>
+                      <span className="text-Gray-900 text-sm font-medium">
+                        Afribloc SPV LTD
+                      </span>
+                    </li>
+                    <li className="flex-between w-full">
+                      <span className="text-Gray-500 text-xs font-normal md:text-sm">
+                        Account number
+                      </span>
+                      <span className="text-Gray-900 flex items-center gap-1 text-sm font-medium">
+                        0176593860{" "}
+                        <button
+                          type="button"
+                          onClick={() => copy("0176593860")}
+                        >
+                          <Copy className="size-3" />
+                        </button>
+                      </span>
+                    </li>
+                    <li className="flex-between w-full">
+                      <span className="text-Gray-500 text-xs font-normal md:text-sm">
+                        Rate
+                      </span>
+                      <span className="text-Gray-900 text-sm font-medium">
+                        1 USDC = 1,530 NGN
+                      </span>
+                    </li>
+                    <li className="flex-between w-full">
+                      <span className="text-Gray-500 text-xs font-normal md:text-sm">
+                        Transaction fees
+                      </span>
+                      <span className="text-Gray-900 text-sm font-medium">
+                        1.25%
+                      </span>
+                    </li>
+                  </ul>
+                )}
+              </div>
+              <div className="flex-between w-full">
+                <div className="flex-start gap-2">
+                  <div className="flex-center bg-BlueGray-50 size-10 rounded-full">
+                    <Image src={BankIcon} alt="bank icon" />
                   </div>
-                  <span className="bg-Blue-25 text-Blue-600 rounded-full px-2 py-1 text-xs font-normal">
-                    Coming soon
-                  </span>
+                  <label
+                    htmlFor="bank"
+                    className="text-Gray-800 col-start text-sm font-normal"
+                  >
+                    <span>Bank Transfer</span>
+                  </label>
                 </div>
-              </article>
-              <article className="border-BlueGray-100 flex-between h-10 w-full rounded-lg border px-4 md:h-14">
+                <span className="bg-Blue-25 text-Blue-600 rounded-full px-2 py-1 text-xs font-normal">
+                  Coming soon
+                </span>
+              </div>
+              <div className="border-BlueGray-100 flex-between h-10 w-full rounded-lg border px-4 md:h-14">
                 <div className="flex-start gap-2">
                   <div className="flex-center bg-BlueGray-50 size-10 rounded-full">
                     <Image src={CoinIcon} alt="coin icon" />
@@ -142,31 +221,11 @@ export default function FundWalletModal() {
                     className="text-Gray-800 col-start text-sm font-normal"
                   >
                     <span>Deposit USDC</span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-Gray-500 flex items-center gap-1 text-xs">
-                        Wallet Address
-                        <CopyToClipboardBtn
-                          id="walletAddress"
-                          valuToCopy="here"
-                        />
-                      </span>
-                      <span className="text-Gray-500 flex items-center gap-1 text-xs">
-                        EVM Address
-                        <CopyToClipboardBtn
-                          id="walletAddress"
-                          valuToCopy="here"
-                        />
-                      </span>
-                    </div>
+                    <CopyToClipboardBtn id="walletAddress" valuToCopy="here" />
                   </label>
                 </div>
-                <RadioGroupItem
-                  value="wallet"
-                  id="wallet"
-                  className=""
-                  checked={true}
-                />
-              </article>
+                <RadioGroupItem value="wallet" id="wallet" className="" />
+              </div>
             </RadioGroup>
             {errors.paymentMethod && (
               <p className="text-xs text-red-500">

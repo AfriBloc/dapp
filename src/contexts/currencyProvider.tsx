@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { createContext, ReactNode, useContext, useState } from "react";
 
 type CurrencyTypes = {
+  usdNGNRate: number;
   currency: string;
   setCurrency: (val: string) => void;
 };
@@ -23,9 +24,12 @@ export default function CurrencyProvider({
   const [currency, setCurrency] = useState("$");
 
   console.log("rates", data);
+
+  const usdNGNRate = data?.ok ? data?.body?.data?.rate : 1500;
   const value = {
     currency,
     setCurrency,
+    usdNGNRate,
   };
 
   return (
