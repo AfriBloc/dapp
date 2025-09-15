@@ -47,6 +47,41 @@ export default function Sumsub({ auth }: { auth?: boolean }) {
     setToken(""); // Reset token when modal closes
   };
 
+  // Handle Sumsub messages
+  // const messageHandler = (message: any) => {
+  //   console.log("Sumsub message:", message);
+
+  //   // Check for verification completion events
+  //   if (
+  //     message?.type === "idCheck.onReady" ||
+  //     message?.type === "idCheck.onFinished" ||
+  //     message?.type === "idCheck.onError"
+  //   ) {
+  //     // If verification is successful, revalidate the profile data
+  //     if (
+  //       message?.type === "idCheck.onFinished" &&
+  //       message?.payload?.reviewResult?.reviewAnswer === "GREEN"
+  //     ) {
+  //       console.log("Verification successful!");
+
+  //       // Call revalidateTag in a server action
+  //       startTransition(async () => {
+  //         try {
+  //           // You can create a separate server action for this
+  //           await revalidateProfileAction();
+  //         } catch (error) {
+  //           console.error("Error revalidating profile data:", error);
+  //         }
+  //       });
+  //     }
+  //   }
+  // };
+
+  // // Handle Sumsub errors
+  // const errorHandler = (error: any) => {
+  //   console.error("Sumsub error:", error);
+  // };
+
   return (
     <Dialog open={isModalOpen} onOpenChange={handleModalClose}>
       <DialogTrigger asChild>
@@ -81,8 +116,6 @@ export default function Sumsub({ auth }: { auth?: boolean }) {
               <SumsubWebSdk
                 accessToken={token}
                 expirationHandler={initializeSumsub}
-                // config={config}
-                // options={options}
                 // onMessage={messageHandler}
                 // onError={errorHandler}
               />

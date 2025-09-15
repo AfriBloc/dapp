@@ -17,6 +17,7 @@ import { formatNumInThousands } from "@/lib/helpers";
 import { useCurrencyContext } from "@/contexts/currencyProvider";
 import useFundWallet from "../wallet/hooks/use-fund-wallet";
 import { Minus, Plus } from "lucide-react";
+import Link from "next/link";
 
 export const DealCard = ({ deal }: { deal: PropertyTypes }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -30,7 +31,7 @@ export const DealCard = ({ deal }: { deal: PropertyTypes }) => {
     }
   };
   return (
-    <article className="col-start shadow-3xl w-full overflow-hidden rounded-2xl">
+    <li className="col-start shadow-3xl w-full overflow-hidden rounded-2xl">
       <figure className="relative h-[226px] w-full overflow-hidden">
         {!imageError && deal?.imageUrls?.length > 0 ? (
           <Image
@@ -125,7 +126,115 @@ export const DealCard = ({ deal }: { deal: PropertyTypes }) => {
           Own this bloc
         </BaseButton>
       </article>
-    </article>
+    </li>
+  );
+};
+
+export const PortfolioDealCard = ({ deal }: { deal: PropertyTypes }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imageError, setImageError] = useState(false);
+
+  const handleImageError = () => {
+    if (currentImageIndex < (deal?.imageUrls?.length || 0) - 1) {
+      setCurrentImageIndex((prev) => prev + 1);
+    } else {
+      setImageError(true);
+    }
+  };
+  return (
+    <Link
+      href={`/user/portfolio/${deal.id}`}
+      className="col-start shadow-3xl w-full overflow-hidden rounded-2xl"
+    >
+      <figure className="relative h-[226px] w-full overflow-hidden">
+        {!imageError && deal?.imageUrls?.length > 0 ? (
+          <Image
+            src={deal.imageUrls[currentImageIndex]}
+            alt={deal?.title}
+            fill
+            sizes="100%"
+            className="object-cover"
+            onError={handleImageError}
+          />
+        ) : (
+          <Image
+            src={noImage}
+            alt={deal?.title}
+            fill
+            sizes="100%"
+            className="object-cover"
+            onError={handleImageError}
+          />
+        )}
+      </figure>
+
+      <article className="col-start w-full gap-2 p-5">
+        <ul className="divide-Gray-50 flex flex-wrap items-center justify-start gap-2 divide-x">
+          <li className="text-Gray-800 border-r pr-2 text-xs font-normal">
+            {deal?.type}
+          </li>
+          <li className="text-Gray-800 flex items-center gap-1 border-r pr-2 text-xs font-normal">
+            <BedIcon /> {deal?.bedrooms} bed
+          </li>
+          <li className="text-Gray-800 flex items-center gap-1 border-r pr-2 text-xs font-normal">
+            <BathIcon />
+            {deal?.bathroom}
+            bath
+          </li>
+          <li className="text-Gray-800 flex items-center gap-1 text-xs font-normal">
+            <SqmIcon /> {deal?.landMeasurement}
+          </li>
+        </ul>
+        <hgroup className="space-y-2">
+          <h3 className="text-lg font-bold md:text-2xl">{deal?.title}</h3>
+
+          <h6 className="text-Gray-700 flex items-center gap-1 text-sm font-normal">
+            <MapPinIcon />
+            {deal?.location}
+          </h6>
+        </hgroup>
+
+        <div className="border-BlueGray-100 flex-between w-full gap-2 rounded-full border px-3 py-2">
+          <ProgressBar percentage={75} className="h-2 flex-1" />{" "}
+          {/* Placeholder percentage */}
+          <span className="text-sm font-normal">75%</span>{" "}
+          {/* Placeholder percentage */}
+        </div>
+
+        <ul className="border-Blue-100 my-3 flex w-full flex-col items-start justify-start gap-2 rounded-xl border px-4 py-2">
+          <li className="w-full">
+            <Field
+              title="Listing Price"
+              value={
+                <MarketPrice
+                  price={parseInt(deal.listingPrice)}
+                  className="text-Purple-400 flex-1 !text-end text-base font-semibold md:text-lg"
+                />
+              }
+              wrapperClassName="justify-between"
+            />
+          </li>
+
+          <li className="w-full">
+            <Field
+              title="Projected ROI"
+              value={`${deal.annualisedRoiPct}%`}
+              wrapperClassName="justify-between"
+              className="text-end"
+            />
+          </li>
+
+          <li className="w-full">
+            <Field
+              title="Gross yield"
+              value={`${deal.grossRentalYieldPct}%`}
+              wrapperClassName="justify-between"
+              className="text-end"
+            />
+          </li>
+        </ul>
+      </article>
+    </Link>
   );
 };
 

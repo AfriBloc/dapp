@@ -1,14 +1,21 @@
 import Image from "next/image";
 import IDCard from "/public/svgs/id-card.svg";
-import { getUser } from "@/services/session";
 import Sumsub from "@/components/main/user/kyc/sumsub";
+import { getCurrentUserApi } from "@/services/apis/auth.api";
+import { UserData } from "@/types/auth";
 
 export default async function KycStatInfo({ subtext }: { subtext?: string }) {
-  const user = await getUser();
+  const rsp = await getCurrentUserApi();
 
-  if (user?.kycStatus?.toLowerCase() !== "pending") {
+  const user = rsp?.ok ? rsp?.body?.user : ({} as UserData);
+
+  if (
+    user?.kycStatus?.toLowerCase() == "verified" ||
+    user?.kycStatus?.toLowerCase() == "approved"
+  ) {
     return;
   }
+
   return (
     <div className="bg-Purple-25 text-Gray-900 flex w-full items-start gap-3 rounded-2xl px-4 py-4 lg:px-8">
       <div className="flex-center bg-Purple-100 size-9 rounded-full md:size-12">

@@ -15,6 +15,7 @@ import {
   UpdatePassword,
   VerifyOTP,
 } from "@/types/auth";
+import { revalidateTag } from "next/cache";
 
 export const signupAction = async (body: SignUp) => {
   try {
@@ -172,6 +173,22 @@ export const getSumsumbTokenAction = async () => {
     return {
       error: true,
       message: "Something went wrong",
+    };
+  }
+};
+
+export const revalidateProfileAction = async () => {
+  try {
+    revalidateTag("profile");
+    return {
+      error: false,
+      message: "Profile data revalidated successfully",
+    };
+  } catch (error) {
+    console.error("Error revalidating profile:", error);
+    return {
+      error: true,
+      message: "Failed to revalidate profile data",
     };
   }
 };

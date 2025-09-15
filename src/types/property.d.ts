@@ -1,4 +1,4 @@
-import { ApiResponse } from "./auth";
+import { ApiResponse, UserData } from "./auth";
 
 export interface Property {
   id: string;
@@ -57,9 +57,9 @@ export type PropertyTypes = {
   whyInvest: string[];
   imageUrls: string[];
   currency: string;
-  governorsConsentUrl: sttring | null;
-  deedOfAssignmentUrl: sttring | null;
-  surveyPlanUrl: sttring | null;
+  governorsConsentUrl: string | null;
+  deedOfAssignmentUrl: string | null;
+  surveyPlanUrl: string | null;
   tokenId: string;
   tokenSymbol: string;
   createdAt: string;
@@ -69,3 +69,40 @@ export type PropertyTypes = {
 };
 
 export type getAllPropertiesRsp = ApiResponse & { data: PropertyTypes[] };
+
+export type OrderPropertyTypes = {
+  propertyId: string;
+  units: number;
+};
+export type OrderPropertyRsp = ApiResponse & { data: PropertyTypes[] };
+
+export type PortfolioTypes = {
+  id: string;
+  userId: string;
+  propertyId: string;
+  currency: string;
+  user: UserData;
+  property: PropertyTypes;
+  totalInvested: string;
+  yield: string | null;
+  unitsOwned: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type PortfolioStatTypes = {
+  currency: string;
+  totalPortfolio: string;
+  totalIncome: string;
+};
+
+export type GetPortfolioRsp = ApiResponse & {
+  data: {
+    currentPage: string;
+    pageSize: string;
+    totalCount: number;
+    totalPages: number;
+    items: PortfolioTypes[];
+    totals: PortfolioStatTypes;
+  };
+};

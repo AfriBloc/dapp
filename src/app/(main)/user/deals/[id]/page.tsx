@@ -6,6 +6,7 @@ import KycStatInfo from "@/components/ui/info/kyc-stat-info";
 import { Metadata } from "next";
 import EmptyState from "@/components/ui/empty-state";
 import { getPropertyById } from "@/services/apis/properties.api";
+import { getWalletBalance } from "@/services/apis/wallets.api";
 
 export const metadata: Metadata = {
   title: "Deal details",
@@ -14,6 +15,8 @@ export const metadata: Metadata = {
 export default async function Page({ params }: { params: Promise<Params> }) {
   const { id } = await params;
   const rsp = await getPropertyById(id);
+  const balRsp = await getWalletBalance();
+  const balance = balRsp?.ok ? balRsp?.body?.data?.balance?.ngn : 0;
 
   if (!rsp?.ok) {
     return (
@@ -25,7 +28,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
     );
   }
 
-  const { title } = rsp?.body?.data;
+  const { title, imageUrls } = rsp?.body?.data;
 
   return (
     <main className="text-Gray-900">
@@ -35,11 +38,11 @@ export default async function Page({ params }: { params: Promise<Params> }) {
         <h1 className="text-2xl font-bold lg:text-[40px] lg:leading-[100%]">
           {title}
         </h1>
-        <BedroomSlider images={rsp?.body?.data?.imageUrls} />
+        <BedroomSlider images={imageUrls} />
         <div className="grid w-full gap-6 lg:grid-cols-2">
           <DealDetail property={rsp?.body?.data} />
           <div className="sticky top-24 z-50 self-start">
-            <InvestAction />
+            <InvestAction balance={balance} propertyId={id} />
           </div>
         </div>
       </section>

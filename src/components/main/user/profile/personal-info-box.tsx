@@ -2,14 +2,12 @@ import { Info } from "lucide-react";
 import ChangePasswordModal from "./modals/change-password-modal";
 import CheckIcon from "/public/svgs/check.svg";
 import Image from "next/image";
-import { getUser } from "@/services/session";
 import { UserData } from "@/types/auth";
+import { getStatusColors } from "@/lib/helpers";
 
-export default async function PersonalInfoBox() {
-  const user = await getUser();
+export default async function PersonalInfoBox({ user }: { user: UserData }) {
+  const { firstName, lastName, email, kycStatus, phoneNumber } = user;
 
-  const { firstName, lastName, email, kycStatus, phoneNumber } =
-    user as UserData;
   return (
     <div className="col-start w-full justify-center gap-3 rounded-xl bg-white px-4 py-5 shadow-[0px_4px_20px_0px_#0000000D] md:p-5">
       <h3 className="text-Gray-900 text-base font-bold md:text-lg">
@@ -60,16 +58,16 @@ export default async function PersonalInfoBox() {
           <span className="text-Gray-500 text-xs font-normal md:text-sm">
             KYC Status
           </span>
-          {kycStatus === "pending" ? (
-            <span className="text-Yellow-500 bg-Yellow-25 flex items-center gap-1 rounded-2xl px-2 py-1 text-sm font-medium capitalize md:text-base">
-              {kycStatus}
-            </span>
-          ) : (
-            <span className="text-Gray-900 bg-Green-25 flex items-center gap-1 rounded-2xl px-2 py-1 text-sm font-medium md:text-base">
-              Verified
+
+          <span
+            className={`${getStatusColors(kycStatus)} flex items-center gap-1 text-sm font-medium capitalize md:text-base`}
+          >
+            {kycStatus}{" "}
+            {(kycStatus?.toLowerCase() === "verified" ||
+              kycStatus?.toLowerCase() === "approved") && (
               <Image src={CheckIcon} alt="check icon" className="size-5" />
-            </span>
-          )}
+            )}
+          </span>
         </li>
       </ul>
       <div className="bg-Yellow-25 text-Yellow-600 flex-start h-12 w-full gap-2 rounded-lg px-4">

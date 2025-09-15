@@ -1,15 +1,39 @@
-import { Minus, Plus } from "lucide-react";
+"use client";
 import WalletIcon from "/public/svgs/wallet.svg";
 import Image from "next/image";
 import BaseButton from "@/components/ui/buttons/base-button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { getWalletBalance } from "@/services/apis/wallets.api";
 import { MarketPrice, QtyInput } from "../deal-card";
+import { orderPropertyAction } from "@/lib/actions/properties.actions";
+import useFundWallet from "../../wallet/hooks/use-fund-wallet";
+import { handleError, handleSuccess } from "@/lib/helpers";
+import { useTransition } from "react";
 
-export default async function InvestAction() {
-  const rsp = await getWalletBalance();
+export default function InvestAction({
+  propertyId,
+  balance,
+}: {
+  propertyId: string;
+  balance: number;
+}) {
+  const [isPending, startTransition] = useTransition();
+  const { value } = useFundWallet();
 
-  const balance = rsp?.ok ? rsp?.body?.data?.balance?.ngn : 0;
+  const handleOrder = () => {
+    const payload = {
+      propertyId,
+      units: Number(value?.qty),
+    };
+
+    startTransition(async () => {
+      const rsp = await orderPropertyAction(payload);
+      if (rsp?.error) {
+        handleError(rsp?.message);
+      } else {
+        handleSuccess(rsp?.message);
+      }
+    });
+  };
 
   return (
     <div className="col-start w-full gap-6">
@@ -42,7 +66,7 @@ export default async function InvestAction() {
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-Gray-600 text-xs font-normal">
-                  Balance:{"  "}
+                  Balance:
                   <MarketPrice
                     price={balance}
                     className="text-Gray-900 text-sm"
@@ -53,7 +77,12 @@ export default async function InvestAction() {
             </div>
           </RadioGroup>
         </div>
-        <BaseButton className="mt-5 w-full !py-4" disabled={balance === 0}>
+        <BaseButton
+          className="mt-5 w-full !py-4"
+          onClick={handleOrder}
+          isSubmitting={isPending}
+          disabled={balance === 0}
+        >
           Make Payment
         </BaseButton>
       </div>

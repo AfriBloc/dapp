@@ -19,8 +19,12 @@ import CopyToClipboardBtn from "@/components/ui/copyToClipboardBtn";
 
 export default function FundWalletModal({
   isVerified,
+  evmAddress,
+  walletAddress,
 }: {
   isVerified: boolean;
+  evmAddress: string;
+  walletAddress: string;
 }) {
   const {
     watch,
@@ -49,7 +53,7 @@ export default function FundWalletModal({
       </DialogTrigger>
       <DialogContent
         aria-describedby={undefined}
-        className="max-h-[98vh] overflow-x-hidden overflow-y-auto"
+        className="max-h-[98vh] !max-w-lg overflow-x-hidden overflow-y-auto"
       >
         <DialogHeader className="pb-2">
           <DialogTitle className="!text-center text-base font-semibold">
@@ -139,29 +143,30 @@ export default function FundWalletModal({
                   </span>
                 </div>
               </article>
-              <article className="border-BlueGray-100 flex-between h-10 w-full rounded-lg border px-4 md:h-14">
-                <div className="flex-start gap-2">
+              <article className="border-BlueGray-100 flex-between min-h-10 w-full rounded-lg border px-4 md:h-14">
+                <div className="flex-start flex-1 gap-2">
                   <div className="flex-center bg-BlueGray-50 size-10 rounded-full">
                     <Image src={CoinIcon} alt="coin icon" />
                   </div>
                   <label
                     htmlFor="wallet"
-                    className="text-Gray-800 col-start text-sm font-normal"
+                    className="text-Gray-800 col-start w-full !max-w-[80%] text-sm font-normal"
                   >
                     <span>Deposit USDC</span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-Gray-500 flex items-center gap-1 text-xs">
-                        Wallet Address
+                    <div className="flex w-full flex-col gap-2 md:flex-row">
+                      <span className="text-Gray-500 flex flex-1 items-center gap-1 text-xs">
+                        Account ID: {walletAddress}
                         <CopyToClipboardBtn
                           id="walletAddress"
-                          valuToCopy="here"
+                          valuToCopy={walletAddress}
                         />
                       </span>
-                      <span className="text-Gray-500 flex items-center gap-1 text-xs">
-                        EVM Address
+                      <span className="text-Gray-500 flex flex-1 items-center gap-1 text-xs">
+                        EVM Address: {evmAddress?.slice(0, 3)}...
+                        {evmAddress?.slice(5, 8)}
                         <CopyToClipboardBtn
-                          id="walletAddress"
-                          valuToCopy="here"
+                          id="evmAddress"
+                          valuToCopy={evmAddress}
                         />
                       </span>
                     </div>
