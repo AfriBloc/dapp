@@ -9,11 +9,9 @@ import Link from "next/link";
 import ProfileBox, { ProfileBoxProps } from "./profile-box";
 
 export default function UserMobileNav({
-  imageUrl,
   firstName,
   fullName,
   email,
-  className,
 }: ProfileBoxProps) {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);

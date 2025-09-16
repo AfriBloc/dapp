@@ -1,7 +1,7 @@
 import PersonalInfoBox from "@/components/main/user/profile/personal-info-box";
 import BaseButton from "@/components/ui/buttons/base-button";
 import { formatDate, getNameInitials } from "@/lib/helpers";
-import { getUser } from "@/services/session";
+import { getCurrentUserApi } from "@/services/apis/auth.api";
 import { UserData } from "@/types/auth";
 import { Metadata } from "next";
 
@@ -10,9 +10,10 @@ export const metadata: Metadata = {
 };
 
 export default async function page() {
-  const user = await getUser();
+  const rsp = await getCurrentUserApi();
 
-  const { firstName, lastName, email, createdAt } = user as UserData;
+  const user = rsp?.ok ? rsp?.body?.user : ({} as UserData);
+  const { firstName, lastName, email, createdAt } = user;
 
   return (
     <main className="text-Gray-900 bg-white">
@@ -43,7 +44,7 @@ export default async function page() {
               Edit image
             </BaseButton>
           </div>
-          <PersonalInfoBox />
+          <PersonalInfoBox user={user} />
         </div>
       </section>
     </main>

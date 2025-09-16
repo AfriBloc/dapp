@@ -1,21 +1,16 @@
-import EmptyState from "@/components/ui/empty-state";
 import { cn } from "@/lib/utils";
+import { MarketPrice } from "../deals/deal-card";
 
 interface PortfolioCardProps {
   title: string;
   className?: string;
-  value: number | string;
-  noData?: {
-    title: string;
-    description: string;
-  };
+  value: number;
 }
 
 export default function PortfolioCard({
   title,
   className,
   value,
-  noData,
 }: PortfolioCardProps) {
   return (
     <div
@@ -29,17 +24,10 @@ export default function PortfolioCard({
       </div>
 
       <div className="flex-1">
-        {value === 0 ? (
-          <EmptyState
-            showImage={false}
-            title={noData?.title || "No data"}
-            description={noData?.description || ""}
-          />
-        ) : (
-          <span className="text-Gray-900 text-lg font-bold md:text-2xl">
-            {value}
-          </span>
-        )}
+        <MarketPrice
+          price={value}
+          className="text-Gray-900 text-lg font-bold md:text-2xl"
+        />
       </div>
     </div>
   );

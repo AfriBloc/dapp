@@ -15,54 +15,54 @@ export default function DocumentSection({
 
   return (
     <section id="document" className="col-start w-full gap-6">
-      <article className="border-BlueGray-100 w-full rounded-lg border p-3 text-start outline-none">
-        <button
-          type="button"
-          onClick={() => setOpenDocument((prev) => !prev)}
-          className="flex w-full items-center justify-between select-none"
-        >
-          <h4 className="max-w-[511px] text-base font-semibold">Documents</h4>
-          <ChevronDown
-            className={`text-base text-inherit ${
-              openDocument ? "rotate-180" : "rotate-0"
-            } transition-all duration-300`}
-          />
-        </button>
-        {property?.governorsConsentUrl ||
-          (property?.surveyPlanUrl && (
-            <div
-              className={cn(
-                "text-Gray-800 w-full space-y-5 overflow-hidden text-xs font-normal transition-all duration-300 md:text-sm",
-                openDocument ? "max-h-[1000px] py-2" : "max-h-0",
+      {(property?.governorsConsentUrl || property?.surveyPlanUrl) && (
+        <article className="border-BlueGray-100 w-full rounded-lg border p-3 text-start outline-none">
+          <button
+            type="button"
+            onClick={() => setOpenDocument((prev) => !prev)}
+            className="flex w-full items-center justify-between select-none"
+          >
+            <h4 className="max-w-[511px] text-base font-semibold">Documents</h4>
+            <ChevronDown
+              className={`text-base text-inherit ${
+                openDocument ? "rotate-180" : "rotate-0"
+              } transition-all duration-300`}
+            />
+          </button>
+
+          <div
+            className={cn(
+              "text-Gray-800 w-full space-y-5 overflow-hidden text-xs font-normal transition-all duration-300 md:text-sm",
+              openDocument ? "max-h-[1000px] py-2" : "max-h-0",
+            )}
+          >
+            <div className="grid w-full grid-cols-2 gap-3 md:gap-5">
+              {property?.governorsConsentUrl && (
+                <a
+                  href={property?.governorsConsentUrl}
+                  className="flex-between bg-BlueGray-50 h-10 rounded-lg px-2 sm:px-4"
+                >
+                  <h4 className="text-xs font-medium md:text-sm">
+                    Governor&apos;s Consent
+                  </h4>
+                  <Image src={DownloadIcon} alt="download icon" />
+                </a>
               )}
-            >
-              <div className="grid w-full grid-cols-2 gap-3 md:gap-5">
-                {property?.governorsConsentUrl && (
-                  <a
-                    href={property?.governorsConsentUrl}
-                    className="flex-between bg-BlueGray-50 h-10 rounded-lg px-2 sm:px-4"
-                  >
-                    <h4 className="text-xs font-medium md:text-sm">
-                      Governor&apos;s Consent
-                    </h4>
-                    <Image src={DownloadIcon} alt="download icon" />
-                  </a>
-                )}
-                {property?.surveyPlanUrl && (
-                  <a
-                    href={property?.surveyPlanUrl}
-                    className="flex-between bg-BlueGray-50 h-10 rounded-lg px-2 sm:px-4"
-                  >
-                    <h4 className="text-xs font-medium md:text-sm">
-                      Survey Plan
-                    </h4>
-                    <Image src={DownloadIcon} alt="download icon" />
-                  </a>
-                )}
-              </div>
+              {property?.surveyPlanUrl && (
+                <a
+                  href={property?.surveyPlanUrl}
+                  className="flex-between bg-BlueGray-50 h-10 rounded-lg px-2 sm:px-4"
+                >
+                  <h4 className="text-xs font-medium md:text-sm">
+                    Survey Plan
+                  </h4>
+                  <Image src={DownloadIcon} alt="download icon" />
+                </a>
+              )}
             </div>
-          ))}
-      </article>
+          </div>
+        </article>
+      )}
       <article className="border-BlueGray-100 flex w-full flex-col items-start justify-start gap-4 rounded-lg border p-3 text-start outline-none md:flex-row md:items-center md:justify-between">
         <div className="col-start">
           <h3 className="text-sm font-semibold md:text-base">

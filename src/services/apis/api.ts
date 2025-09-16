@@ -130,12 +130,14 @@ export class Api {
     base_url = this.base_url,
     options,
     auth = false,
+    cacheTags,
     customHeader = "application/json",
   }: {
     base_url?: string;
     options: OptionsType<T>;
     auth?: boolean;
     customHeader?: string;
+    cacheTags?: string[];
   }): Promise<ResponseType<R>> {
     const headers = await this.getHeaders({ auth, customHeader });
     const body = this.getRequestBody(options, headers);
@@ -147,6 +149,7 @@ export class Api {
         method: options.method,
         headers,
         body,
+        next: { tags: cacheTags },
       });
 
       return this.handleResponse<R>(response);
@@ -155,10 +158,11 @@ export class Api {
     }
   }
 
-  static async get<R>(url: string, auth?: boolean) {
+  static async get<R>(url: string, auth?: boolean, cacheTags?: string[]) {
     return this.request<void, R>({
       options: { method: "GET", url },
       auth,
+      cacheTags,
     });
   }
 

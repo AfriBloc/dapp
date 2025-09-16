@@ -332,3 +332,28 @@ input[type="number"] {
   animation: shimmer 1.5s infinite;
 }
 /* ==SKELETON== */
+
+.failed {
+  @apply bg-Red-25 text-Red-500;
+}
+
+.success {
+  @apply text-Green-500 bg-Green-25;
+}
+
+.warning {
+  @apply bg-Yellow-25 text-Yellow-500;
+}
+
+.fall-back {
+  @apply bg-Gray-100 text-Gray-500;
+}
+
+.failed,
+.success,
+.warning,
+.fall-back {
+  @apply rounded-[999px];
+  @apply px-4 py-1;
+  @apply capitalize;
+}

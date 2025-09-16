@@ -121,3 +121,45 @@ export function getNameInitials(name: string) {
 
   return nameInitials;
 }
+
+export const getStatusColors = (status: string) => {
+  const statusLower = status?.toLowerCase();
+
+  if (["active", "verified", "approved", "success"].includes(statusLower)) {
+    return "success";
+  }
+
+  if (["reset"]?.includes(statusLower)) {
+    return "failed";
+  }
+
+  if (["pending", "processing"]?.includes(statusLower)) {
+    return "warning";
+  }
+
+  return "fall-back";
+};
+
+export const queryBuilder = (params: { [key: string]: number | string }) => {
+  const searchParams = new URLSearchParams();
+
+  Object.entries(params || {})?.forEach(([k, v]) => {
+    if (v !== "" || v !== undefined || v !== null) {
+      searchParams.set(k, String(v));
+    }
+  });
+};
+
+export function debouncer<T>(func: (val: T) => void, delay: number) {
+  let timeoutId: NodeJS.Timeout | null = null;
+
+  return (val: T) => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    timeoutId = setTimeout(() => {
+      func(val);
+    }, delay);
+  };
+}

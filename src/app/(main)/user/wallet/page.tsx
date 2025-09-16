@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Wallet",
 };
 
-export default function page() {
+export default async function page() {
   return (
     <main className="text-Gray-900 bg-white">
       <section className="col-start container gap-5 py-14">

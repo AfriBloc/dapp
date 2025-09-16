@@ -5,6 +5,7 @@ import {
   SendOTP,
   SignUp,
   UpdatePassword,
+  UserData,
   VerifyOTP,
   VerifyOTPResponse,
 } from "@/types/auth";
@@ -48,4 +49,10 @@ export const changePasswordApi = (body: UpdatePassword) => {
     body,
     true,
   );
+};
+
+export const getCurrentUserApi = () => {
+  return Api.get<ApiResponse & { user: UserData }>("/auth/profile", true, [
+    "profile",
+  ]);
 };
