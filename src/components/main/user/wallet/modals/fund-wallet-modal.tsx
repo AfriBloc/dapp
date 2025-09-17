@@ -171,8 +171,7 @@ export default function FundWalletModal({
                   />
                 </span>
                 <span className="text-Gray-500 flex flex-1 items-center gap-1 text-xs">
-                  EVM Address: {evmAddress?.slice(0, 3)}...
-                  {evmAddress?.slice(5, 8)}
+                  EVM Address: {evmAddress}
                   <CopyToClipboardBtn id="evmAddress" valuToCopy={evmAddress} />
                 </span>
               </div>
