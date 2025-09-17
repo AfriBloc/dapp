@@ -37,8 +37,7 @@ export const columns: Column<TransactionTypes>[] = [
     key: "amount",
     render: (_, record) => (
       <>
-        {record?.currency}
-        {Number(record?.amount)?.toFixed(4)}
+        {record?.currency} {Number(record?.amount)?.toFixed(4)}
       </>
     ),
   },

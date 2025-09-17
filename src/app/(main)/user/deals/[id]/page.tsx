@@ -23,7 +23,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
       <EmptyState
         title="Error"
         description={rsp?.body?.message}
-        className="min-h-[400px]"
+        className="min-h-[400px] w-full"
       />
     );
   }

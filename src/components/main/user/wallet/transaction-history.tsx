@@ -12,7 +12,7 @@ export default async function TransactionHistory() {
       <EmptyState
         title="Error"
         description={rsp?.body?.message}
-        className="min-h-[400px]"
+        className="min-h-[400px] w-full"
       />
     );
   }
