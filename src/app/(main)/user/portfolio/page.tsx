@@ -24,7 +24,7 @@ export default async function page({
       <EmptyState
         title="Error"
         description={rsp?.body?.message}
-        className="min-h-[400px]"
+        className="min-h-[400px] w-full"
       />
     );
   }
