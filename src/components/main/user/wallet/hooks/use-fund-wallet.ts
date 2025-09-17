@@ -5,7 +5,7 @@ import { FundWalletSchema, FundWalletSchemaType } from "../schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { showToast } from "@/lib/toast";
-import { getRates } from "@/services/apis/properties.api";
+import { getHBARRates, getRates } from "@/services/apis/properties.api";
 import { useQuery } from "@tanstack/react-query";
 import { useCurrencyContext } from "@/contexts/currencyProvider";
 export type Value = "amount" | "qty";
@@ -23,11 +23,16 @@ export default function useFundWallet() {
   });
 
   const { data } = useQuery({
-    queryKey: ["hbar-rates"],
-    queryFn: () => getRates("hbar", currency === "$" ? "usd" : "ngn"),
+    queryKey: ["hbar-rates", currency],
+    queryFn: () => getHBARRates(currency === "₦" ? "ngn" : "usd"),
+    enabled: !!currency,
   });
 
-  const HBARRate = data?.ok ? data?.body?.data?.rate : 0;
+  console.log("bar___>>", data);
+
+  const HBARRate = data?.ok ? data?.body?.data?.rate : null;
+
+  console.log("rate-ba>>", HBARRate);
 
   const onSubmit = handleSubmit(async (data) => {
     console.log("🚀 ~ useFundWallet ~ data:", data);
@@ -87,10 +92,14 @@ export default function useFundWallet() {
   };
 
   const convertAmount = useMemo(() => {
-    return HBARRate > 0
-      ? parseFloat(value?.amount?.toString()) / HBARRate
+    console.log("uemm>>", HBARRate);
+    return HBARRate
+      ? parseFloat(value?.amount?.toString()) * HBARRate
       : value?.amount;
-  }, [HBARRate, value?.amount]);
+  }, [HBARRate, value?.amount, currency]);
+
+  console.log("val>>", value?.amount);
+  console.log("conv>>", convertAmount);
 
   return {
     value,

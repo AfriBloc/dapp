@@ -16,6 +16,7 @@ import BankIcon from "/public/svgs/bank.svg";
 import CoinIcon from "/public/svgs/coin.svg";
 import useFundWallet from "../hooks/use-fund-wallet";
 import CopyToClipboardBtn from "@/components/ui/copyToClipboardBtn";
+import { useCurrencyContext } from "@/contexts/currencyProvider";
 
 export default function FundWalletModal({
   isVerified,
@@ -37,6 +38,7 @@ export default function FundWalletModal({
     handleValueChange,
     convertAmount,
   } = useFundWallet();
+  const { currency } = useCurrencyContext();
 
   const paymentMethod = watch("paymentMethod");
 
@@ -96,7 +98,10 @@ export default function FundWalletModal({
                 <Plus className="size-5" />
               </button>
             </div>
-            <p>{Number(convertAmount)?.toFixed(2)}</p>
+            <p>
+              {currency}
+              {Number(convertAmount)?.toFixed(2)}
+            </p>
           </div>
           <div className="col-start w-full gap-1">
             <label htmlFor="payment-method" className="text-sm font-normal">
@@ -162,15 +167,15 @@ export default function FundWalletModal({
                   checked={true}
                 />
               </article>
-              <div className="flex w-full flex-col gap-2 md:flex-row">
-                <span className="text-Gray-500 flex flex-1 items-center gap-1 text-xs">
+              <div className="flex w-full flex-col gap-2">
+                <span className="text-Gray-500 flex items-center gap-1 text-xs">
                   Account ID: {walletAddress}
                   <CopyToClipboardBtn
                     id="walletAddress"
                     valuToCopy={walletAddress}
                   />
                 </span>
-                <span className="text-Gray-500 flex flex-1 items-center gap-1 text-xs">
+                <span className="text-Gray-500 flex items-center gap-1 text-xs">
                   EVM Address: {evmAddress}
                   <CopyToClipboardBtn id="evmAddress" valuToCopy={evmAddress} />
                 </span>

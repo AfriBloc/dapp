@@ -39,6 +39,18 @@ export const getRates = (from: string, to: string) => {
   >(`/rates/${from}/${to}`);
 };
 
+export const getHBARRates = (to: string) => {
+  return Api.get<
+    ApiResponse & {
+      data: {
+        from: string;
+        to: string;
+        rate: number;
+      };
+    }
+  >(`/rates/hbar/${to}`);
+};
+
 export const getPortofolio = ({
   page = 1,
   limit = 10,
