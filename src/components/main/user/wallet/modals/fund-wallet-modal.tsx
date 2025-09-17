@@ -153,23 +153,6 @@ export default function FundWalletModal({
                     className="text-Gray-800 col-start w-full !max-w-[80%] text-sm font-normal"
                   >
                     <span>Deposit USDC</span>
-                    <div className="flex w-full flex-col gap-2 md:flex-row">
-                      <span className="text-Gray-500 flex flex-1 items-center gap-1 text-xs">
-                        Account ID: {walletAddress}
-                        <CopyToClipboardBtn
-                          id="walletAddress"
-                          valuToCopy={walletAddress}
-                        />
-                      </span>
-                      <span className="text-Gray-500 flex flex-1 items-center gap-1 text-xs">
-                        EVM Address: {evmAddress?.slice(0, 3)}...
-                        {evmAddress?.slice(5, 8)}
-                        <CopyToClipboardBtn
-                          id="evmAddress"
-                          valuToCopy={evmAddress}
-                        />
-                      </span>
-                    </div>
                   </label>
                 </div>
                 <RadioGroupItem
@@ -179,6 +162,20 @@ export default function FundWalletModal({
                   checked={true}
                 />
               </article>
+              <div className="flex w-full flex-col gap-2 md:flex-row">
+                <span className="text-Gray-500 flex flex-1 items-center gap-1 text-xs">
+                  Account ID: {walletAddress}
+                  <CopyToClipboardBtn
+                    id="walletAddress"
+                    valuToCopy={walletAddress}
+                  />
+                </span>
+                <span className="text-Gray-500 flex flex-1 items-center gap-1 text-xs">
+                  EVM Address: {evmAddress?.slice(0, 3)}...
+                  {evmAddress?.slice(5, 8)}
+                  <CopyToClipboardBtn id="evmAddress" valuToCopy={evmAddress} />
+                </span>
+              </div>
             </RadioGroup>
             {/* {errors.paymentMethod && (
               <p className="text-xs text-red-500">
