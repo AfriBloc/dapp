@@ -43,6 +43,7 @@ export type PropertyTypes = {
   location: string;
   pricePerUnit: string;
   numUnits: number;
+  initialUnits: number;
   propertyPrice: string;
   purchaseCosts: string;
   transactionFees: string;

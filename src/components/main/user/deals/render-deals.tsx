@@ -23,6 +23,7 @@ export default async function RenderDeals() {
       />
     );
   }
+
   return (
     <ul className="text-Gray-900 grid w-full gap-6 md:grid-cols-2 lg:grid-cols-3">
       {rsp?.body?.data?.map((property) => (

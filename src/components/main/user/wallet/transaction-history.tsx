@@ -9,11 +9,17 @@ export default async function TransactionHistory() {
 
   if (!rsp?.ok) {
     return (
-      <EmptyState
-        title="Error"
-        description={rsp?.body?.message}
-        className="min-h-[400px] w-full"
-      />
+      <section
+        className={cn(
+          "col-start text-Gray-900 w-full gap-1 rounded-xl bg-white p-5 shadow-[0px_4px_20px_0px_#0000000D]",
+        )}
+      >
+        <EmptyState
+          title="Error"
+          description={rsp?.body?.message}
+          className="min-h-[400px] w-full"
+        />
+      </section>
     );
   }
 
