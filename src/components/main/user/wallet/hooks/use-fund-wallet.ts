@@ -5,7 +5,7 @@ import { FundWalletSchema, FundWalletSchemaType } from "../schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { showToast } from "@/lib/toast";
-import { getHBARRates, getRates } from "@/services/apis/properties.api";
+import { getHBARRates } from "@/services/apis/properties.api";
 import { useQuery } from "@tanstack/react-query";
 import { useCurrencyContext } from "@/contexts/currencyProvider";
 export type Value = "amount" | "qty";
@@ -28,14 +28,9 @@ export default function useFundWallet() {
     enabled: !!currency,
   });
 
-  console.log("bar___>>", data);
-
   const HBARRate = data?.ok ? data?.body?.data?.rate : null;
 
-  console.log("rate-ba>>", HBARRate);
-
   const onSubmit = handleSubmit(async (data) => {
-    console.log("🚀 ~ useFundWallet ~ data:", data);
     try {
       showToast("Wallet funded successfully");
 
@@ -92,14 +87,10 @@ export default function useFundWallet() {
   };
 
   const convertAmount = useMemo(() => {
-    console.log("uemm>>", HBARRate);
     return HBARRate
       ? parseFloat(value?.amount?.toString()) * HBARRate
       : value?.amount;
   }, [HBARRate, value?.amount, currency]);
-
-  console.log("val>>", value?.amount);
-  console.log("conv>>", convertAmount);
 
   return {
     value,

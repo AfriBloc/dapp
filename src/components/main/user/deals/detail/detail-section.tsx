@@ -1,3 +1,4 @@
+"use client";
 import ProgressBar from "@/components/ui/progress-bar/progress-bar";
 import { Info } from "lucide-react";
 import { PropertyTypes } from "@/types/property";
@@ -9,12 +10,20 @@ import {
 } from "../../../../../../public/svgs/svgs";
 import Field from "@/components/ui/field";
 import { MarketPrice } from "../deal-card";
+import { useMemo } from "react";
 
 export default function DetailSection({
   property,
 }: {
   property: PropertyTypes;
 }) {
+  const soldPercentage = useMemo(() => {
+    const unitsSold = Number(property?.unitsSold ?? 0);
+    const initialUnits = Number(property?.initialUnits ?? 0);
+    if (!initialUnits || initialUnits <= 0) return 0;
+    const result = (unitsSold / initialUnits) * 100;
+    return Math.max(0, Math.min(100, Number.isFinite(result) ? result : 0));
+  }, [property?.unitsSold, property?.initialUnits]);
   return (
     <section id="detail" className="col-start w-full gap-4 md:gap-6">
       <section className="col-start w-full gap-4">
@@ -71,10 +80,10 @@ export default function DetailSection({
             </div>
           </div>
           <div className="border-BlueGray-100 flex-between w-full gap-2 rounded-full border px-3 py-2 md:flex-1">
-            <ProgressBar percentage={75} className="h-2 flex-1" />{" "}
+            <ProgressBar percentage={soldPercentage} className="h-2 flex-1" />{" "}
             {/* Placeholder percentage */}
             <span className="text-sm font-normal">
-              75% <span className="hidden md:inline">funded</span>
+              {soldPercentage}% <span className="hidden md:inline">funded</span>
             </span>{" "}
             {/* Placeholder percentage */}
           </div>

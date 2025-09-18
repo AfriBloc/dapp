@@ -23,6 +23,15 @@ export const DealCard = ({ deal }: { deal: PropertyTypes }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imageError, setImageError] = useState(false);
 
+  const soldPercentage = useMemo(() => {
+    const unitsSold = Number(deal?.unitsSold ?? 0);
+    const initialUnits = Number(deal?.initialUnits ?? 0);
+    if (!initialUnits || initialUnits <= 0) return 0;
+    const raw = (unitsSold / initialUnits) * 100;
+    const rounded = Math.round(raw);
+    return Math.max(0, Math.min(100, Number.isFinite(rounded) ? rounded : 0));
+  }, [deal?.unitsSold, deal?.initialUnits]);
+
   const handleImageError = () => {
     if (currentImageIndex < (deal?.imageUrls?.length || 0) - 1) {
       setCurrentImageIndex((prev) => prev + 1);
@@ -81,10 +90,8 @@ export const DealCard = ({ deal }: { deal: PropertyTypes }) => {
         </hgroup>
 
         <div className="border-BlueGray-100 flex-between w-full gap-2 rounded-full border px-3 py-2">
-          <ProgressBar percentage={75} className="h-2 flex-1" />{" "}
-          {/* Placeholder percentage */}
-          <span className="text-sm font-normal">75%</span>{" "}
-          {/* Placeholder percentage */}
+          <ProgressBar percentage={soldPercentage} className="h-2 flex-1" />
+          <span className="text-sm font-normal">{soldPercentage}%</span>
         </div>
 
         <ul className="border-Blue-100 my-3 flex w-full flex-col items-start justify-start gap-2 rounded-xl border px-4 py-2">
@@ -133,6 +140,14 @@ export const DealCard = ({ deal }: { deal: PropertyTypes }) => {
 export const PortfolioDealCard = ({ deal }: { deal: PropertyTypes }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imageError, setImageError] = useState(false);
+
+  const soldPercentage = useMemo(() => {
+    const unitsSold = Number(deal?.unitsSold ?? 0);
+    const initialUnits = Number(deal?.initialUnits ?? 0);
+    if (!initialUnits || initialUnits <= 0) return 0;
+    const result = (unitsSold / initialUnits) * 100;
+    return Math.max(0, Math.min(100, Number.isFinite(result) ? result : 0));
+  }, [deal?.unitsSold, deal?.initialUnits]);
 
   const handleImageError = () => {
     if (currentImageIndex < (deal?.imageUrls?.length || 0) - 1) {
@@ -195,10 +210,8 @@ export const PortfolioDealCard = ({ deal }: { deal: PropertyTypes }) => {
         </hgroup>
 
         <div className="border-BlueGray-100 flex-between w-full gap-2 rounded-full border px-3 py-2">
-          <ProgressBar percentage={75} className="h-2 flex-1" />{" "}
-          {/* Placeholder percentage */}
-          <span className="text-sm font-normal">75%</span>{" "}
-          {/* Placeholder percentage */}
+          <ProgressBar percentage={soldPercentage} className="h-2 flex-1" />
+          <span className="text-sm font-normal">{soldPercentage}%</span>
         </div>
 
         <ul className="border-Blue-100 my-3 flex w-full flex-col items-start justify-start gap-2 rounded-xl border px-4 py-2">
