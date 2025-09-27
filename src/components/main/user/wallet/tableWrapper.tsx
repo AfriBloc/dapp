@@ -72,13 +72,11 @@ const TableWrapper = () => {
 
   if (data?.assets?.length === 0) {
     return (
-      <div className="bg-white shadow-[0px_4px_20px_0px_#0000000D]">
-        <EmptyState
-          title="No transactions yet"
-          description="All transactions will appear here"
-          className="min-h-[400px]"
-        />
-      </div>
+      <EmptyState
+        title="No transactions yet"
+        description="All transactions will appear here"
+        className="min-h-[400px] w-full"
+      />
     );
   }
 
